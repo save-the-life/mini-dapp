@@ -57,13 +57,14 @@ const SelectPet: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center text-white  min-h-screen">
-      <div className="flex items-center w-full mt-4 relative">
+      <div className="flex items-center w-full mt-7 mb-8 relative">
         {/* 뒤로가기 버튼 */}
         <FaChevronLeft
-          className="text-2xl cursor-pointer absolute left-0"
+          className="text-xl cursor-pointer"
           onClick={() => navigate('/home')}
         />
-        <h1 className="text-2xl mx-auto font-semibold">Select Pet</h1>
+        <h1 className="text-xl font-bold flex-1 text-center">Select Pet</h1>
+        <div className="w-6"></div>
       </div>
 
       <div className="grid grid-cols-2 gap-6 mt-11 w-full max-w-md">

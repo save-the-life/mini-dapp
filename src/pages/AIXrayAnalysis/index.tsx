@@ -184,13 +184,14 @@ const AIXrayAnalysis: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center text-white mx-6 md:mx-28  min-h-screen">
-      <div className="flex items-center w-full mt-4 relative">
+      <div className="flex items-center w-full mt-7 mb-8 relative">
         {/* 뒤로가기 버튼 */}
         <FaChevronLeft
-          className="text-2xl cursor-pointer mr-2"
+          className="text-xl cursor-pointer mr-2"
           onClick={() => navigate(-1)}
         />
-        <h1 className="text-2xl mx-auto font-semibold">{getTitle()}</h1>
+        <h1 className="text-xl font-bold flex-grow text-center">{getTitle()}</h1>
+        <div className="w-6"></div>
       </div>
   
       <div className="mt-6 w-full max-w-sm mx-auto rounded-md overflow-hidden p-2 flex flex-col items-center">

@@ -22,8 +22,8 @@ import DiagnosisDetail from "@/pages/DiagnosisDetail";
 import MyPoint from "@/pages/MyPoint";
 import AIXrayAnalysis from "@/pages/AIXrayAnalysis";
 import DiceEventLayout from "./app/layout/DiceEventLayout";
-
 import SplashScreen from "./app/components/SplashScreen";
+import WalletList from "./pages/WalletList";
 
 // QueryClient 설정
 const queryClient = new QueryClient();
@@ -86,6 +86,8 @@ const App:React.FC = () =>{
           <Route path="/sign-up" element={<DiceEventLayout hidden={true}><SignUpPage /></DiceEventLayout>} />
           <Route path="/dice-event" element={<DiceEventLayout><DiceEvent /></DiceEventLayout>} />
           <Route path="/mission" element={<DiceEventLayout><MissionPage /></DiceEventLayout>} />
+          <Route path="/wallet" element={<DiceEventLayout><WalletPage /></DiceEventLayout>} />
+          <Route path="/wallet-list" element={<DiceEventLayout><WalletList /></DiceEventLayout>} />
           <Route path="/rank" element={<DiceEventLayout><RankPage /></DiceEventLayout>} />
           <Route path="/mini-game" element={<DiceEventLayout><MiniGame /></DiceEventLayout>} />
           <Route path="/invite-friends" element={<DiceEventLayout><InviteFriends /></DiceEventLayout>} />

@@ -88,13 +88,14 @@ const DiagnosisRecords: React.FC = () => {
 
     return (
         <div className="flex flex-col items-center text-white md:mx-14 w-full min-h-screen">
-            <div className="flex items-center w-full mt-4 relative px-4"> 
+            <div className="flex items-center w-full mt-7 mb-8 relative">
                 {/* 뒤로가기 버튼 */}
                 <FaChevronLeft
-                    className="text-2xl cursor-pointer absolute left-0"
+                    className="text-xl cursor-pointer"
                     onClick={() => navigate('/select-pet')}
                 />
-                <h1 className="text-2xl mx-auto font-semibold">Records</h1>
+                <h1 className="text-xl font-bold flex-1 text-center">Records</h1>
+                <div className="w-6"></div>
             </div>
 
             {/* 필터링 버튼 */}

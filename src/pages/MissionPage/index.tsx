@@ -64,7 +64,7 @@ const DailyMissionCard: React.FC<DailyMissionProps> = ({
 
 const MissionPage: React.FC = () => {
   return (
-    <div className="flex flex-col text-white mx-6  ">
+    <div className="flex flex-col text-white mx-6 min-h-screen">
       <TopTitle title="Mission" />
       <h1 className=" font-semibold text-lg ml-[2px] mb-4">
         One - Time Mission{' '}

@@ -79,13 +79,14 @@ const EditPet: React.FC = () => {
 
     return (
         <div className="flex flex-col items-center text-white mx-6 md:mx-28 max-w-screen-xl relative min-h-screen pb-20">
-            <div className="flex items-center w-full mt-4 relative">
+            <div className="flex items-center w-full mt-7 mb-8 relative">
                 {/* 뒤로가기 버튼 */}
                 <FaChevronLeft
-                    className="text-2xl cursor-pointer absolute left-0"
+                    className="text-xl cursor-pointer"
                     onClick={() => navigate(-1)}
                 />
-                <h1 className="text-2xl mx-auto font-semibold">Edit Pet</h1>
+                <h1 className="text-xl font-bold flex-1 text-center">Edit Pet</h1>
+                <div className="w-6"></div>
             </div>
       
             {/* 반려동물 이미지 업로드 */}

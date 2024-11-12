@@ -4,7 +4,7 @@ import { TopTitle } from '@/shared/components/ui';
 import './InviteFriends.css';
 import Images from '@/shared/assets/images';
 import { FaChevronLeft } from "react-icons/fa";
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { BiCopy } from 'react-icons/bi';
 
 const InviteFriends: React.FC = () => {
@@ -25,13 +25,14 @@ const InviteFriends: React.FC = () => {
 
   return (
     <div className="flex flex-col mx-6 mb-44 text-white items-center md:mx-28 min-h-screen">
-      <div className="flex items-center w-full mt-4 relative">
+      <div className="flex items-center w-full mt-7 mb-8 relative">
           {/* 뒤로가기 버튼 */}
           <FaChevronLeft
-            className="text-2xl cursor-pointer"
+            className="text-xl cursor-pointer"
             onClick={() => navigate(-1)}
           />
-          <h1 className="text-2xl font-semibold flex-1 text-center">Invite Friend</h1>
+          <h1 className="text-xl font-bold flex-1 text-center">Invite Friend</h1>
+          <div className="w-6"></div>
         </div>
       <p>Referral Code</p>
       <button
