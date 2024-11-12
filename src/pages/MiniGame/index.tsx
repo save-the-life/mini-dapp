@@ -5,10 +5,13 @@ import './MiniGame.css';
 import { formatNumber } from '@/shared/utils/formatNumber';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Gauge, useGauge } from '@/features/DiceEvent';
+import { useNavigate } from 'react-router-dom';
 import Dice from '@/widgets/Dice';
+import { FaChevronLeft } from "react-icons/fa";
 import Images from '@/shared/assets/images';
 
 const MiniGame: React.FC = () => {
+  const navigate = useNavigate();
   const [diceCount, setDiceCount] = useState<number>(10);
   const [starPoints, setStarPoints] = useState<number>(10000);
   const [showDiceValue, setShowDiceValue] = useState<boolean>(false);
@@ -53,8 +56,15 @@ const MiniGame: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col mx-6 mb-44 text-white items-center">
-      <TopTitle title="Precision Dice Roll Game" />
+    <div className="flex flex-col mx-6 mb-44 text-white items-center min-h-screen">
+      <div className="flex items-center w-full mt-4 relative">
+          {/* 뒤로가기 버튼 */}
+          <FaChevronLeft
+            className="text-2xl cursor-pointer mr-3"
+            onClick={() => navigate(-1)}
+          />
+          <h1 className="text-2xl font-semibold flex-1 text-center">Precision Dice Roll Game</h1>
+        </div>
       <div className="mt-8 w-40 h-40 rounded-[40px] flex flex-col items-center justify-center bg-gradient-to-t from-[#2660f4] to-[#3937a3]">
         <div className="w-[154px] h-[156px] mt-[1px] rounded-[40px] aim-number-box flex items-center justify-center font-jalnan text-[96px]">
           <span className="pt-4">{rolledValue}</span>

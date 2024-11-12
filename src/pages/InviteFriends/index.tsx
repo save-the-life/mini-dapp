@@ -3,9 +3,12 @@ import React, { useState } from 'react';
 import { TopTitle } from '@/shared/components/ui';
 import './InviteFriends.css';
 import Images from '@/shared/assets/images';
+import { FaChevronLeft } from "react-icons/fa";
+import { useNavigate, useLocation } from 'react-router-dom';
 import { BiCopy } from 'react-icons/bi';
 
 const InviteFriends: React.FC = () => {
+  const navigate = useNavigate();
   const [copySuccess, setCopySuccess] = useState<string>('');
 
   const referralLink = 'https://pwa-slapp-13cs.vercel.app/telegramideded';
@@ -21,8 +24,15 @@ const InviteFriends: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col mx-6 mb-44 text-white items-center md:mx-28">
-      <TopTitle title="Invite Friends" />
+    <div className="flex flex-col mx-6 mb-44 text-white items-center md:mx-28 min-h-screen">
+      <div className="flex items-center w-full mt-4 relative">
+          {/* 뒤로가기 버튼 */}
+          <FaChevronLeft
+            className="text-2xl cursor-pointer"
+            onClick={() => navigate(-1)}
+          />
+          <h1 className="text-2xl font-semibold flex-1 text-center">Invite Friend</h1>
+        </div>
       <p>Referral Code</p>
       <button
         className="flex flex-row gap-2 items-center border border-white rounded-full w-56 md:w-80 h-16 justify-center mt-2 px-4"
