@@ -1,7 +1,4 @@
-// src/pages/SignUp/index.tsx
-
 import React from 'react';
-import TelegramActivityCheck from './TelegramActivityCheck';
 import SelectCharacter from './SelectCharacter';
 import { useUserStore } from '@/entities/User/model/userModel';
 import { useNavigate } from 'react-router-dom';
@@ -65,11 +62,7 @@ const SignUpPage: React.FC = () => {
   return (
     <div className="relative">
       <SelectCharacter selectedPet={selectedPet} setSelectedPet={setSelectedPet} />
-      {/* {step === 'selectCharacter' && (
-        
-      )}
-      {step === 'selectCharacter' && (
-        <div className="bottom-10 absolute flex w-full self-center">
+      <div className="bottom-10 absolute flex w-full self-center">
           <button
             className={`h-14 bg-[#0147e5] rounded-full w-full mx-6 ${
               selectedPet ? 'opacity-100' : 'opacity-50 cursor-not-allowed'
@@ -80,10 +73,6 @@ const SignUpPage: React.FC = () => {
             {isLoading ? 'Signing Up...' : 'Continue'}
           </button>
         </div>
-      )}
-      {step === 'activityCheck' && storeActivityData && (
-        <TelegramActivityCheck activityData={storeActivityData} onComplete={handleActivityCheckComplete} />
-      )} */}
     </div>
   );
 };

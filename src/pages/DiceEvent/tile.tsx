@@ -1,5 +1,5 @@
 import React from "react";
-// import { StarTile, DiceTile, AirplaneTile } from "@/features/DiceEvent";
+import { StarTile, DiceTile, AirplaneTile } from "@/features/DiceEvent";
 
 interface TileProps {
   id: number;

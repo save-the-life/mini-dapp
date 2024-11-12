@@ -87,8 +87,8 @@ const DiagnosisRecords: React.FC = () => {
     };
 
     return (
-        <div className="flex flex-col items-center text-white mx-6 md:mx-28">
-            <div className="flex items-center w-full mt-4 relative">
+        <div className="flex flex-col items-center text-white md:mx-14 w-full min-h-screen">
+            <div className="flex items-center w-full mt-4 relative px-4"> 
                 {/* 뒤로가기 버튼 */}
                 <FaChevronLeft
                     className="text-2xl cursor-pointer absolute left-0"
@@ -116,11 +116,11 @@ const DiagnosisRecords: React.FC = () => {
             </div>
             
             {loading ? (
-                <div className="flex justify-center items-center h-64">
+                <div className="flex justify-center items-center h-64 min-h-screen">
                     <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-white"></div>
                 </div>
             ) : (
-                <div className="w-full max-w-2xl mt-8">
+                <div className="w-full mt-8">
                     {records.map((record, index) => (
                         <div 
                             key={index} className="bg-gray-800 p-4 rounded-lg mb-4 flex justify-between items-center"
@@ -134,15 +134,6 @@ const DiagnosisRecords: React.FC = () => {
                     ))}
                 </div>
             )}
-            <div className="w-11/12 max-w-md absolute bottom-16 left-1/2 transform -translate-x-1/2">
-                <button
-                    className="w-full py-4 rounded-full text-lg font-semibold"
-                    style={{backgroundColor: '#0147E5'}}
-                    onClick={() => navigate('/home')}
-                    >
-                    Home
-                </button>
-            </div>
         </div>
     );
 };

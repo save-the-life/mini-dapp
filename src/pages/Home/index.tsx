@@ -65,14 +65,6 @@ const Home: React.FC = () => {
   const navigate = useNavigate();
   const setSelectedMenu = useMainPageStore((state) => state.setSelectedMenu);
 
-  useEffect(() => {
-    // 토큰의 존재 여부 확인
-    const accessToken = localStorage.getItem('accessToken');
-    if (!accessToken) {
-      // accessToken이 없으면 로그인 페이지로 이동
-      navigate('/login', { replace: true });
-    }
-  }, [navigate]);
 
   // 각 메뉴 클릭 시 전역 상태 설정 후 반려동물 선택 페이지로 이동
   const handleMenuClick = (menu: 'x-ray' | 'ai-analysis' | 'records') => {

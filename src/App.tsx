@@ -19,9 +19,7 @@ import SelectPet from "@/pages/SelectPet";
 import EditPet from "@/pages/EditPet";
 import DiagnosisRecords from "@/pages/DiagnosisList";
 import DiagnosisDetail from "@/pages/DiagnosisDetail";
-import FindPassword from "@/pages/FindPassword";
 import MyPoint from "@/pages/MyPoint";
-import AIDentalExamination from "@/pages/AIDentalExamination";
 import AIXrayAnalysis from "@/pages/AIXrayAnalysis";
 import DiceEventLayout from "./app/layout/DiceEventLayout";
 
@@ -97,8 +95,6 @@ const App:React.FC = () =>{
           <Route path="/edit-pet" element={<DiceEventLayout hidden={true}><EditPet /></DiceEventLayout>} />
           <Route path="/diagnosis-list" element={<DiceEventLayout hidden={true}><DiagnosisRecords /></DiceEventLayout>} />
           <Route path="/diagnosis-detail" element={<DiceEventLayout hidden={true}><DiagnosisDetail /></DiceEventLayout>} />
-          <Route path="/find-password" element={<DiceEventLayout hidden={true}><FindPassword /></DiceEventLayout>} />
-          <Route path="/ai-dental-examination" element={<DiceEventLayout hidden={true}><AIDentalExamination /></DiceEventLayout>} />
           <Route path="/ai-xray-analysis" element={<DiceEventLayout hidden={true}><AIXrayAnalysis /></DiceEventLayout>} />
           <Route path="/my-point" element={<DiceEventLayout hidden={true}><MyPoint /></DiceEventLayout>} />
         </Routes>

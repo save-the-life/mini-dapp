@@ -35,9 +35,12 @@ const AIXrayAnalysis: React.FC = () => {
   // useMutation 훅 사용
   const { mutate: saveResultMutate, isPending: isSaving } = useMutation<boolean, Error, FormData>({
     mutationFn: (formData) => {
-      if (selectedMenu) {
-        return storeResult(formData, selectedMenu);
-      } else {
+      if (selectedMenu === 'ai-analysis') {
+        return storeResult(formData, "dental");
+      } else if(selectedMenu === 'x-ray'){
+
+        return storeResult(formData, "xray");
+      }else {
         return Promise.reject(new Error('Selected menu is not set.'));
       }
     },
@@ -180,11 +183,11 @@ const AIXrayAnalysis: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center text-white mx-6 md:mx-28">
+    <div className="flex flex-col items-center text-white mx-6 md:mx-28  min-h-screen">
       <div className="flex items-center w-full mt-4 relative">
         {/* 뒤로가기 버튼 */}
         <FaChevronLeft
-          className="text-2xl cursor-pointer absolute left-0"
+          className="text-2xl cursor-pointer mr-2"
           onClick={() => navigate(-1)}
         />
         <h1 className="text-2xl mx-auto font-semibold">{getTitle()}</h1>
@@ -297,8 +300,8 @@ const AIXrayAnalysis: React.FC = () => {
   
       {/* 이미지 업로드 요청 모달 */}
       {showModal && (
-        <div className="fixed top-0 left-0 right-0 bottom-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-6 rounded-lg text-black text-center w-4/5">
+        <div className="fixed top-0 left-0 right-0 bottom-0 bg-black bg-opacity-50 flex items-center justify-center md:mx-10">
+          <div className="bg-white p-6 rounded-lg text-black text-center mx-3">
             <p>
               {Alert.split('\n').map((line, index) => (
                 <React.Fragment key={index}>
