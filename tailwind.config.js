@@ -3,6 +3,9 @@ export const darkMode = ['class'];
 export const content = [
   './index.html',
   './src/**/*.{js,ts,jsx,tsx}',
+  './components/**/*.{ts,tsx}',
+  './pages/**/*.{ts,tsx}',
+  './app/**/*.{ts,tsx}',
   './public/**/*.{js,ts,jsx,tsx}'
 ];
 export const prefix = '';
@@ -11,8 +14,7 @@ export const theme = {
     center: true,
     padding: '2rem',
     screens: {
-      DEFAULT: '360px', // 모든 화면에서 최대 너비를 768px로 고정
-      '2xl': '360px',    // 2xl 화면에서도 동일한 너비 적용
+      '2xl': '1400px',
     },
   },
   extend: {

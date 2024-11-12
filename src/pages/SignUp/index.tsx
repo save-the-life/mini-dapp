@@ -11,7 +11,8 @@ const SignUpPage: React.FC = () => {
   const navigate = useNavigate();
 
   const handleCharacterSelect = () => {
-    handleContinue();
+    navigate('/dice-event')
+    // handleContinue();
   };
 
   const handleContinue = async () => {

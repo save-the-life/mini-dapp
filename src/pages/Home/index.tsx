@@ -75,7 +75,7 @@ const Home: React.FC = () => {
   
 
   return (
-    <div className="flex flex-col text-white mx-6 md:mx-28">
+    <div className="flex flex-col text-white mx-6 md:mx-28 min-h-screen">
       {/* <TopTitle title="Pet Health Management" /> */}
       <div 
         className="flex items-center w-full mt-8 relative"
