@@ -19,7 +19,7 @@ const MyPoint: React.FC = () => {
     );
 
     return (
-        <div className="flex flex-col items-center text-white mx-6 md:mx-28">
+        <div className="flex flex-col items-center text-white mx-6 md:mx-28 min-h-screen">
             <div className="flex items-center w-full mt-7 mb-8 relative">
                 {/* 뒤로가기 버튼 */}
                 <FaChevronLeft 

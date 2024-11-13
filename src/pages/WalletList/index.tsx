@@ -112,6 +112,7 @@ const WalletPage: React.FC = () => {
 
     const handleWalletConnectSuccessClose = () => {
         setWalletConnectSuccessOpen(false);
+        navigate('/wallet')
     };
 
     const WalletCard: React.FC<WalletCardProps> = ({ text, imgSrc }) => {
@@ -301,21 +302,21 @@ const WalletPage: React.FC = () => {
                     <div className=" flex flex-col items-center justify-center w-full h-full gap-3 pt-8">
                         <p className=" text-xl font-semibold">Wallet Connected!</p>
                         <p className="text-[#a3a3a3] text-center">
-                        My wallet(
-                        <span className="text-white">
-                            <TruncateMiddle
-                            text={address}
-                            maxLength={20}
-                            className="inline font-medium"
-                            />
-                        </span>
-                        ) has been successfully connected.
+                            My wallet(
+                            <span className="text-white">
+                                <TruncateMiddle
+                                text={address}
+                                maxLength={20}
+                                className="inline font-medium"
+                                />
+                            </span>
+                            ) has been successfully connected.
                         </p>
                         <button
-                        className="bg-[#0147e5] rounded-3xl  h-14 w-full font-medium mt-[200px]"
-                        onClick={handleWalletConnectSuccessClose}
-                        >
-                        Done
+                            className="bg-[#0147e5] rounded-3xl  h-14 w-full font-medium mt-[200px]"
+                            onClick={handleWalletConnectSuccessClose}
+                            >
+                            Done
                         </button>
                     </div>
                 </AlertDialogContent>

@@ -60,12 +60,12 @@ const MiniGame: React.FC = () => {
       <div className="flex items-center w-full mt-7 mb-8 relative">
           {/* 뒤로가기 버튼 */}
           <FaChevronLeft
-            className="text-xl cursor-pointer mr-2"
+            className="text-xl cursor-pointer mr-10"
             onClick={() => navigate(-1)}
           />
           <h1 className="text-xl font-bold flex-1 text-center">Precision Dice Roll Game</h1>
-          <div className="w-6"></div>
-        </div>
+          <div className="w-10"></div>
+      </div>
       <div className="mt-8 w-40 h-40 rounded-[40px] flex flex-col items-center justify-center bg-gradient-to-t from-[#2660f4] to-[#3937a3]">
         <div className="w-[154px] h-[156px] mt-[1px] rounded-[40px] aim-number-box flex items-center justify-center font-jalnan text-[96px]">
           <span className="pt-4">{rolledValue}</span>
