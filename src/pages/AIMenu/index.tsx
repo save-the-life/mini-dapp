@@ -1,9 +1,8 @@
-import { TopTitle } from '@/shared/components/ui';
-import './Home.css';
+import './AIMenu.css';
 import Images from '@/shared/assets/images';
 import useMainPageStore from '@/shared/store/useMainPageStore';
 import { useNavigate } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { FaChevronRight } from 'react-icons/fa';
 
 interface HomeMenuProps {

@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import liff from "@line/liff";
+import i18n from "./shared/lib/il8n";
 import "./App.css";
 
 // 페이지 컴포넌트들
-import Home from "@/pages/Home";
+import Home from "@/pages/AIMenu";
 import SignUpPage from "./pages/SignUp";
 import DiceEvent from "@/pages/DiceEvent";
 import WalletPage from "@/pages/WalletPage";
@@ -42,32 +43,35 @@ const App:React.FC = () =>{
         if (!liff.isLoggedIn()) {
           liff.login();
         } else {
+          // 사용자의 언어 코드 확인 후 번역할 언어 매핑
+          const userLanguage: string = liff.getLanguage();
+
+          const languageMap: { [key: string]: string } = {
+            'ko-KR': 'ko',
+            'en-US': 'en',
+            'ja-JP': 'ja',
+            'zh-TW': 'zh',
+          };
+
+          // react-i18next 언어 설정
+          const i18nLanguage = languageMap[userLanguage] || 'en';
+          i18n.changeLanguage(i18nLanguage);
+
           setShowSplash(true); // 로그인 후 스플래시 화면 표시
-          setIsLiffInitialized(true); // LIFF 초기화 완료 상태
+          setIsLiffInitialized(true);
 
-           // 로그인한 사용자 정보를 가져와 출력
-           liff.getProfile()
-           .then(profile => {
-             console.log("사용자 ID:", profile.userId);
-             console.log("사용자 이름:", profile.displayName);
-             console.log("accessToken", liff.getAccessToken());
-           })
-           .catch(err => {
-             console.error("사용자 정보 가져오기 실패:", err);
-           });
-
-          // 일정 시간 후 페이지 이동 (예: 홈 페이지)
           setTimeout(() => {
-            setShowSplash(false); // 스플래시 화면 숨기기
+            setShowSplash(false);
             navigate("/sign-up");
-          }, 3000); // 3초 동안 스플래시 화면 표시 후 페이지 이동
+          }, 3000);
         }
       })
       .catch((err: Error) => {
         setError(`LIFF init failed: ${err.message}`);
-        setIsLiffInitialized(false); // 초기화 실패 상태
+        setIsLiffInitialized(false);
       });
-  },[]);
+  }, []);
+
 
   // 초기화 실패 메시지
   if (error) {
