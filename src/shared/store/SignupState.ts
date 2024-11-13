@@ -2,16 +2,16 @@ import { create } from 'zustand';
 
 interface SignupState {
   email: string;
-  password: string;
+  userName: string;
   setEmail: (email: string) => void;
-  setPassword: (password: string) => void;
+  setUserName: (userName: string) => void;
 }
 
 const useSignupStore = create<SignupState>((set) => ({
   email: '',
-  password: '',
+  userName: '',
   setEmail: (email) => set({ email }),
-  setPassword: (password) => set({ password }),
+  setUserName: (userName) => set({ userName }),
 }));
 
 export default useSignupStore;

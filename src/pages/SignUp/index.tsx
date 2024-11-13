@@ -7,7 +7,7 @@ const SignUpPage: React.FC = () => {
   const [step, setStep] = React.useState<'selectCharacter' | 'activityCheck'>('selectCharacter');
   const [selectedPet, setSelectedPet] = React.useState<'DOG' | 'CAT'>('DOG');
   
-  const { signup, login, isLoading, error, activityData: storeActivityData } = useUserStore();
+  const { signup, login, isLoading, error: storeActivityData } = useUserStore();
   const navigate = useNavigate();
 
   const handleCharacterSelect = () => {

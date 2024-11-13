@@ -14,11 +14,7 @@ async function storeResult(formData: FormData, type: string): Promise<boolean> {
   }
 
   try {
-    const response = await api.post(endpoint, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
+    const response = await api.post(endpoint, formData);
 
     if (response.data.code === 'OK') {
       console.log("Data stored successfully.");

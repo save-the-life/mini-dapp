@@ -21,6 +21,7 @@ const registerPet = async (petInfo: PetInfo): Promise<void> => {
       headers: {
         'Content-Type': 'multipart/form-data',
         Authorization: `Bearer ${accessToken}`,
+        'ngrok-skip-browser-warning': '69420',
       },
     });
 

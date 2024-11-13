@@ -23,13 +23,6 @@ interface WeekAttendance {
   sun: boolean | null;
 }
 
-// 활동량 데이터 인터페이스
-interface ActivityData {
-  accountAge: number;
-  activityLevel: number;
-  telegramPremium: number;
-  ogStatus: number;
-}
 
 // 사용자 상태 인터페이스
 interface UserState {
@@ -37,45 +30,54 @@ interface UserState {
   userId: string | null;
   setUserId: (userId: string | null) => void;
 
+  // 말판 위치
   position: number;
   setPosition: (position: number) => void;
 
+  // 주사위 갯수
   diceCount: number;
   setDiceCount: (diceCount: number) => void;
   incrementDiceCount: (amount: number) => void;
 
+  // 소유 포인트
   starPoints: number;
   setStarPoints: (starPoints: number) => void;
   incrementStarPoints: (amount: number) => void;
 
+  // 응모권
   lotteryCount: number;
   setLotteryCount: (lotteryCount: number) => void;
   incrementLotteryCount: (amount: number) => void;
 
+  // 캐릭터 레벨
   userLv: number;
   setUserLv: (userLv: number) => void;
 
+  // 캐릭터 타입(강아지 / 고양이)
   characterType: 'dog' | 'cat';
   setCharacterType: (type: 'dog' | 'cat') => void;
 
+  // 소유 토큰
   slToken: number;
   setSlToken: (slToken: number) => void;
 
+  // 현재 랭킹
   rank: number;
   setRank: (rank: number) => void;
 
+  // 월간 보상
   monthlyPrize: MonthlyPrize;
   setMonthlyPrize: (monthlyPrize: MonthlyPrize) => void;
 
+  // 주간 출석
   weekAttendance: WeekAttendance;
   setWeekAttendance: (weekAttendance: WeekAttendance) => void;
 
+  // 미니게임 
   currentMiniGame: string;
   setCurrentMiniGame: (game: string) => void;
 
-  activityData: ActivityData | null;
-  setActivityData: (activityData: ActivityData | null) => void;
-
+  // 로딩
   isLoading: boolean;
   setIsLoading: (isLoading: boolean) => void;
 
@@ -145,9 +147,6 @@ export const useUserStore = create<UserState>((set, get) => ({
 
   currentMiniGame: '',
   setCurrentMiniGame: (game) => set({ currentMiniGame: game }),
-
-  activityData: null,
-  setActivityData: (activityData) => set({ activityData }),
 
   isLoading: false,
   setIsLoading: (isLoading) => set({ isLoading }),
@@ -251,10 +250,6 @@ export const useUserStore = create<UserState>((set, get) => ({
       // 회원가입 요청 보내기
       await api.post('/auth/signup', { initData, petType });
 
-      // 활동량 데이터 하드코딩
-      console.log('Step: signup 성공. 활동량 게이지 업데이트');
-      set({ activityData: { accountAge: 30, activityLevel: 75, telegramPremium: 1, ogStatus: 1 } }); // 예시 하드코딩 값
-
       set({ isLoading: false, error: null });
     } catch (error: any) {
       console.error('Step: signup 실패:', error);
@@ -301,7 +296,6 @@ export const useUserStore = create<UserState>((set, get) => ({
         sun: null,
       },
       currentMiniGame: '',
-      activityData: null,
       isLoading: false,
       error: null,
     });

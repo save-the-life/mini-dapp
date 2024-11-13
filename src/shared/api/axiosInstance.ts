@@ -5,8 +5,8 @@ import { useUserStore } from '@/entities/User/model/userModel';
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL || 'https://609d-61-81-223-147.ngrok-free.app',
   headers: {
-    'Content-Type': 'application/json',
-    'ngrok-skip-browser-warning': '69420',
+    'Content-Type': 'application/json', // 기본 Content-Type
+    'ngrok-skip-browser-warning': '69420', // ngrok 경고 무시 헤더
   },
   withCredentials: true,
 });
@@ -23,8 +23,6 @@ api.interceptors.request.use(
     const excludeAuthEndpoints = [
       '/auth/login',
       '/auth/signup',
-      '/auth/send-email-verification',
-      '/auth/check-email-verification',
       '/auth/refresh',
     ];
 
@@ -40,11 +38,15 @@ api.interceptors.request.use(
       config.headers['Authorization'] = `Bearer ${token}`;
     }
 
+    // multipart/form-data 요청 시 Content-Type을 자동 설정하도록 설정
+    if (config.data instanceof FormData) {
+      delete config.headers['Content-Type']; // Axios가 자동으로 Content-Type을 설정하도록 함
+    }
+
     return config;
   },
   (error) => Promise.reject(error)
 );
-
 
 // 응답 인터셉터 설정
 api.interceptors.response.use(
@@ -53,7 +55,7 @@ api.interceptors.response.use(
     const originalRequest = error.config;
 
     // 토큰 갱신 로직
-    if (error.response && error.response.status === 404 && !originalRequest._retry) {
+    if (error.response && error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 
       try {
@@ -78,6 +80,5 @@ api.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
 
 export default api;
