@@ -1,6 +1,5 @@
 // MiniGame.tsx
 import React, { useState, useRef } from 'react';
-import { TopTitle } from '@/shared/components/ui';
 import './MiniGame.css';
 import { formatNumber } from '@/shared/utils/formatNumber';
 import { motion, AnimatePresence } from 'framer-motion';

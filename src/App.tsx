@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import ScrollToTop from "./shared/components/ui/scrollTop";
 import liff from "@line/liff";
-import i18n from "./shared/lib/il8n";
+// import i18n from "./shared/lib/il8n";
 import "./App.css";
 
 // 페이지 컴포넌트들
-import Home from "@/pages/AIMenu";
+import AIMenu from "@/pages/AIMenu";
 import SignUpPage from "./pages/SignUp";
 import DiceEvent from "@/pages/DiceEvent";
 import WalletPage from "@/pages/WalletPage";
@@ -44,18 +45,18 @@ const App:React.FC = () =>{
           liff.login();
         } else {
           // 사용자의 언어 코드 확인 후 번역할 언어 매핑
-          const userLanguage: string = liff.getLanguage();
+          // const userLanguage: string = liff.getLanguage();
 
-          const languageMap: { [key: string]: string } = {
-            'ko-KR': 'ko',
-            'en-US': 'en',
-            'ja-JP': 'ja',
-            'zh-TW': 'zh',
-          };
+          // const languageMap: { [key: string]: string } = {
+          //   'ko-KR': 'ko',
+          //   'en-US': 'en',
+          //   'ja-JP': 'ja',
+          //   'zh-TW': 'zh',
+          // };
 
-          // react-i18next 언어 설정
-          const i18nLanguage = languageMap[userLanguage] || 'en';
-          i18n.changeLanguage(i18nLanguage);
+          // // react-i18next 언어 설정
+          // const i18nLanguage = languageMap[userLanguage] || 'en';
+          // i18n.changeLanguage(i18nLanguage);
 
           setShowSplash(true); // 로그인 후 스플래시 화면 표시
           setIsLiffInitialized(true);
@@ -85,8 +86,9 @@ const App:React.FC = () =>{
 
   return (
     <QueryClientProvider client={queryClient}>
+      <ScrollToTop />
         <Routes>
-          <Route path="/home" element={<DiceEventLayout><Home /></DiceEventLayout>} />
+          <Route path="/AI-menu" element={<DiceEventLayout><AIMenu /></DiceEventLayout>} />
           <Route path="/sign-up" element={<DiceEventLayout hidden={true}><SignUpPage /></DiceEventLayout>} />
           <Route path="/dice-event" element={<DiceEventLayout><DiceEvent /></DiceEventLayout>} />
           <Route path="/mission" element={<DiceEventLayout><MissionPage /></DiceEventLayout>} />

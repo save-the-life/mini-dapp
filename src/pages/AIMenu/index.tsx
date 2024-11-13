@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import React from 'react';
 import { FaChevronRight } from 'react-icons/fa';
 
-interface HomeMenuProps {
+interface AIMenuProps {
   title: string;
   alt: string;
   image: string;
@@ -13,7 +13,7 @@ interface HomeMenuProps {
   className: string;
 }
 
-const HomeMenu: React.FC<HomeMenuProps> = ({
+const AIMenus: React.FC<AIMenuProps> = ({
   title,
   alt,
   image,
@@ -60,7 +60,7 @@ const DailyMissionCard: React.FC<DailyMissionProps> = ({
   );
 };
 
-const Home: React.FC = () => {
+const AIMenu: React.FC = () => {
   const navigate = useNavigate();
   const setSelectedMenu = useMainPageStore((state) => state.setSelectedMenu);
 
@@ -89,21 +89,21 @@ const Home: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-2 gap-3 mt-6">
-        <HomeMenu
+        <AIMenus
           title="AI-based real-time dental analysis"
           image={Images.HomeTooth}
           alt="HomeTooth"
           className="follow-on-x-mission-card"
           onClick={() => handleMenuClick('ai-analysis')}
         />
-        <HomeMenu
+        <AIMenus
           title="AI-based dental X-ray analysis"
           image={Images.HomeXray}
           alt="HomeXray"
           className="join-telegram-mission-card"
           onClick={() => handleMenuClick('x-ray')}
         />
-        <HomeMenu
+        <AIMenus
           title="Viewing Records"
           image={Images.HomeReport}
           alt="HomeReport"
@@ -123,4 +123,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default AIMenu;

@@ -129,7 +129,7 @@ const WalletPage: React.FC = () => {
 
     return (
         <div className="flex flex-col text-white mb-32  mx-6 md:min-w-[600px] min-h-screen">
-            <div className="flex items-center w-full mt-7 mb-8 relative">
+            <div className="flex items-center w-full mt-3 mb-8 relative">
                 {/* 뒤로가기 버튼 */}
                 <FaChevronLeft
                     className="text-xl cursor-pointer"

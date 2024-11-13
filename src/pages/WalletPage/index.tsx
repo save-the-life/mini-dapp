@@ -38,7 +38,7 @@ const WalletPage: React.FC = () => {
 
   return (
     <div className="flex flex-col text-white mb-32  mx-6 md:min-w-[600px] min-h-screen">
-      <TopTitle title="Wallet" className="mt-3"/>
+      <TopTitle title="Wallet"/>
       <div className=" mx-6 ">
         <h2 className=" text-lg font-semibold">Wallet Selection</h2>
         <p className="text-[#a3a3a3] text-sm">

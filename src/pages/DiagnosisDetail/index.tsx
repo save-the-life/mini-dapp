@@ -91,7 +91,7 @@ const DiagnosisDetail: React.FC = () => {
                 <button
                     className="w-full py-4 rounded-full text-lg font-semibold"
                     style={{backgroundColor: '#0147E5'}}
-                    onClick={() => navigate('/home')}
+                    onClick={() => navigate('/AI-menu')}
                     >
                     Home
                 </button>

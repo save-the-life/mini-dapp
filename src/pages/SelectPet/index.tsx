@@ -61,7 +61,7 @@ const SelectPet: React.FC = () => {
         {/* 뒤로가기 버튼 */}
         <FaChevronLeft
           className="text-xl cursor-pointer"
-          onClick={() => navigate('/home')}
+          onClick={() => navigate('/AI-menu')}
         />
         <h1 className="text-xl font-bold flex-1 text-center">Select Pet</h1>
         <div className="w-6"></div>
