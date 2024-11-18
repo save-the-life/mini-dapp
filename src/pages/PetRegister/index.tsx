@@ -12,44 +12,42 @@ const PetRegister: React.FC = () => {
 
     // useMutation 훅 사용
     const { mutate: registerPetMutate, isPending } = useMutation({
-    mutationFn: registerPet,
-    onSuccess: () => {
-        // 등록 성공 시 처리
-        navigate('/select-pet');
-    },
-    onError: (error: any) => {
-        // 에러 발생 시 사용자에게 알림
-        alert('Failed to register pet. Please try again.');
-    },
+        mutationFn: registerPet,
+        onSuccess: () => {
+            // 등록 성공 시 처리
+            navigate('/select-pet');
+        },
+        onError: (error: any) => {
+            // 에러 발생 시 사용자에게 알림
+            alert('Failed to register pet. Please try again.');
+        },
     });
 
     // 이미지 업로드
     const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files.length > 0) {
-        const selectedFile = event.target.files[0];
-        setPetImage(selectedFile);
-        setImageUrl(URL.createObjectURL(selectedFile));
-    }
+        if (event.target.files && event.target.files.length > 0) {
+            const selectedFile = event.target.files[0];
+            setPetImage(selectedFile);
+            setImageUrl(URL.createObjectURL(selectedFile));
+        }
     };
 
     // 컴포넌트가 언마운트되거나 이미지가 변경될 때 URL 해제
     useEffect(() => {
-    return () => {
-        if (imageUrl) {
-        URL.revokeObjectURL(imageUrl);
-        }
-    };
+        return () => {
+            if (imageUrl) { URL.revokeObjectURL(imageUrl); }
+        };
     }, [imageUrl]);
 
     // 등록 버튼 클릭
     const registerBtn = () => {
-    if (!petName || !petImage) {
-        alert('Please provide both pet name and image.');
-        return; 
-    }
+        if (!petName || !petImage) {
+            alert('Please provide both pet name and image.');
+            return; 
+        }
 
-    const petInfo = { name: petName, image: petImage };
-    registerPetMutate(petInfo);
+        const petInfo = { name: petName, image: petImage };
+        registerPetMutate(petInfo);
     };
 
     return (

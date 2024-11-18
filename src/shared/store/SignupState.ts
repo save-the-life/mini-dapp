@@ -1,17 +1,21 @@
 import { create } from 'zustand';
 
 interface SignupState {
-  email: string;
+  userId: string;
   userName: string;
-  setEmail: (email: string) => void;
+  token: string;
+  setUserId: (userId: string) => void;
   setUserName: (userName: string) => void;
+  setToken: (token: string) => void;
 }
 
 const useSignupStore = create<SignupState>((set) => ({
-  email: '',
+  userId: '',
   userName: '',
-  setEmail: (email) => set({ email }),
+  token: '',
+  setUserId: (userId) => set({ userId }),
   setUserName: (userName) => set({ userName }),
+  setToken: (token) => set({token}),
 }));
 
 export default useSignupStore;

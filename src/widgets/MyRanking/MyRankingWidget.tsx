@@ -1,12 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Images from '@/shared/assets/images';
 import { formatNumber } from '@/shared/utils/formatNumber';
 import { useNavigate } from 'react-router-dom';
 import { useNavigationStore } from '@/shared/store/navigationStore';
+import getLeaderBoard from '@/entities/User/api/getLeaderBoard';
 
 const MyRankingWidget: React.FC = () => {
   const navigate = useNavigate();
   const setSelected = useNavigationStore((state) => state.setSelected);
+  const [myRank, setMyRank] = useState({
+    rank: 0,
+    star: 0,
+    ticket: 0,
+    slToken: 0
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getLeaderBoard();
+        setMyRank(data.myRank);
+      } catch (error) {
+        console.error('Failed to load ranking data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleRankingClick = () => {
     setSelected('/rank');
@@ -23,7 +43,7 @@ const MyRankingWidget: React.FC = () => {
         <div className="w-[121px] h-full flex flex-col items-center justify-center gap-2">
           <p className="text-base font-semibold">My Rank</p>
           <p className="text-2xl text-[#fde047] font-jalnan">
-            {formatNumber(45)}
+            {myRank.rank}
           </p>
         </div>
         <div className="w-[1px] h-full flex items-center justify-center mx-6">
@@ -32,7 +52,7 @@ const MyRankingWidget: React.FC = () => {
         <div className="w-full h-full flex flex-row items-center justify-around text-xs">
           <div className="flex flex-col items-center justify-center gap-2">
             <img src={Images.Star} alt="star" className="w-6 h-6" />
-            <p>{formatNumber(1234)}</p>
+            <p>{myRank.star}</p>
           </div>
           <div className="flex flex-col items-center justify-center gap-2">
             <img
@@ -40,7 +60,7 @@ const MyRankingWidget: React.FC = () => {
               alt="lottery-ticket"
               className="w-6 h-6"
             />
-            <p>{formatNumber(1234)}</p>
+            <p>{myRank.ticket}</p>
           </div>
           <div className="flex flex-col items-center justify-center gap-2">
             <img
@@ -48,7 +68,7 @@ const MyRankingWidget: React.FC = () => {
               alt="RankingSLToken"
               className="w-6 h-6"
             />
-            <p>{formatNumber(1234)}</p>
+            <p>{myRank.slToken}</p>
           </div>
         </div>
       </div>

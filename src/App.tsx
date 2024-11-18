@@ -3,12 +3,13 @@ import { useNavigate, BrowserRouter as Router, Routes, Route } from "react-route
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ScrollToTop from "./shared/components/ui/scrollTop";
 import liff from "@line/liff";
+import userAuthenticationWithServer from "./entities/User/api/userAuthentication";
 // import i18n from "./shared/lib/il8n";
 import "./App.css";
 
 // 페이지 컴포넌트들
 import AIMenu from "@/pages/AIMenu";
-import SignUpPage from "./pages/SignUp";
+import SelectCharacterPage from "./pages/SelectCharacter";
 import DiceEvent from "@/pages/DiceEvent";
 import WalletPage from "@/pages/WalletPage";
 import MissionPage from "@/pages/MissionPage";
@@ -34,50 +35,71 @@ const App:React.FC = () =>{
   const navigate = useNavigate();
   const [showSplash, setShowSplash] = useState(true);
   const [isLiffInitialized, setIsLiffInitialized] = useState(false);
-  const [error, setError] = useState("");
 
   useEffect(() => {
-    // LIFF 초기화
-    liff
-      .init({ liffId: import.meta.env.VITE_LIFF_ID })
-      .then(() => {
-        if (!liff.isLoggedIn()) {
-          liff.login();
-        } else {
-          // 사용자의 언어 코드 확인 후 번역할 언어 매핑
-          // const userLanguage: string = liff.getLanguage();
+    const initializeApp = async () => {
+      try {
+        await liff.init({ liffId: import.meta.env.VITE_LIFF_ID });
+        setShowSplash(true);
+        setIsLiffInitialized(true);
 
-          // const languageMap: { [key: string]: string } = {
-          //   'ko-KR': 'ko',
-          //   'en-US': 'en',
-          //   'ja-JP': 'ja',
-          //   'zh-TW': 'zh',
-          // };
+        const accessToken = localStorage.getItem('accessToken');
+        console.log("토큰 : ", accessToken);
 
-          // // react-i18next 언어 설정
-          // const i18nLanguage = languageMap[userLanguage] || 'en';
-          // i18n.changeLanguage(i18nLanguage);
+        if(!accessToken){
+          // 로컬 스토리지 토큰이 없는 경우
+          if (!liff.isLoggedIn()) {
+            liff.login();
+            return;
+          }
 
-          setShowSplash(true); // 로그인 후 스플래시 화면 표시
-          setIsLiffInitialized(true);
+          // 로그인 후 사용자 정보 가져오기
+          const profile = await liff.getProfile();
+          const lineAccessToken = liff.getAccessToken();
 
-          setTimeout(() => {
-            setShowSplash(false);
-            navigate("/sign-up");
-          }, 3000);
+          if (lineAccessToken) {
+            console.log("id: ", profile.userId);
+            console.log("name: ", profile.displayName);
+            console.log("token: ", lineAccessToken);
+
+            // try {
+            //   // 사용자 인증 서버 요청
+            //   const response = await userAuthenticationWithServer(
+            //     profile.userId,
+            //     profile.displayName,
+            //     lineAccessToken
+            //   );
+
+            //   if (response.isNewUser) {
+            //     // 신규 사용자 처리 (회원가입 로직 및 토큰 저장)
+            //     console.log("신규 사용자, 회원가입 진행");
+            //   } else {
+            //     // 기존 사용자 처리 (로그인 및 토큰 저장)
+            //     console.log("기존 사용자, 토큰 발급");
+
+            //   }
+
+            //   // 액세스 토큰 발급 후 다음 단계로 이동
+            //   navigate("/dice-event");
+            // } catch (authError) {
+            //   console.error("사용자 인증 실패:", authError);
+            //   // 인증 실패 처리
+            // }
+          }
+        }else{
+          // 로컬 스토리지 토큰이 존재하는 경우
+          navigate("/dice-event");
         }
-      })
-      .catch((err: Error) => {
-        setError(`LIFF init failed: ${err.message}`);
-        setIsLiffInitialized(false);
-      });
+      } catch (error) {
+        console.error("초기화 실패:", error);
+        window.location.reload();
+      } finally {
+        setShowSplash(false); // 모든 작업 종료 후 스플래시 제거
+      }
+    };
+
+    initializeApp();
   }, []);
-
-
-  // 초기화 실패 메시지
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
 
   // 스플래시 화면을 표시 중이거나 LIFF가 초기화되지 않았을 때
   if (showSplash || !isLiffInitialized) {
@@ -89,7 +111,7 @@ const App:React.FC = () =>{
       <ScrollToTop />
       <Routes>
         <Route path="/AI-menu" element={<DiceEventLayout><AIMenu /></DiceEventLayout>} />
-        <Route path="/sign-up" element={<DiceEventLayout hidden={true}><SignUpPage /></DiceEventLayout>} />
+        <Route path="/choose-character" element={<DiceEventLayout hidden={true}><SelectCharacterPage /></DiceEventLayout>} />
         <Route path="/dice-event" element={<DiceEventLayout><DiceEvent /></DiceEventLayout>} />
         <Route path="/mission" element={<DiceEventLayout><MissionPage /></DiceEventLayout>} />
         <Route path="/wallet" element={<DiceEventLayout><WalletPage /></DiceEventLayout>} />
