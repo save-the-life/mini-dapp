@@ -27,6 +27,10 @@ import AIXrayAnalysis from "@/pages/AIXrayAnalysis";
 import DiceEventLayout from "./app/layout/DiceEventLayout";
 import SplashScreen from "./app/components/SplashScreen";
 import WalletList from "./pages/WalletList";
+import MyAssets from "./pages/MyAssets";
+import MyNfts from "./pages/MyNFTs";
+import RewardHistory from "./pages/RewardHistory";
+
 
 // QueryClient 설정
 const queryClient = new QueryClient();
@@ -127,6 +131,10 @@ const App:React.FC = () =>{
         <Route path="/diagnosis-detail" element={<DiceEventLayout hidden={true}><DiagnosisDetail /></DiceEventLayout>} />
         <Route path="/ai-xray-analysis" element={<DiceEventLayout hidden={true}><AIXrayAnalysis /></DiceEventLayout>} />
         <Route path="/my-point" element={<DiceEventLayout hidden={true}><MyPoint /></DiceEventLayout>} />
+        <Route path="/my-assets" element={<DiceEventLayout><MyAssets /></DiceEventLayout>} />
+        <Route path="/my-nfts" element={<DiceEventLayout hidden={true}><MyNfts /></DiceEventLayout>} />
+        <Route path="/reward-history" element={<DiceEventLayout hidden={true}><RewardHistory /></DiceEventLayout>} />
+        
       </Routes>
     </QueryClientProvider>
   );

@@ -91,6 +91,7 @@ import pointStar from "./star.png";
 import line from "./line_btn.png";
 import BottomBarAI from "./bottomBarAI.png";
 import SeletedBottomBarAI from "./seletedBottomBarAI.png" 
+import cart from "./cart.png"
 
 const Images = {
   HorizontalLogo,
@@ -184,7 +185,8 @@ const Images = {
   pointStar,
   line,
   BottomBarAI,
-  SeletedBottomBarAI
+  SeletedBottomBarAI,
+  cart
 };
 
 export default Images;

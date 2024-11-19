@@ -12,6 +12,7 @@ const SelectCharacterPage: React.FC = () => {
     try{
       const response = await chooseCharacter(selectedPet);
       if(response){
+        // 정상 반환이면 로컬스토리지에 엑세스 토큰 저장 후 메인 페이지로 이동
         navigate('/dice-event')
       }else{
         console.log("로그인 에러 발생");

@@ -1,5 +1,5 @@
 import Images from '@/shared/assets/images';
-import { TopTitle } from '@/shared/components/ui';
+import { FaChevronLeft } from "react-icons/fa";
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { HiOutlineCheck } from 'react-icons/hi';
@@ -38,7 +38,15 @@ const WalletPage: React.FC = () => {
 
   return (
     <div className="flex flex-col text-white mb-32  mx-6 md:min-w-[600px] min-h-screen">
-      <TopTitle title="Wallet"/>
+      <div className="flex items-center w-full mt-3 mb-8 relative">
+        {/* 뒤로가기 버튼 */}
+        <FaChevronLeft
+            className="text-xl cursor-pointer"
+            onClick={() => navigate(-1)}
+        />
+        <h1 className="text-xl font-bold flex-grow text-center">Wallet</h1>
+        <div className="w-6"></div>
+      </div>
       <div className=" mx-6 ">
         <h2 className=" text-lg font-semibold">Wallet Selection</h2>
         <p className="text-[#a3a3a3] text-sm">

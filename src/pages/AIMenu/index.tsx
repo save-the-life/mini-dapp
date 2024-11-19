@@ -110,12 +110,6 @@ const AIMenu: React.FC = () => {
           className="join-the-sl-discord-mission-card"
           onClick={() => handleMenuClick('records')}
         />
-        {/* <HomeMenu
-          title="Animal Dice game"
-          image={Images.Dice3D}
-          alt="Dice3D"
-                className="subscribe-to-email-mission-card"
-        /> */}
         </div>
       <br /> <br /> <br /> <br />
       <br />
