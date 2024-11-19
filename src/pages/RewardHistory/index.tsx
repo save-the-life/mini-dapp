@@ -1,11 +1,11 @@
-import React from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { FaChevronLeft } from "react-icons/fa";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { FaChevronLeft, FaChevronDown } from "react-icons/fa";
 
 const RewardHistory: React.FC = () => {
     const navigate = useNavigate();
 
-
+    // 더미 데이터
     const rewardHistory = [
         { id: 1, description: "Joined Telegram", date: "17-10-2024", points: "+150SL" },
         { id: 2, description: "AI Dental Examination", date: "17-10-2024", points: "-150SL" },
@@ -14,8 +14,24 @@ const RewardHistory: React.FC = () => {
         { id: 5, description: "Game Lose", date: "17-10-2024", points: "-150P" },
     ];
 
+    // 상태
+    const [transactionFilter, setTransactionFilter] = useState("all"); // all, earned, used
+    const [typeFilter, setTypeFilter] = useState("all"); // all, SL, P
+
+    // 필터링된 데이터
+    const filteredHistory = rewardHistory.filter((reward) => {
+        // 거래 유형 필터
+        if (transactionFilter === "earned" && !reward.points.startsWith("+")) return false;
+        if (transactionFilter === "used" && !reward.points.startsWith("-")) return false;
+
+        // 재화 유형 필터
+        if (typeFilter !== "all" && !reward.points.endsWith(typeFilter)) return false;
+
+        return true;
+    });
+
     return (
-        <div className="flex flex-col text-white mb-32  mx-1 md:min-w-[600px] min-h-screen">
+        <div className="flex flex-col text-white mb-32 mx-auto md:min-w-[600px] min-h-screen">
             <div className="flex items-center w-full mt-3 mb-2 relative">
                 {/* 뒤로가기 버튼 */}
                 <FaChevronLeft
@@ -25,31 +41,81 @@ const RewardHistory: React.FC = () => {
                 <h1 className="text-xl font-bold flex-grow text-center">Rewards History</h1>
                 <div className="w-6"></div>
             </div>
+            
+            {/* 필터링 버튼 */}
+            <div className="flex justify-start w-full mt-8 h-11 gap-4">
+                {/* 수익/지출 필터 */}
+                <div className="relative w-40 max-w-xs">
+                    <select
+                        className={`p-2 rounded-full appearance-none w-full text-sm ${
+                            transactionFilter === "all"
+                                ? "bg-[#1F1E27] text-white"
+                                : "bg-white text-black"
+                        }`}
+                        value={transactionFilter}
+                        onChange={(e) => setTransactionFilter(e.target.value)}
+                        >
+                        <option value="all">All Transactions</option>
+                        <option value="earned">Earned</option>
+                        <option value="used">Used</option>
+                    </select>
+                    <FaChevronDown
+                        className={`absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none ${
+                            transactionFilter === "all" ? "text-white" : "text-black"
+                        }`}
+                    />
+                </div>
 
-            {/* 보상 내역 */}
-            <div className="w-full mr-32">
-                <div className="mt-4 p-4">
-                    {rewardHistory.map((reward) => (
-                        <div
-                            key={reward.id}
-                            className="flex justify-between items-center py-2 border-b border-[#35383F]"
-                            >
-                            <div>
-                                <p className="text-sm font-medium">{reward.description}</p>
-                                <p className="text-xs text-gray-400">{reward.date}</p>
-                            </div>
-                            <p
-                                className={`text-sm font-bold ${
-                                reward.points.startsWith("+") ? "text-blue-400" : "text-red-400"
-                                }`}
-                            >
-                                {reward.points}
-                            </p>
-                        </div>
-                    ))}
+                {/* 재화 유형 필터 */}
+                <div className="relative w-32 max-w-xs">
+                    <select
+                         className={`p-2 rounded-full appearance-none w-full text-sm ${
+                            typeFilter === "all"
+                                ? "bg-[#1F1E27] text-white"
+                                : "bg-white text-black"
+                        }`}
+                        value={typeFilter}
+                        onChange={(e) => setTypeFilter(e.target.value)}
+                    >
+                        <option value="all">All Types</option>
+                        <option value="SL">SL</option>
+                        <option value="P">P</option>
+                    </select>
+                    <FaChevronDown
+                        className={`absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none ${
+                            transactionFilter === "all" ? "text-white" : "text-black"
+                        }`}
+                    />
                 </div>
             </div>
-            
+
+            {/* 보상 내역 */}
+            <div className="w-full mt-6">
+                <div>
+                    {filteredHistory.length > 0 ? (
+                        filteredHistory.map((reward) => (
+                            <div
+                                key={reward.id}
+                                className="flex justify-between items-center py-2 border-b border-[#35383F]"
+                            >
+                                <div>
+                                    <p className="text-sm font-medium">{reward.description}</p>
+                                    <p className="text-xs text-gray-400">{reward.date}</p>
+                                </div>
+                                <p
+                                    className={`text-sm font-bold ${
+                                        reward.points.startsWith("+") ? "text-blue-400" : "text-red-400"
+                                    }`}
+                                >
+                                    {reward.points}
+                                </p>
+                            </div>
+                        ))
+                    ) : (
+                        <p className="text-center text-sm text-gray-400">No records found</p>
+                    )}
+                </div>
+            </div>
         </div>
     );
 };
