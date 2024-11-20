@@ -50,7 +50,6 @@ import OneInchLogo from './1inch-logo.png';
 import BinanceLogo from './binance-logo.png';
 import BybitLogo from './bybit-logo.png';
 import HtxLogo from './htx-logo.png';
-import IcpLogo from './icp-logo.png';
 import KucoinLogo from './kucoin-logo.png';
 import MexcLogo from './mexc-logo.png';
 import OkxLogo from './okx-logo.png';
@@ -92,6 +91,7 @@ import line from "./line_btn.png";
 import BottomBarAI from "./bottomBarAI.png";
 import SeletedBottomBarAI from "./seletedBottomBarAI.png" 
 import cart from "./cart.png"
+import slToken from "./sl_token.png"
 
 const Images = {
   HorizontalLogo,
@@ -146,7 +146,6 @@ const Images = {
   BinanceLogo,
   BybitLogo,
   HtxLogo,
-  IcpLogo,
   KucoinLogo,
   MexcLogo,
   OkxLogo,
@@ -186,7 +185,8 @@ const Images = {
   line,
   BottomBarAI,
   SeletedBottomBarAI,
-  cart
+  cart,
+  slToken
 };
 
 export default Images;

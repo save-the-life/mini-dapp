@@ -24,19 +24,14 @@ interface RankingResponse {
 
 // 페이지 번호를 파라미터로 받아서 사용자 랭킹 정보를 가져오는 함수
 export const getRanking = async (pageNum: number): Promise<RankingResponse> => {
-    try {
-        const response = await api.get(`/leader/${pageNum}`);
+    const response = await api.get(`/leader/${pageNum}`);
 
-        // API의 성공 여부 확인 및 데이터 반환
-        if (response.status === 200) {
-            return response.data;
-        } else {
-            console.error('Unexpected response:', response);
-            throw new Error(response.data.message || 'Failed to fetch ranking information');
-        }
-    } catch (error: any) {
-        console.error('Error fetching ranking data:', error);
-        throw error;
+    // API의 성공 여부 확인 및 데이터 반환
+    if (response.status === 200) {
+        return response.data;
+    } else {
+        console.error('Unexpected response:', response);
+        throw new Error(response.data.message || 'Failed to fetch ranking information');
     }
 };
 

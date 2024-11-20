@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ScrollToTop from "./shared/components/ui/scrollTop";
 import liff from "@line/liff";
 import userAuthenticationWithServer from "./entities/User/api/userAuthentication";
-// import i18n from "./shared/lib/il8n";
+import i18n from "./shared/lib/il8n";
 import "./App.css";
 
 // 페이지 컴포넌트들
@@ -60,6 +60,20 @@ const App:React.FC = () =>{
           // 로그인 후 사용자 정보 가져오기
           const profile = await liff.getProfile();
           const lineAccessToken = liff.getAccessToken();
+          const userLanguage = liff.getLanguage(); // 사용자의 언어 코드 가져오기
+          console.log("무슨 언어: ", userLanguage);
+
+          // 언어 코드 매핑
+          const languageMap: { [key: string]: string } = {
+            'ko-KR': 'ko',
+            'en-US': 'en',
+            'ja-JP': 'ja',
+            'zh-TW': 'zh',
+          };
+
+          // react-i18next 언어 설정
+          const i18nLanguage = languageMap[userLanguage] || 'en';
+          i18n.changeLanguage(i18nLanguage);
 
           if (lineAccessToken) {
             console.log("id: ", profile.userId);
@@ -74,17 +88,15 @@ const App:React.FC = () =>{
             //     lineAccessToken
             //   );
 
-            //   if (response.isNewUser) {
+            //   if (response) {
             //     // 신규 사용자 처리 (회원가입 로직 및 토큰 저장)
             //     console.log("신규 사용자, 회원가입 진행");
+            //     navigate("/choose-character");
             //   } else {
             //     // 기존 사용자 처리 (로그인 및 토큰 저장)
             //     console.log("기존 사용자, 토큰 발급");
-
+            //     navigate("/dice-event");
             //   }
-
-            //   // 액세스 토큰 발급 후 다음 단계로 이동
-            //   navigate("/dice-event");
             // } catch (authError) {
             //   console.error("사용자 인증 실패:", authError);
             //   // 인증 실패 처리
@@ -134,7 +146,6 @@ const App:React.FC = () =>{
         <Route path="/my-assets" element={<DiceEventLayout><MyAssets /></DiceEventLayout>} />
         <Route path="/my-nfts" element={<DiceEventLayout hidden={true}><MyNfts /></DiceEventLayout>} />
         <Route path="/reward-history" element={<DiceEventLayout hidden={true}><RewardHistory /></DiceEventLayout>} />
-        
       </Routes>
     </QueryClientProvider>
   );

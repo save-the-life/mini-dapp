@@ -4,6 +4,8 @@ import { FaChevronLeft } from "react-icons/fa";
 import Images from "@/shared/assets/images";
 import { useNavigate, useLocation } from 'react-router-dom';
 import storeResult from '@/entities/AI/api/stroeResult';
+import useToken from '@/entities/AI/api/useToken';
+import checkBalance from '@/entities/AI/api/checkBalance';
 import useMainPageStore from '@/shared/store/useMainPageStore';
 import { useMutation } from '@tanstack/react-query';
 
@@ -111,36 +113,75 @@ const AIXrayAnalysis: React.FC = () => {
   const analyzeImage = async () => {
     if (!selectedImage) {
       setShowModal(true); // 이미지를 업로드하지 않았을 때 모달 표시
-      setCaution('Please upload an image before analysis.');
+      Alert= "Please upload an image before analysis.";
       return;
     }
 
     setLoading(true);
     const loadedModel = await loadModel(); // 모델을 로드하고 가져옴
 
-    if (loadedModel && selectedImage) {
-      const imageElement = document.createElement('img');
-      imageElement.src = window.URL.createObjectURL(selectedImage); // 파일에서 생성된 URL 사용
-      imageElement.onload = async () => {
-        const prediction = await loadedModel.predict(imageElement);
-        const highestPrediction = prediction.reduce((prev, current) =>
-          prev.probability > current.probability ? prev : current
-        );
+    try{
+      // ai진단을 사용할 재화가 있는 지 먼저 확인
+      const balance = await checkBalance();
 
-        console.log("Current prediction:", highestPrediction.className, "Probability:", highestPrediction.probability);
+      if(balance){
+        // 재화가 충분한 경우
+        const tokenUsed = await useToken();
+        
+        if (loadedModel && selectedImage && tokenUsed) {
+          const imageElement = document.createElement('img');
+          imageElement.src = window.URL.createObjectURL(selectedImage); // 파일에서 생성된 URL 사용
+          imageElement.onload = async () => {
+            const prediction = await loadedModel.predict(imageElement);
+            const highestPrediction = prediction.reduce((prev, current) =>
+              prev.probability > current.probability ? prev : current
+            );
 
-        if (highestPrediction.probability > 0.95) {
-          setLabel(highestPrediction.className);
+            console.log("Current prediction:", highestPrediction.className, "Probability:", highestPrediction.probability);
+
+            if (highestPrediction.probability > 0.95) {
+              setLabel(highestPrediction.className);
+            } else {
+              setLabel("Normal"); // 확률이 낮을 때 기본 라벨로 설정
+            }
+
+            setLoading(false);
+            setIsAnalyzed(true);
+            saveResult();
+          };
         } else {
-          setLabel("Normal"); // 확률이 낮을 때 기본 라벨로 설정
+          setLoading(false);
         }
+      }else{
+        // 재화가 없는 경우
+      }
+    }catch(error: any){
 
-        setLoading(false);
-        setIsAnalyzed(true);
-      };
-    } else {
-      setLoading(false);
     }
+
+    // if (loadedModel && selectedImage) {
+    //   const imageElement = document.createElement('img');
+    //   imageElement.src = window.URL.createObjectURL(selectedImage); // 파일에서 생성된 URL 사용
+    //   imageElement.onload = async () => {
+    //     const prediction = await loadedModel.predict(imageElement);
+    //     const highestPrediction = prediction.reduce((prev, current) =>
+    //       prev.probability > current.probability ? prev : current
+    //     );
+
+    //     console.log("Current prediction:", highestPrediction.className, "Probability:", highestPrediction.probability);
+
+    //     if (highestPrediction.probability > 0.95) {
+    //       setLabel(highestPrediction.className);
+    //     } else {
+    //       setLabel("Normal"); // 확률이 낮을 때 기본 라벨로 설정
+    //     }
+
+    //     setLoading(false);
+    //     setIsAnalyzed(true);
+    //   };
+    // } else {
+    //   setLoading(false);
+    // }
   };
 
 
@@ -208,7 +249,7 @@ const AIXrayAnalysis: React.FC = () => {
           {selectedImage ? (
             <img
               src={window.URL.createObjectURL(selectedImage)}
-              alt="Uploaded X-ray"
+              alt="Uploaded X-ray image"
               className="w-64 h-64 rounded-md object-fill"
             />
           ) : (
@@ -276,16 +317,16 @@ const AIXrayAnalysis: React.FC = () => {
             </div>
           </div>
   
-          {/* Retest 및 Save 버튼을 수평으로 배치 */}
+          {/* Retest 버튼 */}
           <div className="flex w-full max-w-sm justify-between mt-10 mb-16">
             <button
-              className="w-[48%] h-14 text-white text-base py-2 px-4 rounded-full border-2"
+              className="w-[90%] h-14 text-white text-base py-2 px-4 rounded-full border-2"
               style={{ backgroundColor: '#252932', borderColor: '#35383F' }}
               onClick={clickReset}
             >
               Retest
             </button>
-            <button
+            {/* <button
               className={`w-[48%] h-14 text-white text-base py-2 px-4 rounded-full ${
                 isSaving ? 'cursor-wait' : ''
               }`}
@@ -294,7 +335,7 @@ const AIXrayAnalysis: React.FC = () => {
               disabled={isSaving}
             >
               {isSaving ? 'Saving...' : 'Save'}
-            </button>
+            </button> */}
           </div>
         </>
       )}

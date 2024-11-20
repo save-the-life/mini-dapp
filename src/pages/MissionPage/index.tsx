@@ -117,8 +117,7 @@ const MissionPage: React.FC = () => {
           />
         </div>
         <p className=" col-span-2 text-xs mb-8">
-          * If the mission is not performed correctly, you may be excluded from
-          the final reward.
+          * If the mission is not performed correctly, you may be excluded from the final reward.
         </p>
       </div>
       <h1 className=" font-semibold text-lg ml-[2px] mb-4">Daily Mission</h1>

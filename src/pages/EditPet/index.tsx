@@ -63,7 +63,7 @@ const EditPet: React.FC = () => {
     // 삭제 버튼 클릭 (반려동물 삭제)
     const deleteBtn = async () => {
         if (id) {
-            if (window.confirm("정말로 반려동물을 삭제하시겠습니까?")) {
+            if (window.confirm("Are you sure you want to delete your pet?")) {
                 try {
                     await deletePet(id, navigate);
                     setShowModal(true);
