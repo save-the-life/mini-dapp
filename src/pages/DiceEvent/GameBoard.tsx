@@ -7,7 +7,6 @@ import { StarTile, DiceTile, AirplaneTile, Gauge } from "@/features/DiceEvent";
 import Dice from "@/widgets/Dice";
 import { BsDice5Fill } from "react-icons/bs";
 import Images from "@/shared/assets/images";
-import { useTranslation } from "react-i18next";
 
 interface GameBoardProps {
   position: number;
@@ -55,12 +54,10 @@ const GameBoard: React.FC<GameBoardProps> = ({
       selectingTile={selectingTile}
       data-star={dataStar}
       data-dice={dataDice}
-      >
+    >
       {content}
     </Tile>
   );
-  
-  const { t } = useTranslation();
 
   return (
     <div className="grid grid-cols-6 grid-rows-6 gap-1 text-xs md:text-base">
@@ -160,7 +157,7 @@ const GameBoard: React.FC<GameBoardProps> = ({
             }`}
             disabled={buttonDisabled || diceCount < 1}
           >
-            {t("dice_event.roll_dice")}
+            Roll Dice
           </button>
         </div>
         <div className="flex flex-row text-white items-center justify-center gap-1 mt-6">
@@ -179,7 +176,7 @@ const GameBoard: React.FC<GameBoardProps> = ({
       {renderTile(17, <DiceTile count={2} />, "0", "2")}
       {renderTile(18, <AirplaneTile text="Anywhere" />, "0", "0")}
       {renderTile(19, <StarTile count={50} />, "50", "0")}
-      {renderTile(0, "Home", "200", "0")}
+      {renderTile(0, "Home", "0", "0")}
     </div>
   );
 };
