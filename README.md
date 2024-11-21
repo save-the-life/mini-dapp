@@ -25,11 +25,12 @@ Follow the steps below to install the project in your local environment:
    
    ```bash
     VITE_LIFF_ID=YOUR_LIFF_ID
+   ```
    
 
-     Your_LIFF_ID must be replaced with the LIFF ID issued by the LINE Developers console.
+   - Your_LIFF_ID must be replaced with the LIFF ID issued by the LINE Developers console.
   
-     The LIFF ID is essential for the LIFF application to operate normally.
+   - The LIFF ID is essential for the LIFF application to operate normally.
 
 4. Run development server:
    ```bash
