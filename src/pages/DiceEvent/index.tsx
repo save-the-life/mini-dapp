@@ -25,6 +25,7 @@ const DiceEventPage: React.FC = () => {
     position,
     monthlyPrize,
   } = useUserStore();
+  
   const game = useDiceGame();
   const [initialX, setInitialX] = useState<number>(140);
   const [initialY, setInitialY] = useState<number>(474);
@@ -102,12 +103,21 @@ const DiceEventPage: React.FC = () => {
     return <div>Error loading data: {error}</div>;
   }
 
+  // handleRPSGameEnd 함수 수정
+  const handleRPSGameEnd = (result: "win" | "lose", winnings: number) => {
+    console.log(`RPS Game Ended: ${result}, Winnings: ${winnings}`);
+    // 사용자 데이터 다시 가져오기
+    fetchUserData();
+    // useDiceGame의 handleRPSGameEnd 호출하여 상태 업데이트
+    game.handleRPSGameEnd(result, winnings);
+  };
+
   return (
     <div className="flex flex-col items-center relative w-full h-full overflow-x-hidden">
       {game.isRPSGameActive ? (
         <RPSGame
-          onGameEnd={game.handleRPSGameEnd}
-          onCancel={() => game.handleRPSGameEnd('lose', 0)}
+          onGameEnd={handleRPSGameEnd}
+          onCancel={() => handleRPSGameEnd("lose", 0)}
         />
       ) : game.isSpinGameActive ? (
         <SpinGame onSpinEnd={game.handleSpinGameEnd} />
@@ -117,7 +127,6 @@ const DiceEventPage: React.FC = () => {
             <UserLevel
               userLv={userLv}
               charactorImageSrc={charactorImageSrc}
-            
             />
             <MonthlyPrize
               month={monthlyPrize.month}
@@ -141,34 +150,35 @@ const DiceEventPage: React.FC = () => {
             handleMouseDown={game.handleMouseDown}
             handleMouseUp={game.handleMouseUp}
           />
-               {game.selectingTile && (
-            <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center z-20">
+          {game.selectingTile && (
+            <div className="absolute md:-top-40 -top-20 left-0 w-full h-full flex justify-center items-center z-20">
               <div className="absolute top-0 left-0 w-full h-full bg-black opacity-75"></div>
-              <div className="text-white text-lg z-30 flex flex-col items-center justify-center mb-96 md:mb-[442px]">
+              <div className="text-white text-lg z-30 flex flex-col items-center justify-center mb-96 md:mb-[442px] font-semibold md:text-xl">
                 <img
                   src={Images.Airplane}
                   alt="airplane"
-                  className="h-20 md:h-24"
+                  className="h-20 md:h-28"
                 />
                 Select a tile to move
               </div>
             </div>
           )}
-           <Board
+          <Board
             position={position}
             charactorImageSrc={charactorImageSrc}
             initialX={initialX}
             initialY={initialY}
             delta={delta}
           />
-     
-          <Attendance />
+          <br />
           <MyRankingWidget />
+          <br />
+          <Attendance />
           <MissionWidget />
           <br /> <br /> <br />
           <br />
           <br />
-         
+
           <div className="hidden md:block md:mb-40"> &nbsp;</div>
         </>
       )}

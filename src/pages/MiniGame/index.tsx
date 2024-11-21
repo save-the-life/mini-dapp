@@ -1,16 +1,14 @@
 // MiniGame.tsx
 import React, { useState, useRef } from 'react';
+import { TopTitle } from '@/shared/components/ui';
 import './MiniGame.css';
 import { formatNumber } from '@/shared/utils/formatNumber';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Gauge, useGauge } from '@/features/DiceEvent';
-import { useNavigate } from 'react-router-dom';
 import Dice from '@/widgets/Dice';
-import { FaChevronLeft } from "react-icons/fa";
 import Images from '@/shared/assets/images';
 
 const MiniGame: React.FC = () => {
-  const navigate = useNavigate();
   const [diceCount, setDiceCount] = useState<number>(10);
   const [starPoints, setStarPoints] = useState<number>(10000);
   const [showDiceValue, setShowDiceValue] = useState<boolean>(false);
@@ -55,16 +53,8 @@ const MiniGame: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col mx-6 mb-44 text-white items-center min-h-screen">
-      <div className="flex items-center w-full mt-7 mb-8 relative">
-          {/* 뒤로가기 버튼 */}
-          <FaChevronLeft
-            className="text-xl cursor-pointer mr-10"
-            onClick={() => navigate(-1)}
-          />
-          <h1 className="text-xl font-bold flex-1 text-center">Precision Dice Roll Game</h1>
-          <div className="w-10"></div>
-      </div>
+    <div className="flex flex-col mx-6 mb-44 text-white items-center">
+      <TopTitle title="Precision Dice Roll Game" />
       <div className="mt-8 w-40 h-40 rounded-[40px] flex flex-col items-center justify-center bg-gradient-to-t from-[#2660f4] to-[#3937a3]">
         <div className="w-[154px] h-[156px] mt-[1px] rounded-[40px] aim-number-box flex items-center justify-center font-jalnan text-[96px]">
           <span className="pt-4">{rolledValue}</span>
@@ -104,7 +94,7 @@ const MiniGame: React.FC = () => {
           </AnimatePresence>
           <div className="bg-[#FACC15] rounded-full w-[110px] h-[110px] object-center absolute left-[5px] top-[5px] md:left-2 md:top-2 md:w-40 md:h-40"></div>
           <div className="flex flex-col w-full h-full items-center justify-center dice-container">
-            <Dice ref={diceRef} onRollComplete={handleRollComplete} />
+            {/* <Dice ref={diceRef} onRollComplete={handleRollComplete} /> */}
           </div>
           <p className="absolute text-white text-sm font-semibold drop-shadow bottom-6 right-5 z-20 md:bottom-11 md:right-9">
             x {diceCount}

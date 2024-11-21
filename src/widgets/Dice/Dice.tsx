@@ -1,66 +1,80 @@
-//src\widgets\Dice\Dice.tsx
+// src/widgets/Dice.tsx
 
 import React, { useState, forwardRef, useImperativeHandle } from "react";
 import { motion, useAnimation } from "framer-motion";
 import "./Dice.css";
-import Images from "@/shared/assets/images"; // 이미지 경로에 맞게 수정
+import Images from "@/shared/assets/images";
+import { rollDiceAPI } from "@/features/DiceEvent/api/rollDiceApi"; // 서버 API 가져오기
 
 interface DiceProps {
   onRollComplete?: (value: number) => void;
+  gaugeValue: number; // 서버에 전달할 게이지 값
 }
 
-const Dice = forwardRef(({ onRollComplete }: DiceProps, ref) => {
+const Dice = forwardRef(({ onRollComplete, gaugeValue }: DiceProps, ref) => {
   const controls = useAnimation();
   const [rotation, setRotation] = useState({ rotateX: -30, rotateY: 30 });
   const [faceOrder, setFaceOrder] = useState<number[]>([1, 2, 3, 4, 5, 6]);
-  const [frontFace, setFrontFace] = useState(1); // 앞면 상태값
+  const [isRolling, setIsRolling] = useState(false);
 
   useImperativeHandle(ref, () => ({
     roll: () => handleRoll(),
   }));
 
-  const handleRoll = () => {
-    const randomX = (Math.floor(Math.random() * 4) + 1) * 360;
-    const randomY = (Math.floor(Math.random() * 4) + 1) * 360;
+  const handleRoll = async () => {
+    if (isRolling) return; // 이미 굴리고 있다면 중복 실행 방지
 
-    const newFaceOrder = faceOrder.slice().sort(() => Math.random() - 0.5);
+    setIsRolling(true); // 굴리기 상태 설정
 
-    controls
-      .start({
-        y: [0, -100, 0],
-        rotateX: [
-          rotation.rotateX,
-          rotation.rotateX + randomX,
-          rotation.rotateX + randomX + 360,
-        ],
-        rotateY: [
-          rotation.rotateY,
-          rotation.rotateY + randomY,
-          rotation.rotateY + randomY + 360,
-        ],
-        transition: {
-          duration: 1,
-          ease: "linear",
-        },
-      })
-      .then(() => {
-        setRotation({
-          rotateX: (rotation.rotateX + randomX + 360) % 360,
-          rotateY: (rotation.rotateY + randomY + 360) % 360,
-        }); // 최종 회전 값 업데이트
-        const front = newFaceOrder[4];
+    try {
+      // 서버에 주사위 결과 요청
+      const data = await rollDiceAPI(gaugeValue);
+      const targetFace = data.diceResult; // 서버에서 받은 결과 값
 
-        setFrontFace(front); // 앞면 상태값 업데이트
-        if (onRollComplete) {
-          // onRollComplete(front); 
-          onRollComplete(5); // 콜백 함수 호출
-        }
-      });
+      // 임의 회전 애니메이션으로 시작
+      const randomX = (Math.floor(Math.random() * 4) + 1) * 360;
+      const randomY = (Math.floor(Math.random() * 4) + 1) * 360;
 
-    // 주사위가 공중에 떠있는 동안 숫자 변경
-    setTimeout(() => {
-      setFaceOrder(newFaceOrder);
-    }, 777); // 숫자 변경 시간 조정
+      controls
+        .start({
+          y: [0, -100, 0],
+          rotateX: [
+            rotation.rotateX,
+            rotation.rotateX + randomX,
+            rotation.rotateX + randomX + 360,
+          ],
+          rotateY: [
+            rotation.rotateY,
+            rotation.rotateY + randomY,
+            rotation.rotateY + randomY + 360,
+          ],
+          transition: {
+            duration: 1,
+            ease: "linear",
+          },
+        })
+        .then(() => {
+          setRotation({ rotateX: -30, rotateY: 30 }); // 최종 회전 값 초기화
+
+          // faceOrder 배열을 업데이트하여 targetFace를 윗면에 배치
+          const newFaceOrder = Array.from({ length: 6 }, (_, i) => i + 1).filter(
+            (face) => face !== targetFace
+          );
+          newFaceOrder.splice(4, 0, targetFace); // 윗면 위치에 targetFace 설정
+
+          setFaceOrder(newFaceOrder); // 새 faceOrder 설정
+
+          setIsRolling(false); // 굴리기 종료 상태로 설정
+
+          if (onRollComplete) {
+            onRollComplete(targetFace); // 최종 결과 콜백 호출
+          }
+        });
+    } catch (error) {
+      console.error("주사위 굴리기 오류:", error);
+      alert("주사위 굴리기에 실패했습니다. 다시 시도해주세요.");
+      setIsRolling(false);
+    }
   };
 
   const getFaceImage = (face: number) => {

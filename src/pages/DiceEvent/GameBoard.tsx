@@ -1,3 +1,5 @@
+//src\pages\DiceEvent\GameBoard.tsx
+
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Tile from "./tile";
@@ -5,6 +7,7 @@ import { StarTile, DiceTile, AirplaneTile, Gauge } from "@/features/DiceEvent";
 import Dice from "@/widgets/Dice";
 import { BsDice5Fill } from "react-icons/bs";
 import Images from "@/shared/assets/images";
+import { useTranslation } from "react-i18next";
 
 interface GameBoardProps {
   position: number;
@@ -52,16 +55,18 @@ const GameBoard: React.FC<GameBoardProps> = ({
       selectingTile={selectingTile}
       data-star={dataStar}
       data-dice={dataDice}
-    >
+      >
       {content}
     </Tile>
   );
+  
+  const { t } = useTranslation();
 
   return (
     <div className="grid grid-cols-6 grid-rows-6 gap-1 text-xs md:text-base">
       {renderTile(10, <img src={Images.DesertIsland} className="z-0 w-[41px] h-[41px]" />, "0", "0")}
       {renderTile(9, <StarTile count={100} />, "100", "0")}
-      {renderTile(8, <AirplaneTile text="Go Game" />, "0", "0")}
+      {renderTile(8, <AirplaneTile text="Battle" />, "0", "0")}
       {renderTile(7, <DiceTile count={1} />, "0", "1")}
       {renderTile(6, <StarTile count={30} />, "30", "0")}
       {renderTile(5, <img src={Images.RPSImage} className="z-0 w-[51px] h-[51px]" />, "0", "0")}
@@ -132,7 +137,13 @@ const GameBoard: React.FC<GameBoardProps> = ({
           </AnimatePresence>
           <div className="bg-[#FACC15] rounded-full w-[110px] h-[110px] object-center absolute left-[5px] top-[5px] md:left-2 md:top-2 md:w-40 md:h-40"></div>
           <div className="flex flex-col w-full h-full items-center justify-center dice-container">
-            <Dice ref={diceRef} onRollComplete={handleRollComplete} />
+          <Dice
+        ref={diceRef}
+        onRollComplete={handleRollComplete}
+        gaugeValue={gaugeValue}  // gaugeValue 전달
+      
+      />
+
           </div>
           <p className="absolute text-white text-sm font-semibold drop-shadow bottom-6 right-5 z-20 md:bottom-11 md:right-9">
             x {diceCount}
@@ -149,7 +160,7 @@ const GameBoard: React.FC<GameBoardProps> = ({
             }`}
             disabled={buttonDisabled || diceCount < 1}
           >
-            Roll Dice
+            {t("dice_event.roll_dice")}
           </button>
         </div>
         <div className="flex flex-row text-white items-center justify-center gap-1 mt-6">
@@ -159,8 +170,8 @@ const GameBoard: React.FC<GameBoardProps> = ({
       {renderTile(4, <StarTile count={30} />, "30", "0")}
       {renderTile(12, <DiceTile count={1} />, "0", "1")}
       {renderTile(3, <DiceTile count={1} />, "0", "1")}
-      {renderTile(13, <AirplaneTile text="Go Home" />, "0", "0")}
-      {renderTile(2, <AirplaneTile text="Go Spin" />, "0", "0")}
+      {renderTile(13, <AirplaneTile text="Home" />, "0", "0")}
+      {renderTile(2, <AirplaneTile text="Spin" />, "0", "0")}
       {renderTile(14, <StarTile count={50} />, "50", "0")}
       {renderTile(1, <StarTile count={30} />, "30", "0")}
       {renderTile(15, <img src={Images.SpinImage} className="z-0 w-[41px] h-[41px]" />, "0", "0")}
