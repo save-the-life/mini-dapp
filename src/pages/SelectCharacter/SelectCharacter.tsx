@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Images from '@/shared/assets/images';
+import { useTranslation } from "react-i18next";
 
 interface SelectCharacterProps {
   selectedPet: 'DOG' | 'CAT';
@@ -9,6 +10,7 @@ interface SelectCharacterProps {
 }
 
 const SelectCharacter: React.FC<SelectCharacterProps> = ({ selectedPet, setSelectedPet }) => {
+  const { t } = useTranslation();
   React.useEffect(() => {
     console.log('Step 5-0: SelectCharacter 컴포넌트 마운트됨.');
     return () => {
@@ -26,7 +28,7 @@ const SelectCharacter: React.FC<SelectCharacterProps> = ({ selectedPet, setSelec
       <h2 className="font-semibold text-xl text-center mt-32">
         Save the Life!
         <br />
-        Choose your character!
+        {t("character_page.Choose_your_character!")}
       </h2>
       <div className="flex flex-row mt-14 gap-3">
         <div

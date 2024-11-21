@@ -6,9 +6,11 @@ import Images from '@/shared/assets/images';
 import { FaChevronLeft } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import { BiCopy } from 'react-icons/bi';
+import { useTranslation } from "react-i18next";
 
 const InviteFriends: React.FC = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [copySuccess, setCopySuccess] = useState<string>('');
 
   const referralLink = 'https://pwa-slapp-13cs.vercel.app/telegramideded';
@@ -31,10 +33,10 @@ const InviteFriends: React.FC = () => {
             className="text-xl cursor-pointer"
             onClick={() => navigate(-1)}
           />
-          <h1 className="text-xl font-bold flex-1 text-center">Invite Friend</h1>
+          <h1 className="text-xl font-bold flex-1 text-center">{t("mission_page.Invite_Friend")}</h1>
           <div className="w-6"></div>
         </div>
-      <p>Referral Code</p>
+      <p>{t("mission_page.Referral_Code")}</p>
       <button
         className="flex flex-row gap-2 items-center border border-white rounded-full w-56 md:w-80 h-16 justify-center mt-2 px-4"
         onClick={copyToClipboard}
@@ -58,17 +60,17 @@ const InviteFriends: React.FC = () => {
           </div>
         </div>
         <p className="text-sm ">
-          You can receive an{' '}
-          <span className="text-2xl font-semibold">additional 10%</span> <br />
-          of your invited friend's reward.
+          {t("mission_page.You_can_receive_an")}{' '}
+          <span className="text-2xl font-semibold">{t("mission_page.additional_10%")}</span> <br />
+          {t("mission_page.of_your_invited_friend's_reward.")}
         </p>
         <button className="h-14 w-[302px] rounded-full bg-[#21212f]">
-          Invite Friends and Get Reward
+          {t("mission_page.Invite_Friends_and_Get_Reward")}
         </button>
       </div>
       <div className="flex flex-col mt-8 w-full gap-3">
         <div className="flex flex-row justify-between items-center mb-[6px]">
-          <p className="text-lg font-medium">Invited Friends</p>
+          <p className="text-lg font-medium">{t("mission_page.Invited_Friends")}</p>
           <div className="flex items-center justify-center text-sm font-medium w-[72px] h-8 rounded-full bg-[#21212f]">
             total : 3
           </div>

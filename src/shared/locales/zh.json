@@ -1,5 +1,6 @@
 {
     "Error": "錯誤",
+    "OK": "确认 ",
     "character_page": {
       "Choose_your_character!": "選擇您的角色！",
       "Continue": "繼續"
@@ -8,10 +9,12 @@
       "AI_based_examination_for_pets": "基於AI的寵物牙齒分析",
       "AI_based_dental_X_ray_analysis": "基於AI的牙科X光分析",
       "Viewing_Records": "查看結果",
+      "10SL_tokens": "10SL令牌用於運行AI診斷。",
       "Select_Pet": "選擇寵物",
       "Add_Profile": "添加檔案",
       "Register_Pet": "註冊寵物",
       "Please_enter_name": "請輸入名字。",
+      "Registering...": "正在注册...",
       "Done": "完成",
       "Failed_to_register_pet._Please_try_again": "註冊寵物失敗，請重試。",
       "Please_provide_both_pet_name_and_image": "請提供寵物的名字和圖片。",
@@ -37,6 +40,9 @@
       "Please_upload_an_image_before_analysis.": "請在分析前上傳圖像。",
       "An_error_occurred:_selected_menu_is_not_set.": "發生錯誤：選定的菜單未設置。",
       "Please_analyze_the_image_before_saving.": "請先分析圖像後再保存。",
+      "Failed_to_save_result._Please_try_again.": "无法保存结果。 请再试一次。",
+      "Please_upload_actual_photo": "请上传宠物牙齿的实际照片。\n因为是测试模式，所以性能可能不是最佳模式。",
+      "Please_upload_x_ray_image": "请上传宠物牙齿的X光照片。关于我们性能可能是次优的，因为这是在β测试模式。",
       "reuslts": {
         "Gingivitis_&_Plaque": "牙齦炎和牙菌斑",
         "Periodontitis": "牙周炎",
@@ -63,6 +69,7 @@
       "Records": "診斷記錄"
     },
     "rank_page": {
+      "Ranking": "排名",
       "My_Rank": "我的排名",
       "*_Rankings_are_based_on_Star_Points": "排名基於星點數。",
       "Leader_Board": "排行榜",
@@ -94,6 +101,8 @@
       "Daily Mission": "每日任務",
       "Dice_roll_game": "擲骰子遊戲",
       "Invite_friends": "邀請朋友",
+      "Earn_various_rewards": "获得各种奖励，",
+      "such_as_dice,_points,_SL_coins": "如骰子，积分，SL硬币。",
       "Copied_to_clipboard!": "已複製到剪貼板！",
       "Failed_to_copy!": "複製失敗！",
       "Invite_Friend": "邀請朋友",

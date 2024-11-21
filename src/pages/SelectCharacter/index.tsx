@@ -2,12 +2,13 @@ import React from 'react';
 import SelectCharacter from './SelectCharacter';
 import chooseCharacter from '@/entities/User/api/chooseCharacter';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from "react-i18next";
 
 const SelectCharacterPage: React.FC = () => {
+  const navigate = useNavigate();
+  const { t } = useTranslation();
   const [selectedPet, setSelectedPet] = React.useState<'DOG' | 'CAT'>('DOG');
   
-  const navigate = useNavigate();
-
   const handleCharacterSelect = async () => {
     try{
       const response = await chooseCharacter(selectedPet);
@@ -33,7 +34,7 @@ const SelectCharacterPage: React.FC = () => {
             disabled={!selectedPet}
             onClick={handleCharacterSelect}
             >
-            Continue
+            {t("character_page.Continue")}
           </button>
         </div>
     </div>

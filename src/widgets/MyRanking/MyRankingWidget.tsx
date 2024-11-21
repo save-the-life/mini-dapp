@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Images from '@/shared/assets/images';
-import { formatNumber } from '@/shared/utils/formatNumber';
 import { useNavigate } from 'react-router-dom';
 import { useNavigationStore } from '@/shared/store/navigationStore';
 import getLeaderBoard from '@/entities/User/api/getLeaderBoard';
+import { useTranslation } from "react-i18next";
 
 const MyRankingWidget: React.FC = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const setSelected = useNavigationStore((state) => state.setSelected);
   const [myRank, setMyRank] = useState({
     rank: 0,
@@ -38,10 +39,10 @@ const MyRankingWidget: React.FC = () => {
       className=" flex flex-col items-center justify-center text-white cursor-pointer "
       onClick={handleRankingClick}
     >
-      <h1 className="font-jalnan text-3xl">Ranking</h1>
+      <h1 className="font-jalnan text-3xl">{t("rank_page.Ranking")}</h1>
       <div className="bg-box mt-4  px-8 md:w-[595.95px] w-[332px] h-24 md:h-32 flex">
         <div className="w-[121px] h-full flex flex-col items-center justify-center gap-2">
-          <p className="text-base font-semibold">My Rank</p>
+          <p className="text-base font-semibold">{t("rank_page.My_Rank")}</p>
           <p className="text-2xl text-[#fde047] font-jalnan">
             {myRank.rank}
           </p>
@@ -73,7 +74,7 @@ const MyRankingWidget: React.FC = () => {
         </div>
       </div>
       <p className=" flex items-start justify-start w-full font-medium text-xs md:text-sm mt-2 px-2   ">
-        * Rankings are based on Star Points
+        {t("rank_page.*_Rankings_are_based_on_Star_Points")}
       </p>
     </div>
   );

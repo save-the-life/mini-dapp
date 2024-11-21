@@ -3,12 +3,14 @@ import { FaPen, FaPaw, FaChevronLeft } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import registerPet from '@/entities/Pet/api/registPet';
+import { useTranslation } from "react-i18next";
 
 const PetRegister: React.FC = () => {
+    const navigate = useNavigate();
+    const { t } = useTranslation();
     const [petImage, setPetImage] = useState<File | null>(null);
     const [petName, setPetName] = useState('');
     const [imageUrl, setImageUrl] = useState<string | null>(null);
-    const navigate = useNavigate();
 
     // useMutation 훅 사용
     const { mutate: registerPetMutate, isPending } = useMutation({
@@ -51,14 +53,14 @@ const PetRegister: React.FC = () => {
     };
 
     return (
-    <div className="flex flex-col items-center text-white mx-6 md:mx-28 max-w-screen-xl relative min-h-screen pb-20">
+    <div className="flex flex-col items-center text-white w-full mr-20 max-w-screen-xl relative min-h-screen pb-20">
         <div className="flex items-center w-full mt-7 mb-8 relative">
             {/* 뒤로가기 버튼 */}
             <FaChevronLeft
                 className="text-xl cursor-pointer"
                 onClick={() => navigate(-1)}
             />
-           <h1 className="text-xl font-bold flex-1 text-center">Register Pet</h1>
+           <h1 className="text-xl font-bold flex-1 text-center">{t("ai_page.Register_Pet")}</h1>
            <div className="w-6"></div>
         </div>
 
@@ -91,7 +93,7 @@ const PetRegister: React.FC = () => {
         <div className="mt-16 w-11/12 max-w-md">
             <input
                 type="text"
-                placeholder="Please enter name"
+                placeholder={t("ai_page.Please_enter_name")}
                 value={petName}
                 onChange={(e) => setPetName(e.target.value)}
                 className="w-full p-4 rounded-md mb-4 bg-gray-900 text-white border border-[#35383F] focus:outline-none"
@@ -109,7 +111,7 @@ const PetRegister: React.FC = () => {
                 onClick={registerBtn}
                 disabled={!petName || !petImage || isPending}
             >
-                {isPending ? 'Registering...' : 'Done'}
+                {isPending ? t("ai_page.Registering...") : t("ai_page.Done")}
             </button>
         </div>
     </div>

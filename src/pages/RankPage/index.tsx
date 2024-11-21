@@ -5,6 +5,7 @@ import './RankPage.css';
 import Images from '@/shared/assets/images';
 import getLeaderBoard from '@/entities/User/api/getLeaderBoard';
 import getRanking from '@/entities/User/api/getRanking';
+import { useTranslation } from "react-i18next";
 
 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 interface Leader {
@@ -13,6 +14,7 @@ interface Leader {
 }
 
 const RankPage: React.FC = () => {
+  const { t } = useTranslation();
   const [leaderBoard, setLeaderBoard] = useState<Leader[]>([]);
   const [page, setPage] = useState(0); // 현재 페이지 번호
   const [hasMore, setHasMore] = useState(true); // 더 불러올 데이터가 있는지 여부
@@ -55,7 +57,7 @@ const RankPage: React.FC = () => {
       <TopTitle title="Rankings" />
       <MyRankingWidget />
       <div className=" mt-7 flex flex-col items-center">
-        <h1 className="font-jalnan text-3xl mb-4">Leader Board</h1>
+        <h1 className="font-jalnan text-3xl mb-4">{t("rank_page.Leader_Board")}</h1>
         {/**1~3등 컴포넌트 */}
         <div className="flex flex-col gap-3 md:w-[595.95px] w-[332px] justify-center items-center">
           <div className=" h-16 w-full rounded-3xl first-to-third-pace-box flex flex-row items-center justify-around">
@@ -78,12 +80,12 @@ const RankPage: React.FC = () => {
 
         <button className=" border rounded-full mt-6 flex items-center justify-center w-[66px] h-7 font-medium text-xs mb-8">
           {' '}
-          View All
+          {t("asset_page.View_All")}
         </button>
       </div>
       <div className="flex flex-col items-center justify-center  gap-4">
         <h1 className="font-jalnan text-3xl mb-4 w-full text-center">
-          {monthNames[thisMonth.month - 1]}  Campaign Prize
+          {t(`rank_page.month.${monthNames[thisMonth.month - 1]}`)} {t("rank_page.Campaign_Prize")}
         </h1>
         <div className=" md:w-[595.95px] w-[332px]  h-60 bg-[#2E3364B2] flex flex-col rounded-3xl  items-center justify-center gap-3 border-2 border-[#3937A3]">
           <img
@@ -96,7 +98,7 @@ const RankPage: React.FC = () => {
       </div>
       <div className="flex flex-col items-center justify-center  gap-4 mt-10">
         <h1 className="font-jalnan text-3xl mb-4 w-full text-center">
-          {monthNames[nextMonth.month - 1]} Campaign Prize
+          {t(`rank_page.month.${monthNames[nextMonth.month - 1]}`)} {t("rank_page.Campaign_Prize")}
         </h1>
         <div className=" md:w-[595.95px] w-[332px]  h-60 bg-[#2E3364B2] flex flex-col rounded-3xl  items-center justify-center gap-3 border-2 border-[#3937A3]">
           <img

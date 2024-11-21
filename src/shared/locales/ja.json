@@ -1,5 +1,6 @@
 {
     "Error": "エラー",
+    "OK": "確認",
     "character_page": {
         "Choose_your_character!": "キャラクターを選択してください！",
         "Continue": "続行"
@@ -8,10 +9,12 @@
         "AI_based_examination_for_pets": "ペットのAI歯科検査",
         "AI_based_dental_X_ray_analysis": "AIによる歯科X線分析",
         "Viewing_Records": "記録を見る",
+        "10SL_tokens": "10SL トークンは、AI 診断を実行するために消費されます。",
         "Select_Pet": "ペットを選択",
         "Add_Profile": "プロフィールを追加",
         "Register_Pet": "ペットを登録",
         "Please_enter_name": "名前を入力してください。",
+        "Registering...": "登録中...",
         "Done": "完了",
         "Failed_to_register_pet._Please_try_again": "ペットの登録に失敗しました。もう一度お試しください。",
         "Please_provide_both_pet_name_and_image": "ペットの名前と画像の両方を提供してください。",
@@ -37,6 +40,9 @@
         "Please_upload_an_image_before_analysis.": "分析前に画像をアップロードしてください。",
         "An_error_occurred:_selected_menu_is_not_set.": "エラーが発生しました: メニューが設定されていません。",
         "Please_analyze_the_image_before_saving.": "画像を分析した後に保存してください。",
+        "Failed_to_save_result._Please_try_again.": "結果を保存できませんでした。 もう一度実行します。",
+        "Please_upload_actual_photo": "ペットの歯の実際の写真のアップロードをお願いします。\nですこれはベータテストモードなので、パフォーマンスは最適ではない場合があります。",
+        "Please_upload_x_ray_image": "ペットの歯のX線画像のアップロードをお願いします。\nですこれはベータテストモードなので、パフォーマンスは最適ではない場合があります。",
         "reuslts": {
             "Gingivitis_&_Plaque": "歯肉炎と歯垢",
             "Periodontitis": "歯周炎",
@@ -63,6 +69,7 @@
         "Records": "診断リスト"
     },
     "rank_page": {
+        "Ranking": "ランキング",
         "My_Rank": "私のランク",
         "*_Rankings_are_based_on_Star_Points": "スター ポイントに基づいてランク付けされます。",
         "Leader_Board": "リーダーボード",
@@ -94,6 +101,8 @@
         "Daily Mission": "デイリーミッション",
         "Dice_roll_game": "サイコロゲーム",
         "Invite_friends": "友達を招待",
+        "Earn_various_rewards": "サイコロ、ポイント、SLコインなど",
+        "such_as_dice,_points,_SL_coins": "様々な報酬を獲得できます。",
         "Copied_to_clipboard!": "クリップボードにコピーされました！",
         "Failed_to_copy!": "コピーに失敗しました。",
         "Invite_Friend": "友達を招待",

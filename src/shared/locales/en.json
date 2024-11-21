@@ -1,5 +1,6 @@
 {
     "Error": "Error",
+    "OK": "OK",
     "character_page": {
       "Choose_your_character!": "Choose your character!",
       "Continue": "Continue"
@@ -8,10 +9,12 @@
       "AI_based_examination_for_pets": "AI-based examination for pets",
       "AI_based_dental_X_ray_analysis": "AI-based dental X-ray analysis",
       "Viewing_Records": "Viewing Records",
+      "10SL_tokens": "10SL tokens are consumed to run AI diagnostics.",
       "Select_Pet": "Select Pet",
       "Add_Profile": "Add Profile",
       "Register_Pet": "Register Pet",
       "Please_enter_name": "Please enter name.",
+      "Registering...": "Registering...",
       "Done": "Done",
       "Failed_to_register_pet._Please_try_again": "Failed to register pet. Please try again.",
       "Please_provide_both_pet_name_and_image": "Please provide both pet name and image.",
@@ -37,6 +40,9 @@
       "Please_upload_an_image_before_analysis.": "Please upload an image before analysis.",
       "An_error_occurred:_selected_menu_is_not_set.": "An error occurred: selected menu is not set.",
       "Please_analyze_the_image_before_saving.": "Please analyze the image before saving.",
+      "Failed_to_save_result._Please_try_again.": "Failed to save result. Please try again",
+      "Please_upload_actual_photo": "Please upload an actual photo of your pet's teeth.\nPerformance may be suboptimal as this is in beta test mode.",
+      "Please_upload_x_ray_image": "Please upload an X-ray image of your pet's teeth.\nPerformance may be suboptimal as this is in beta test mode.",
       "reuslts": {
         "Gingivitis_&_Plaque": "Gingivitis & Plaque",
         "Periodontitis": "Periodontitis",
@@ -63,6 +69,7 @@
       "Records": "Records"
     },
     "rank_page": {
+      "Ranking": "Ranking",
       "My_Rank": "My Rank",
       "*_Rankings_are_based_on_Star_Points": "* Rankings are based on Star Points.",
       "Leader_Board": "Leader Board",
@@ -94,6 +101,8 @@
       "Daily Mission": "Daily Mission",
       "Dice_roll_game": "Dice roll game",
       "Invite_friends": "Invite friends",
+      "Earn_various_rewards": "Earn various rewards",
+      "such_as_dice,_points,_SL_coins": "such as dice, points, SL coins",
       "Copied_to_clipboard!": "Copied to clipboard!",
       "Failed_to_copy!": "Failed to copy!",
       "Invite_Friend": "Invite Friend",

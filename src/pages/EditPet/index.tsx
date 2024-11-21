@@ -4,10 +4,12 @@ import { FaPen, FaPaw } from "react-icons/fa";
 import updatePetInfo from '@/entities/Pet/api/updatePetInfo'; // 반려동물 정보 업데이트 API 함수
 import deletePet from '@/entities/Pet/api/deletePetInfo';
 import { FaChevronLeft } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 const EditPet: React.FC = () => {
     const location = useLocation();
     const navigate = useNavigate();
+    const { t } = useTranslation();
     const petData = location.state as { id: string, name: string, imageUrl: string };
     
     const [petImage, setPetImage] = useState<File | null>(null);
@@ -85,7 +87,7 @@ const EditPet: React.FC = () => {
                     className="text-xl cursor-pointer"
                     onClick={() => navigate(-1)}
                 />
-                <h1 className="text-xl font-bold flex-1 text-center">Edit Pet</h1>
+                <h1 className="text-xl font-bold flex-1 text-center">{t("ai_page.Edit_Pet")}</h1>
                 <div className="w-6"></div>
             </div>
       
@@ -118,7 +120,7 @@ const EditPet: React.FC = () => {
             <div className="mt-16 w-11/12 max-w-md">
                 <input
                     type="text"
-                    placeholder="Please enter name"
+                    placeholder={t("ai_page.Please_enter_name")}
                     value={petName}
                     onChange={(e) => setPetName(e.target.value)}
                     className="w-full p-4 rounded-md mb-4 bg-gray-900 text-white border border-[#35383F] focus:outline-none"
@@ -132,14 +134,14 @@ const EditPet: React.FC = () => {
                     style={{ backgroundColor: "#0D1226", borderColor:"#DD2726" }}
                     onClick={deleteBtn}
                     >
-                    Delete
+                    {t("ai_page.Delete")}
                 </button>
                 <button
                     className="w-1/2 py-4 rounded-full text-lg font-semibold"
                     style={{ backgroundColor: "#0147E5" }}
                     onClick={editBtn}
                     >
-                    Done
+                    {t("ai_page.Done")}
                 </button>
             </div>
 
@@ -152,7 +154,7 @@ const EditPet: React.FC = () => {
                             className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg"
                             onClick={() => setShowModal(false)}
                             >
-                            OK
+                            {t("OK")}
                         </button>
                     </div>
                 </div>

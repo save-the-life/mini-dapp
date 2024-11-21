@@ -5,10 +5,12 @@ import useMainPageStore from '@/shared/store/useMainPageStore';
 import { getPetList } from '@/entities/Pet/api/getPetList';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { Pet } from '@/entities/Pet/model/types';
+import { useTranslation } from "react-i18next";
 
 const SelectPet: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { t } = useTranslation();
   const { selectedMenu } = useMainPageStore();
   const queryClient = useQueryClient();
 
@@ -63,7 +65,7 @@ const SelectPet: React.FC = () => {
           className="text-xl cursor-pointer"
           onClick={() => navigate('/AI-menu')}
         />
-        <h1 className="text-xl font-bold flex-1 text-center">Select Pet</h1>
+        <h1 className="text-xl font-bold flex-1 text-center">{t("ai_page.Select_Pet")}</h1>
         <div className="w-6"></div>
       </div>
 
@@ -101,7 +103,7 @@ const SelectPet: React.FC = () => {
           >
             <button className="text-white text-5xl">+</button>
           </div>
-          <div className="mt-2 text-center font-semibold text-lg">Add Profile</div>
+          <div className="mt-2 text-center font-semibold text-lg">{t("ai_page.Add_Profile")}</div>
         </div>
       </div>
     </div>

@@ -4,6 +4,8 @@ import useMainPageStore from '@/shared/store/useMainPageStore';
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import { FaChevronRight } from 'react-icons/fa';
+import { useTranslation } from "react-i18next";
+
 
 interface AIMenuProps {
   title: string;
@@ -29,7 +31,7 @@ const AIMenus: React.FC<AIMenuProps> = ({
       >
       <img src={image} alt={alt} className="w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 object-contain" />
       <div className="flex flex-col items-center justify-center">
-        <p className="text-sm md:text-xl lg:text-2xl font-semibold text-center">{title}</p>
+        <p className="text-sm md:text-xl lg:text-2xl font-semibold text-center px-2">{title}</p>
       </div>
     </div>
   );
@@ -38,6 +40,7 @@ const AIMenus: React.FC<AIMenuProps> = ({
 
 const AIMenu: React.FC = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const setSelectedMenu = useMainPageStore((state) => state.setSelectedMenu);
   const [showModal, setShowModal] = useState(true);
 
@@ -67,21 +70,21 @@ const AIMenu: React.FC = () => {
 
       <div className="grid grid-cols-2 gap-3 mt-6">
         <AIMenus
-          title="AI-based examination for pets"
+          title={t("ai_page.AI_based_examination_for_pets")}
           image={Images.HomeTooth}
           alt="HomeTooth"
           className="follow-on-x-mission-card"
           onClick={() => handleMenuClick('ai-analysis')}
         />
         <AIMenus
-          title="AI-based dental X-ray analysis"
+          title={t("ai_page.AI_based_dental_X_ray_analysis")}
           image={Images.HomeXray}
           alt="HomeXray"
           className="join-telegram-mission-card"
           onClick={() => handleMenuClick('x-ray')}
         />
         <AIMenus
-          title="Viewing Records"
+          title={t("ai_page.Viewing_Records")}
           image={Images.HomeReport}
           alt="HomeReport"
           className="join-the-sl-discord-mission-card"
@@ -96,12 +99,12 @@ const AIMenu: React.FC = () => {
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
             <div className="bg-white text-black p-6 rounded-lg text-center">
-                <p>10SL tokens are consumed to run AI diagnostics.</p>
+                <p>{t("ai_page.10SL_tokens")}</p>
                 <button
                     className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg"
                     onClick={() => setShowModal(false)}
                     >
-                    OK
+                    {t("OK")}
                 </button>
             </div>
         </div>

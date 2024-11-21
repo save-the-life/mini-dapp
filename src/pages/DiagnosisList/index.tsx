@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { FaChevronLeft, FaChevronDown } from 'react-icons/fa';
 import getRecords from '@/entities/AI/api/getRecord';
 import getDiagnosisList from '@/entities/Pet/api/getDiagnosisList';
+import { useTranslation } from "react-i18next";
 
 const DiagnosisRecords: React.FC = () => {
     const [loading, setLoading] = useState(false);
@@ -12,6 +13,7 @@ const DiagnosisRecords: React.FC = () => {
 
     const location = useLocation();
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     const petData = location.state as { id: string };
     const [id] = useState<string>(petData?.id || '');
@@ -29,7 +31,7 @@ const DiagnosisRecords: React.FC = () => {
                 }
             } catch (error) {
                 console.error('Failed to fetch records:', error);
-                alert('Failed to load records. Please try again later.');
+                alert(t("ai_page.Failed_to_load_records._Please_try_again_later."));
             } finally {
                 setLoading(false); // 로딩 상태 비활성화
             }
@@ -48,7 +50,7 @@ const DiagnosisRecords: React.FC = () => {
                 }
             } catch (error) {
                 console.error('Failed to fetch filter options:', error);
-                alert('Failed to load filter options. Please try again later.');
+                alert(t("ai_page.Failed_to_load_filter_options._Please_try_again_later."));
             }
         };
 
@@ -71,7 +73,7 @@ const DiagnosisRecords: React.FC = () => {
                     }
                 } catch (error) {
                     console.error('Failed to fetch filtered records:', error);
-                    alert('Failed to load records. Please try again later.');
+                    alert(t("ai_page.Failed_to_load_records._Please_try_again_later."));
                 } finally {
                     setLoading(false); // 로딩 상태 비활성화
                 }
@@ -94,7 +96,7 @@ const DiagnosisRecords: React.FC = () => {
                     className="text-xl cursor-pointer"
                     onClick={() => navigate('/select-pet')}
                 />
-                <h1 className="text-xl font-bold flex-1 text-center">Records</h1>
+                <h1 className="text-xl font-bold flex-1 text-center">{t("ai_page.Records")}</h1>
                 <div className="w-6"></div>
             </div>
 
