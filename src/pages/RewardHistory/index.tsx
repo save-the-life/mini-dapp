@@ -31,7 +31,7 @@ const RewardHistory: React.FC = () => {
     });
 
     return (
-        <div className="flex flex-col text-white mb-32 mx-auto md:min-w-[600px] min-h-screen">
+        <div className="flex flex-col text-white mb-32 mx-6 min-h-screen">
             <div className="flex items-center w-full mt-3 mb-2 relative">
                 {/* 뒤로가기 버튼 */}
                 <FaChevronLeft
@@ -39,7 +39,7 @@ const RewardHistory: React.FC = () => {
                     onClick={() => navigate(-1)}
                 />
                 <h1 className="text-xl font-bold flex-grow text-center">Rewards History</h1>
-                <div className="w-6"></div>
+                <div className="w-5"></div>
             </div>
             
             {/* 필터링 버튼 */}

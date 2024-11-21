@@ -53,7 +53,7 @@ const MiniGame: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col mx-6 mb-44 text-white items-center">
+    <div className="flex flex-col mx-6 mb-44 text-white items-center min-h-screen">
       <TopTitle title="Precision Dice Roll Game" />
       <div className="mt-8 w-40 h-40 rounded-[40px] flex flex-col items-center justify-center bg-gradient-to-t from-[#2660f4] to-[#3937a3]">
         <div className="w-[154px] h-[156px] mt-[1px] rounded-[40px] aim-number-box flex items-center justify-center font-jalnan text-[96px]">

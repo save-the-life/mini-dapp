@@ -58,7 +58,7 @@ const SelectPet: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col items-center text-white  min-h-screen">
+    <div className="flex flex-col items-center text-white mx-6 min-h-screen">
       <div className="flex items-center w-full mt-7 mb-8 relative">
         {/* 뒤로가기 버튼 */}
         <FaChevronLeft
@@ -66,7 +66,7 @@ const SelectPet: React.FC = () => {
           onClick={() => navigate('/AI-menu')}
         />
         <h1 className="text-xl font-bold flex-1 text-center">{t("ai_page.Select_Pet")}</h1>
-        <div className="w-6"></div>
+        <div className="w-5"></div>
       </div>
 
       <div className="grid grid-cols-2 gap-6 mt-11 w-full max-w-md">

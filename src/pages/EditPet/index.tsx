@@ -80,7 +80,7 @@ const EditPet: React.FC = () => {
     };
 
     return (
-        <div className="flex flex-col items-center text-white mx-6 md:mx-28 max-w-screen-xl relative min-h-screen pb-20">
+        <div className="flex flex-col items-center text-white mx-6 relative min-h-screen pb-20">
             <div className="flex items-center w-full mt-7 mb-8 relative">
                 {/* 뒤로가기 버튼 */}
                 <FaChevronLeft
@@ -88,7 +88,7 @@ const EditPet: React.FC = () => {
                     onClick={() => navigate(-1)}
                 />
                 <h1 className="text-xl font-bold flex-1 text-center">{t("ai_page.Edit_Pet")}</h1>
-                <div className="w-6"></div>
+                <div className="w-5"></div>
             </div>
       
             {/* 반려동물 이미지 업로드 */}

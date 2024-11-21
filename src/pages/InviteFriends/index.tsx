@@ -26,7 +26,7 @@ const InviteFriends: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col mx-6 mb-44 text-white items-center md:mx-28 min-h-screen">
+    <div className="flex flex-col mx-6 mb-44 text-white items-center min-h-screen">
       <div className="flex items-center w-full mt-7 mb-8 relative">
           {/* 뒤로가기 버튼 */}
           <FaChevronLeft
@@ -34,7 +34,7 @@ const InviteFriends: React.FC = () => {
             onClick={() => navigate(-1)}
           />
           <h1 className="text-xl font-bold flex-1 text-center">{t("mission_page.Invite_Friend")}</h1>
-          <div className="w-6"></div>
+          <div className="w-5"></div>
         </div>
       <p>{t("mission_page.Referral_Code")}</p>
       <button

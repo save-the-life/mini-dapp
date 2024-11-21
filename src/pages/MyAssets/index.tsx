@@ -32,7 +32,7 @@ const MyAssets: React.FC = () => {
   ];
 
   return (  
-    <div className="flex flex-col items-center text-white ml-0 mr-6 px-4 w-full relative min-h-screen pb-32">
+    <div className="flex flex-col items-center text-white mx-6 relative min-h-screen pb-32">
         {/* 상단 사용자 정보 */}
         <div className="flex items-center justify-between w-full mt-6">
             <div className="flex items-center">

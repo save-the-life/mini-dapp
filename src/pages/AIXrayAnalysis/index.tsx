@@ -224,7 +224,7 @@ const AIXrayAnalysis: React.FC = () => {
           onClick={() => navigate(-1)}
         />
         <h1 className="text-xl font-bold flex-grow text-center">{getTitle()}</h1>
-        <div className="w-6"></div>
+        <div className="w-5"></div>
       </div>
   
       <div className="mt-6 w-full max-w-sm mx-auto rounded-md overflow-hidden p-2 flex flex-col items-center">

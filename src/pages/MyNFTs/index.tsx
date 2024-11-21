@@ -13,7 +13,7 @@ const MyNfts: React.FC = () => {
       ];
 
     return (
-        <div className="flex flex-col text-white mb-2  mx-6 md:min-w-[600px] min-h-screen">
+        <div className="flex flex-col text-white mb-2  mx-6 min-h-screen">
             <div className="flex items-center w-full mt-3 mb-8 relative">
                 {/* 뒤로가기 버튼 */}
                 <FaChevronLeft
@@ -21,7 +21,7 @@ const MyNfts: React.FC = () => {
                     onClick={() => navigate(-1)}
                 />
                 <h1 className="text-xl font-bold flex-grow text-center">My NFT Collection</h1>
-                <div className="w-6"></div>
+                <div className="w-5"></div>
             </div>
 
             {/* NFT 컬렉션 */}

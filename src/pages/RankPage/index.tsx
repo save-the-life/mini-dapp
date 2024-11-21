@@ -53,7 +53,7 @@ const RankPage: React.FC = () => {
   },[]);
 
   return (
-    <div className="flex flex-col text-white  mx-6 md:mx-28 mb-44 min-h-screen">
+    <div className="flex flex-col text-white mx-6 mb-44 min-h-screen">
       <TopTitle title="Rankings" />
       <MyRankingWidget />
       <div className=" mt-7 flex flex-col items-center">

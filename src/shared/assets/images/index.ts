@@ -50,6 +50,7 @@ import OneInchLogo from './1inch-logo.png';
 import BinanceLogo from './binance-logo.png';
 import BybitLogo from './bybit-logo.png';
 import HtxLogo from './htx-logo.png';
+import IcpLogo from './icp-logo.png';
 import KucoinLogo from './kucoin-logo.png';
 import MexcLogo from './mexc-logo.png';
 import OkxLogo from './okx-logo.png';
@@ -146,6 +147,7 @@ const Images = {
   BinanceLogo,
   BybitLogo,
   HtxLogo,
+  IcpLogo,
   KucoinLogo,
   MexcLogo,
   OkxLogo,

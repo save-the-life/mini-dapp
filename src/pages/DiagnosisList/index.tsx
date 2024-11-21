@@ -89,7 +89,7 @@ const DiagnosisRecords: React.FC = () => {
     };
 
     return (
-        <div className="flex flex-col items-center text-white md:mx-14 w-full min-h-screen">
+        <div className="flex flex-col items-center text-white mx-6 min-h-screen">
             <div className="flex items-center w-full mt-7 mb-8 relative">
                 {/* 뒤로가기 버튼 */}
                 <FaChevronLeft
@@ -97,7 +97,7 @@ const DiagnosisRecords: React.FC = () => {
                     onClick={() => navigate('/select-pet')}
                 />
                 <h1 className="text-xl font-bold flex-1 text-center">{t("ai_page.Records")}</h1>
-                <div className="w-6"></div>
+                <div className="w-5"></div>
             </div>
 
             {/* 필터링 버튼 */}
