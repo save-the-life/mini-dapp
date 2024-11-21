@@ -7,7 +7,7 @@ This is a React Vite project based on LIFF (LINE Front-end Framework). It is a w
 
 This project operates using a LIFF ID generated from the LINE Developers Console. LIFF is integrated with the LINE messaging platform and supports various interactions with users.
 
----
+
 
 
 ## Install
