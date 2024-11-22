@@ -89,6 +89,32 @@
             "Dec": "12월"
         }
     },
+    "wallet_page": {
+        "wallet": "지갑",
+        "wallet_section": "지갑 영역",
+        "wallet_notice": "기본 지갑을 설정하거나 새 지갑을 추가해주세요.",
+        "connect_new": "새 지갑 연결",
+        "set_default": "기본 지갑으로 설정",
+        "delete": "삭제",
+        "receive_reward": "보상을 받기 위해서는",
+        "add_wallet_address": "지갑 주소를 추가해야합니다.",
+        "wallet_question": "{{wallet}} 계정을 가지고 있습니까?",
+        "yes": "네, 계정이 있습니다.",
+        "create_account": "계정 생성",
+        "tip": "팁",
+        "find_wallet": "거래소 애플리케이션에서 지갑을 찾으세요.",
+        "open_exchange": "거래소 폼을 열고 입금 지갑 주소를 확인하세요.",
+        "copy_wallet": "지갑 주소를 복사하세요.",
+        "evm": "EVM ERC-20 지갑 주소를 복사하세요 (예: ETH ERC-20).",
+        "enter_address": "지갑 주소를 입력하세요.",
+        "receive_token": "토큰을 받으려면 USDT ERC-20 지갑 주소를 입력하세요.",
+        "next": "다음",
+        "deposit_address":"지갑 주소",
+        "connection_success_prefix": "내 지갑",
+        "connection_success_suffix": "이 성공적으로 연결되었습니다.",
+        "done": "완료",
+        "connected": "지갑 연결 완료!"
+    },
     "mission_page": {
         "Mission": "미션",
         "One_Time_Mission": "일회성 미션",
@@ -115,15 +141,17 @@
     },
     "asset_page": {
         "Shop_Unique_NFTs_Now!": "지금 특별한 NFT를 쇼핑하세요!",
-        "Start_collecting_rare_and": "희귀하고 독특한 디지털 자산",
-        "unique_digital_assets_today!": "수집을 시작하세요!",
+        "Start_collecting_rare_and": "희귀하고 독특한 ",
+        "unique_digital_assets_today!": "디지털 자산 수집을 시작하세요!",
         "My_NFT_Collection": "내 NFT 컬렉션",
         "View_All": "전체 보기",
         "Rewards_History": "보상 내역",
         "all_transaction": "모든 거래",
         "earned": "수입",
         "used": "지출",
-        "all_type": "모든 유형"
+        "all_type": "모든 유형",
+        "sl": "SL 토큰",
+        "point": "포인트"
     },
     "dice_evnet": {
         "Attendance": "출석",

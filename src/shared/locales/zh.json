@@ -89,6 +89,32 @@
         "Dec": "十二月"
       }
     },
+    "wallet_page": {
+      "wallet": "錢包",
+      "wallet_section": "錢包區域",
+      "wallet_notice": "請設定預設錢包或新增一個錢包。",
+      "connect_new": "連接新錢包",
+      "set_default": "設為預設錢包",
+      "delete": "刪除",
+      "receive_reward": "為了獲得獎勵，",
+      "add_wallet_address": "您需要新增錢包地址。",
+      "wallet_question": "您有 {{wallet}} 帳戶嗎？",
+      "yes": "是的，我有帳戶。",
+      "create_account": "建立新帳戶",
+      "tip": "提示",
+      "find_wallet": "在交易所應用程式中找到您的錢包地址。",
+      "open_exchange": "打開交易所表單並檢視存款錢包地址。",
+      "copy_wallet": "複製錢包地址。",
+      "evm": "請複製 EVM ERC-20 錢包地址 (例如：ETH ERC-20)。",
+      "enter_address": "請輸入錢包地址。",
+      "receive_token": "要接收代幣，請輸入您的 USDT ERC-20 錢包地址。",
+      "next": "下一步",
+      "deposit_address": "錢包地址",
+      "connection_success_prefix": "我的錢包",
+      "connection_success_suffix": "已成功連接。",
+      "done": "完成",
+      "connected": "錢包已成功連接！"
+    },
     "mission_page": {
       "Mission": "任務",
       "One_Time_Mission": "一次性任務",
@@ -123,7 +149,9 @@
       "all_transaction": "所有交易",
       "earned": "收入",
       "used": "支出",
-      "all_type": "所有類型"
+      "all_type": "所有類型",
+      "sl": "SL 代币",
+      "point": "点"
     },
     "dice_evnet": {
       "Attendance": "簽到",

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaChevronLeft, FaChevronDown } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 const RewardHistory: React.FC = () => {
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     // 더미 데이터
     const rewardHistory = [
@@ -38,7 +40,7 @@ const RewardHistory: React.FC = () => {
                     className="text-xl cursor-pointer"
                     onClick={() => navigate(-1)}
                 />
-                <h1 className="text-xl font-bold flex-grow text-center">Rewards History</h1>
+                <h1 className="text-xl font-bold flex-grow text-center">{t("asset_page.Rewards_History")}</h1>
                 <div className="w-5"></div>
             </div>
             
@@ -55,9 +57,9 @@ const RewardHistory: React.FC = () => {
                         value={transactionFilter}
                         onChange={(e) => setTransactionFilter(e.target.value)}
                         >
-                        <option value="all">All Transactions</option>
-                        <option value="earned">Earned</option>
-                        <option value="used">Used</option>
+                        <option value="all">{t("asset_page.all_transaction")}</option>
+                        <option value="earned">{t("asset_page.earned")}</option>
+                        <option value="used">{t("asset_page.used")}</option>
                     </select>
                     <FaChevronDown
                         className={`absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none ${
@@ -77,9 +79,9 @@ const RewardHistory: React.FC = () => {
                         value={typeFilter}
                         onChange={(e) => setTypeFilter(e.target.value)}
                     >
-                        <option value="all">All Types</option>
-                        <option value="SL">SL</option>
-                        <option value="P">P</option>
+                        <option value="all">{t("asset_page.all_type")}</option>
+                        <option value="SL">{t("asset_page.sl")}</option>
+                        <option value="P">{t("asset_page.point")}</option>
                     </select>
                     <FaChevronDown
                         className={`absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none ${

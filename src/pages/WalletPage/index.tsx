@@ -3,6 +3,7 @@ import { FaChevronLeft } from "react-icons/fa";
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { HiOutlineCheck } from 'react-icons/hi';
+import { useTranslation } from "react-i18next";
 import './WalletPage.css';
 
 interface TruncateMiddleProps {
@@ -35,6 +36,7 @@ const TruncateMiddle: React.FC<TruncateMiddleProps> = ({
 
 const WalletPage: React.FC = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <div className="flex flex-col text-white mb-32  mx-6 min-h-screen">
@@ -44,13 +46,13 @@ const WalletPage: React.FC = () => {
             className="text-xl cursor-pointer"
             onClick={() => navigate(-1)}
         />
-        <h1 className="text-xl font-bold flex-grow text-center">Wallet</h1>
+        <h1 className="text-xl font-bold flex-grow text-center">{t("wallet_page.wallet")}</h1>
         <div className="w-5"></div>
       </div>
       <div className=" mx-6 ">
-        <h2 className=" text-lg font-semibold">Wallet Selection</h2>
+        <h2 className=" text-lg font-semibold">{t("wallet_page.wallet_section")}</h2>
         <p className="text-[#a3a3a3] text-sm">
-          Please select a defualt wallet or add a new wallet.
+          {t("wallet_page.wallet_notice")}
         </p>
         <div className=" mt-12">
           <div className="h-[345px] space-y-2 overflow-y-hidden">
@@ -76,14 +78,14 @@ const WalletPage: React.FC = () => {
             <button 
               className="flex flex-row rounded-3xl  h-14 border-2 border-[#142964] box-border  w-full items-center justify-center "
               onClick={()=> navigate('/wallet-list')}>
-              Connect a new wallet
+              {t("wallet_page.connect_new")}
             </button>
             <div className="flex flex-row gap-3">
               <button className="bg-[#0147E5] rounded-3xl h-14 w-2/3">
-                Set as default wallet
+                {t("wallet_page.set_default")}
               </button>
               <button className="border-2 border-[#dd2726] text-[#dd2726] rounded-3xl h-14 w-1/3 box-border">
-                Delete
+                {t("wallet_page.delete")}
               </button>
             </div>
           </div>

@@ -1,9 +1,11 @@
 import React from 'react';
 import { FaChevronLeft } from "react-icons/fa";
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useTranslation } from "react-i18next";
 
 const MyNfts: React.FC = () => {
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     const nftCollection = [
         { id: 1, name: "Cool Cat #1", image: "https://via.placeholder.com/100" },
@@ -20,27 +22,28 @@ const MyNfts: React.FC = () => {
                     className="text-xl cursor-pointer"
                     onClick={() => navigate(-1)}
                 />
-                <h1 className="text-xl font-bold flex-grow text-center">My NFT Collection</h1>
+                <h1 className="text-xl font-bold flex-grow text-center">{t("asset_page.My_NFT_Collection")}</h1>
                 <div className="w-5"></div>
             </div>
 
             {/* NFT 컬렉션 */}
-            <div className="w-full">
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 mt-4 w-full max-w-[1200px] mx-auto px-4">
-                    {nftCollection.map((nft) => (
-                        <div
-                            key={nft.id}
-                            className="bg-[#1F1E27] border border-[#737373] p-2 rounded-xl flex flex-col items-center"
-                            >
+            <div className="grid grid-cols-2 gap-4 mt-4 w-full">
+                {nftCollection.map((nft) => (
+                    <div
+                        key={nft.id}
+                        className="bg-[#1F1E27] border border-[#737373] p-[10px] rounded-xl flex flex-col items-center"
+                        >
+                        {/* 비율을 유지하며 크기가 리니어하게 바뀌도록 설정 */}
+                        <div className="w-full aspect-[145/154] rounded-md mt-1 mx-1 overflow-hidden">
                             <img
-                                src={nft.image}
-                                alt={nft.name}
-                                className="w-28 h-28 rounded-md mt-1 mx-1"
+                            src={nft.image}
+                            alt={nft.name}
+                            className="w-full h-full object-cover"
                             />
-                            <p className="mt-2 font-bold">{nft.name}</p>
                         </div>
-                    ))}
-                </div>
+                        <p className="mt-2 font-bold">{nft.name}</p>
+                    </div>
+                ))}
             </div>
         </div>
     );

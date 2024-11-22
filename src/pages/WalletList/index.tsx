@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { HiX } from 'react-icons/hi';
 import { FaChevronLeft } from "react-icons/fa";
 import { AiFillQuestionCircle } from 'react-icons/ai';
+import { useTranslation } from "react-i18next";
 
 // SelectedWallet 인터페이스 정의
 interface SelectedWallet {
@@ -53,6 +54,7 @@ const TruncateMiddle: React.FC<TruncateMiddleProps> = ({
 
 const WalletPage: React.FC = () => {
     const navigate = useNavigate();
+    const { t } = useTranslation();
     const [open, setOpen] = useState(false);
     const [walletInputOpen, setWalletInputOpen] = useState(false);
     const [tipOpen, setTipOpen] = useState(false);
@@ -135,7 +137,7 @@ const WalletPage: React.FC = () => {
                     className="text-xl cursor-pointer"
                     onClick={() => navigate(-1)}
                 />
-                <h1 className="text-xl font-bold flex-grow text-center">Wallet</h1>
+                <h1 className="text-xl font-bold flex-grow text-center">{t("wallet_page.wallet")}</h1>
                 <div className="w-5"></div>
             </div>
 
@@ -155,7 +157,7 @@ const WalletPage: React.FC = () => {
                         <AlertDialogTitle className=" text-center font-bold text-xl">
                             <div className="flex flex-row items-center justify-between">
                                 <div> &nbsp;</div>
-                                <p>{selectedWallet.wallet} Wallet</p>
+                                <p>{selectedWallet.wallet} {t("wallet_page.wallet")}</p>
                                 <HiX className={'w-6 h-6 '} onClick={handleClose} />
                             </div>
                         </AlertDialogTitle>
@@ -168,12 +170,12 @@ const WalletPage: React.FC = () => {
                         </div>
                         <div className="text-center space-y-2">
                             <p className=" text-xl font-semibold">
-                                Do you have a {selectedWallet.wallet} account?
+                                {t("wallet_page.wallet_question", { wallet: selectedWallet.wallet })}
                             </p>
                             <p className=" text-[#a3a3a3]">
-                                To receive rewards,
+                                {t("wallet_page.receive_reward")}
                                 <br />
-                                you need to add your wallet address.
+                                {t("wallet_page.add_wallet_address")}
                             </p>
                         </div>
                         <div className="space-y-3 w-full">
@@ -181,10 +183,10 @@ const WalletPage: React.FC = () => {
                                 className=" w-full h-14 rounded-full bg-[#0147e5]"
                                 onClick={handleWalletInputOpen}
                                 >
-                                Yes, I have an account
+                                {t("wallet_page.yes")}
                             </button>
                             <button className=" w-full h-14 rounded-full bg-[#0D1226] border border-[#142964]">
-                                Create Account
+                                {t("wallet_page.create_account")}
                             </button>
                         </div>
                     </div>
@@ -197,7 +199,7 @@ const WalletPage: React.FC = () => {
                         <AlertDialogTitle className=" text-center font-bold text-xl">
                             <div className="flex flex-row items-center justify-between">
                                 <div> &nbsp;</div>
-                                <p>{selectedWallet.wallet} Wallet</p>
+                                <p>{selectedWallet.wallet} {t("wallet_page.wallet")}</p>
                                 <HiX className={'w-6 h-6 '} onClick={handleWalletInputClose} />
                             </div>
                         </AlertDialogTitle>
@@ -208,14 +210,14 @@ const WalletPage: React.FC = () => {
                             Balance {selectedWallet.wallet}
                         </p>
                         <p className=" text-[#a3a3a3]">
-                            To receive tokens,
+                            {t("wallet_page.receive_reward")}
                             <br />
-                            you need to add your wallet address.
+                            {t("wallet_page.add_wallet_address")}
                         </p>
                     </div>
                     <div>
                         <input
-                            placeholder="Deposit Address"
+                            placeholder={t("wallet_page.deposit_address")}
                             className=" w-full h-14 px-5 rounded-2xl bg-[#21212f] border-2 border-[#142964]"
                             onChange={(e) => setAddress(e.target.value)}
                         />
@@ -234,8 +236,8 @@ const WalletPage: React.FC = () => {
                             }`}
                             disabled={address === ''}
                             onClick={handleWalletConnectSuccessOpen}
-                        >
-                            Next
+                            >
+                            {t("wallet_page.next")}
                         </button>
                     </div>
                 </div>
@@ -248,7 +250,7 @@ const WalletPage: React.FC = () => {
                         <AlertDialogTitle className=" text-center font-bold text-xl">
                             <div className="flex flex-row items-center justify-between">
                                 <div> &nbsp;</div>
-                                <p>Tip</p>
+                                <p>{t("wallet_page.tip")}</p>
                                 <HiX className={'w-6 h-6 '} onClick={handleTipClose} />
                             </div>
                         </AlertDialogTitle>
@@ -257,28 +259,28 @@ const WalletPage: React.FC = () => {
                         <div className="space-y-1">
                             <div className="flex flex-row items-start text-xl font-semibold ">
                                 <p> 1. &nbsp;</p>
-                                <p>Find your wallet in the exchange application.</p>
+                                <p>{t("wallet_page.find_wallet")}</p>
                             </div>
                             <p className="text-[#a3a3a3] pl-4">
-                                Open the exchange form and check the deposit wallet.
+                            {t("wallet_page.open_exchange")}
                             </p>
                         </div>
                         <div className="space-y-1">
                             <div className="flex flex-row items-start text-xl font-semibold ">
                                 <p> 2.&nbsp;</p>
-                                <p>Copy your wallet address.</p>
+                                <p>{t("wallet_page.copy_wallet")}</p>
                             </div>
                             <p className="text-[#a3a3a3] pl-4">
-                                Copy your EVM ERC-20 wallet address (ex: ETH ERC-20)
+                            {t("wallet_page.evm")}
                             </p>
                         </div>
                         <div className="space-y-1">
                             <div className="flex flex-row items-start text-xl font-semibold ">
                                 <p> 3.&nbsp;</p>
-                                <p>Find your wallet in the exchange application.</p>
+                                <p>{t("wallet_page.enter_address")}</p>
                             </div>
                             <p className="text-[#a3a3a3] pl-4">
-                                To receive tokens, please enter your USDT ERC-20 wallet address.
+                                {t("wallet_page.receive_token")}
                             </p>
                         </div>
                     </div>
@@ -291,7 +293,7 @@ const WalletPage: React.FC = () => {
                         <AlertDialogTitle className=" text-center font-bold text-xl">
                             <div className="flex flex-row items-center justify-between">
                                 <div> &nbsp;</div>
-                                <p>ICP Wallet</p>
+                                <p>{selectedWallet.wallet} {t("wallet_page.wallet")}</p>
                                 <HiX
                                 className={'w-6 h-6 '}
                                 onClick={handleWalletConnectSuccessClose}
@@ -300,9 +302,9 @@ const WalletPage: React.FC = () => {
                         </AlertDialogTitle>
                     </AlertDialogHeader>
                     <div className=" flex flex-col items-center justify-center w-full h-full gap-3 pt-8">
-                        <p className=" text-xl font-semibold">Wallet Connected!</p>
+                        <p className=" text-xl font-semibold">{t("wallet_page.connected")}</p>
                         <p className="text-[#a3a3a3] text-center">
-                            My wallet(
+                            {t("wallet_page.connection_success_prefix")}(
                             <span className="text-white">
                                 <TruncateMiddle
                                 text={address}
@@ -310,13 +312,13 @@ const WalletPage: React.FC = () => {
                                 className="inline font-medium"
                                 />
                             </span>
-                            ) has been successfully connected.
+                            ){t("wallet_page.connection_success_suffix")}
                         </p>
                         <button
                             className="bg-[#0147e5] rounded-3xl  h-14 w-full font-medium mt-[200px]"
                             onClick={handleWalletConnectSuccessClose}
                             >
-                            Done
+                            {t("wallet_page.done")}
                         </button>
                     </div>
                 </AlertDialogContent>
@@ -324,7 +326,7 @@ const WalletPage: React.FC = () => {
 
             <div className=" mx-6 ">
                 <p className="text-sm text-[#0D1226]">
-                Please select a defualt wallet or add a new wallet.
+                    Please select a defualt wallet or add a new wallet.
                 </p>
             </div>
         </div>

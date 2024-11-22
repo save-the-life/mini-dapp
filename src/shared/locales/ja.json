@@ -89,6 +89,32 @@
             "Dec": "12月"
         }
     },
+    "wallet_page": {
+        "wallet": "ウォレット",
+        "wallet_section": "ウォレットセクション",
+        "wallet_notice": "デフォルトのウォレットを設定するか、新しいウォレットを追加してください。",
+        "connect_new": "新しいウォレットを接続",
+        "set_default": "デフォルトウォレットに設定",
+        "delete": "削除",
+        "receive_reward": "報酬を受け取るには、",
+        "add_wallet_address": "ウォレットアドレスを追加する必要があります。",
+        "wallet_question": "{{wallet}}アカウントをお持ちですか？",
+        "yes": "はい、アカウントがあります。",
+        "create_account": "アカウントを作成",
+        "tip": "ヒント",
+        "find_wallet": "取引所アプリでウォレットを見つけてください。",
+        "open_exchange": "取引所フォームを開き、入金用ウォレットアドレスを確認してください。",
+        "copy_wallet": "ウォレットアドレスをコピーしてください。",
+        "evm": "EVM ERC-20ウォレットアドレスをコピーしてください（例：ETH ERC-20）。",
+        "enter_address": "ウォレットアドレスを入力してください。",
+        "receive_token": "トークンを受け取るには、USDT ERC-20ウォレットアドレスを入力してください。",
+        "next": "次へ",
+        "deposit_address": "ウォレットアドレス",
+        "connection_success_prefix": "私のウォレット",
+        "connection_success_suffix": "が正常に接続されました。",
+        "done": "完了",
+        "connected": "ウォレット接続完了！"
+    },    
     "mission_page": {
         "Mission": "ミッション",
         "One_Time_Mission": "一回限りのミッション",
@@ -123,7 +149,9 @@
         "all_transaction": "すべての取引",
         "earned": "収入",
         "used": "支出",
-        "all_type": "すべてのタイプ"
+        "all_type": "すべてのタイプ",
+        "sl": "SL トークン",
+        "point": "ポイント"
     },
     "dice_event": {
         "Attendance": "出席",

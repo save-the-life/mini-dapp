@@ -4,9 +4,11 @@ import { BiWallet } from "react-icons/bi";
 import { FaChevronRight } from "react-icons/fa";
 import { IoSettingsOutline } from "react-icons/io5";
 import Images from '@/shared/assets/images';
+import { useTranslation } from "react-i18next";
 
 const MyAssets: React.FC = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   // 더미 데이터
   const userInfo = {
@@ -68,12 +70,12 @@ const MyAssets: React.FC = () => {
             }}>
             {/* 공지 텍스트 */}
             <div>
-                <h3 className="text-lg font-semibold">Shop Unique NFTs Now!</h3>
+                <h3 className="text-lg font-semibold">{t("asset_page.Shop_Unique_NFTs_Now!")}</h3>
                 <p className="text-sm text-gray-200">
-                Start collecting rare and 
+                {t("asset_page.Start_collecting_rare_and")}
                 </p>
                 <p className="text-sm text-gray-200">
-                unique digital assets today!
+                {t("asset_page.unique_digital_assets_today!")}
                 </p>
             </div>
             {/* 공지 이미지 */}
@@ -88,25 +90,28 @@ const MyAssets: React.FC = () => {
         {/* NFT 컬렉션 */}
         <div className="mt-10 w-full">
             <div className="flex justify-between items-center">
-                <h2 className="text-xl font-bold">My NFT Collection</h2>
+                <h2 className="text-xl font-bold">{t("asset_page.My_NFT_Collection")}</h2>
                 <button
                     className="flex items-center text-white text-sm"
                     onClick={() => navigate("/my-nfts")}
                 >
-                    View All <FaChevronRight className="ml-1 w-4 h-4" />
+                    {t("asset_page.View_All")} <FaChevronRight className="ml-1 w-4 h-4" />
                 </button>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 mt-4 w-full max-w-[1200px] mx-auto px-4">
+            <div className="grid grid-cols-2 gap-4 mt-4 w-full">
                 {nftCollection.map((nft) => (
                     <div
                         key={nft.id}
-                        className="bg-[#1F1E27] border border-[#737373] p-2 rounded-xl flex flex-col items-center"
+                        className="bg-[#1F1E27] border border-[#737373] p-[10px] rounded-xl flex flex-col items-center"
                         >
-                        <img
+                        {/* 비율을 유지하며 크기가 리니어하게 바뀌도록 설정 */}
+                        <div className="w-full aspect-[145/154] rounded-md mt-1 mx-1 overflow-hidden">
+                            <img
                             src={nft.image}
                             alt={nft.name}
-                            className="w-28 h-28 rounded-md mt-1 mx-1"
-                        />
+                            className="w-full h-full object-cover"
+                            />
+                        </div>
                         <p className="mt-2 font-bold">{nft.name}</p>
                     </div>
                 ))}
@@ -116,12 +121,12 @@ const MyAssets: React.FC = () => {
         {/* 보상 내역 */}
         <div className="mt-10 w-full">
             <div className="flex justify-between items-center">
-                <h2 className="text-xl font-bold">Rewards History</h2>
+                <h2 className="text-xl font-bold">{t("asset_page.Rewards_History")}</h2>
                 <button
                     className="flex items-center text-white text-sm"
                     onClick={() => navigate("/reward-history")}
                 >
-                    View All <FaChevronRight className="ml-1 w-4 h-4" />
+                    {t("asset_page.View_All")} <FaChevronRight className="ml-1 w-4 h-4" />
                 </button>
             </div>
             <div className="mt-4 bg-[#1F1E27] rounded-lg border border-[#35383F] p-4">

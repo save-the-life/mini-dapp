@@ -89,6 +89,32 @@
         "Dec": "Dec"
       }
     },
+    "wallet_page": {
+        "wallet": "Wallet",
+        "wallet_section": "Wallet Section",
+        "wallet_notice": "Please set a default wallet or add a new wallet.",
+        "connect_new": "Connect New Wallet",
+        "set_default": "Set as Default Wallet",
+        "delete": "Delete",
+        "receive_reward": "To receive rewards,",
+        "add_wallet_address": "you need to add a wallet address.",
+        "wallet_question": "Do you have a {{wallet}} account?",
+        "yes": "Yes, I have an account.",
+        "create_account": "Create Account",
+        "tip": "Tip",
+        "find_wallet": "Find your wallet in the exchange application.",
+        "open_exchange": "Open the exchange form and check the deposit wallet address.",
+        "copy_wallet": "Copy the wallet address.",
+        "evm": "Copy the EVM ERC-20 wallet address (e.g., ETH ERC-20).",
+        "enter_address": "Enter the wallet address.",
+        "receive_token": "To receive tokens, enter your USDT ERC-20 wallet address.",
+        "next": "Next",
+        "deposit_address": "Wallet Address",
+        "connection_success_prefix": "My wallet",
+        "connection_success_suffix": "has been successfully connected.",
+        "done": "Done",
+        "connected": "Wallet connected successfully!"
+    }, 
     "mission_page": {
       "Mission": "Mission",
       "One_Time_Mission": "One-Time Mission",
@@ -123,7 +149,9 @@
       "all_transaction": "All Transactions",
       "earned": "Earned",
       "used": "Used",
-      "all_type": "All Types"
+      "all_type": "All Types",
+      "sl": "SL Token",
+      "point": "Point"
     },
     "dice_evnet": {
       "Attendance": "Attendance",
