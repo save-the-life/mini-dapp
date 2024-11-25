@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { HiOutlineCheck } from 'react-icons/hi';
 import { useTranslation } from "react-i18next";
 import './WalletPage.css';
+import { Web3 } from '@kaiachain/web3js-ext';
 
 interface TruncateMiddleProps {
   text: string;
@@ -37,6 +38,10 @@ const TruncateMiddle: React.FC<TruncateMiddleProps> = ({
 const WalletPage: React.FC = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const [account, setAccount] = useState(null);
+
+  
+
 
   return (
     <div className="flex flex-col text-white mb-32  mx-6 min-h-screen">
@@ -55,7 +60,7 @@ const WalletPage: React.FC = () => {
           {t("wallet_page.wallet_notice")}
         </p>
         <div className=" mt-12">
-          <div className="h-[345px] space-y-2 overflow-y-hidden">
+          {/* <div className="h-[345px] space-y-2 overflow-y-hidden">
             <div className="flex flex-row rounded-2xl px-5 justify-between items-center h-16 border-2 bg-[#1f1e27] border-[#737373] box-border">
               <div className="flex flex-row items-center gap-3  ">
                 <img src={Images.IcpLogo} className="w-6 h-6" alt="ICP logo" />
@@ -72,7 +77,9 @@ const WalletPage: React.FC = () => {
                 Main <HiOutlineCheck className="w-4 h-4" />
               </button>
             </div>
-          </div>
+          </div> */}
+
+
           <div className="flex flex-col gap-3 font-medium">
             {' '}
             <button 

@@ -8,7 +8,7 @@ export const chooseCharacter = async(type: string): Promise<any> => {
     if(response.data.code === "OK"){
         return true;
     }else{
-
+        return false;
     }
 };
 
