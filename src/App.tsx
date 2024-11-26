@@ -80,6 +80,7 @@ const App:React.FC = () =>{
             console.log("name: ", profile.displayName);
             console.log("token: ", lineAccessToken);
 
+            navigate('mission');
             // try {
             //   // 사용자 인증 서버 요청
             //   const response = await userAuthenticationWithServer(

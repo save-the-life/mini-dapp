@@ -8,7 +8,7 @@ export const getLeaderBoard = async (): Promise<any> => {
     return response.data.data;
   } else {
     console.error('Unexpected response:', response);
-    throw new Error(response.data.message || 'Failed to fetch pet information');
+    throw new Error(response.data.message || 'Failed to fetch ranking information');
   }
 };
 

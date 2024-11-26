@@ -6,22 +6,25 @@ import {
   AlertDialogTitle,
 } from '@/shared/components/ui';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { HiX } from 'react-icons/hi';
 import { FaChevronLeft } from "react-icons/fa";
 import { AiFillQuestionCircle } from 'react-icons/ai';
 import { useTranslation } from "react-i18next";
+import registerWallet from '@/entities/Asset/api/registerWallet';
 
 // SelectedWallet 인터페이스 정의
 interface SelectedWallet {
   wallet: string;
   img: string;
+  network: string; 
 }
 
 // 버튼 컴포넌트에서 사용할 props 인터페이스 정의
 interface WalletCardProps {
   text: string;
   imgSrc: string;
+  network: string; 
 }
 
 interface TruncateMiddleProps {
@@ -52,37 +55,65 @@ const TruncateMiddle: React.FC<TruncateMiddleProps> = ({
   return <div className={`font-semibold ${className}`}>{truncatedText}</div>;
 };
 
-const WalletPage: React.FC = () => {
+const walletList: React.FC = () => {
     const navigate = useNavigate();
+    const location = useLocation();
     const { t } = useTranslation();
+
+    // 모든 네트워크와 등록된 네트워크 정의
+    const allNetworks = ['ICP', 'BINANCE', 'OKX', 'BYBIT', 'HTX', 'KUCOIN', 'MEXC'];
+    const registeredNetworks: string[] = location.state?.registeredNetworks || [];
+
+    // 등록되지 않은 네트워크 필터링
+    const availableNetworks = allNetworks.filter(
+        (network) => !registeredNetworks.includes(network)
+    );
+
     const [open, setOpen] = useState(false);
     const [walletInputOpen, setWalletInputOpen] = useState(false);
     const [tipOpen, setTipOpen] = useState(false);
     const [walletConnectSuccessOpen, setWalletConnectSuccessOpen] = useState(false);
     const [address, setAddress] = useState('');
     const [selectedWallet, setSelectedWallet] = useState<SelectedWallet>({
-        wallet: '', // 초기값을 null로 설정
+        wallet: '', // 초기값 설정
         img: '',
+        network: '',
     });
 
-    const handleOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
+    // 네트워크별 로고 이미지 목록
+    const Imagelist: Record<string, string> = {
+        ICP: Images.IcpLogo,
+        BINANCE: Images.BinanceLogo,
+        OKX: Images.OkxLogo,
+        BYBIT: Images.BybitLogo,
+        HTX: Images.HtxLogo,
+        KUCOIN: Images.KucoinLogo,
+        MEXC: Images.MexcLogo,
+    };    
+
+    // 네트워크 선택 핸들러
+    const handleOpen = (
+        event: React.MouseEvent<HTMLButtonElement>,
+        network: string
+    ) => {
         event.preventDefault();
         setOpen(true);
 
         const buttonElement = event.currentTarget;
-
-        // 버튼 내부의 텍스트와 이미지를 찾습니다.
         const textElement = buttonElement.querySelector('p');
         const imgElement = buttonElement.querySelector('img');
 
         if (textElement && imgElement) {
-            const buttonText = textElement.textContent ?? ''; // 대체 값 설정
-            const buttonImg = imgElement.getAttribute('src') ?? ''; // 이미지 경로 대체 값 설정
+            const buttonText = textElement.textContent ?? '';
+            const buttonImg = imgElement.getAttribute('src') ?? '';
 
-            // selectedWallet 상태를 업데이트합니다.
-            setSelectedWallet({ wallet: buttonText, img: buttonImg });
+            setSelectedWallet({
+                wallet: buttonText,
+                img: buttonImg,
+                network: network,
+            });
         } else {
-            console.log('Text or image element not found');
+            console.error('Text or image element not found');
         }
     };
 
@@ -117,16 +148,43 @@ const WalletPage: React.FC = () => {
         navigate('/wallet')
     };
 
-    const WalletCard: React.FC<WalletCardProps> = ({ text, imgSrc }) => {
+    // 네트워크 카드 목록
+    const WalletCard: React.FC<WalletCardProps> = ({
+        text,
+        imgSrc,
+        network,
+    }) => {
         return (
             <button
-                className="flex flex-row items-center gap-2 border-2 border-[#142964] h-16 rounded-3xl pl-5 mx-6 md:mx-28"
-                onClick={handleOpen}
-                >
-            <img src={imgSrc} className="w-6 h-6" alt={`${text} logo`} />
-            <p className="text-lg">{text}</p>
+                className="flex items-center gap-2 border-2 border-[#142964] h-16 rounded-3xl pl-5 md:mx-28"
+                onClick={(e) => handleOpen(e, network)}
+            >
+                <img src={imgSrc} className="w-6 h-6" alt={`${text} logo`} />
+                <p className="text-lg">{text}</p>
             </button>
         );
+    };
+      
+
+    const handleRegisterWallet = async () => {
+        if (selectedWallet.network && address) {
+            try {
+                const response = await registerWallet(
+                    selectedWallet.network,
+                    address
+                );
+
+                if (response) {
+                    handleWalletConnectSuccessOpen();
+                } else {
+                // API 에러 처리
+                }
+            } catch (error) {
+                // 네트워크 또는 기타 오류 처리
+            }
+        } else {
+          // 입력 오류 처리
+        }
     };
 
     return (
@@ -141,16 +199,19 @@ const WalletPage: React.FC = () => {
                 <div className="w-5"></div>
             </div>
 
+            {/* 필터링된 네트워크 표시 */}
             <div className="flex flex-col gap-3">
-                <WalletCard text="ICP" imgSrc={Images.IcpLogo} />
-                <WalletCard text="BINANCE" imgSrc={Images.BinanceLogo} />
-                <WalletCard text="OKX" imgSrc={Images.OkxLogo} />
-                <WalletCard text="BYBIT" imgSrc={Images.BybitLogo} />
-                <WalletCard text="HTX" imgSrc={Images.HtxLogo} />
-                <WalletCard text="KUCOIN" imgSrc={Images.KucoinLogo} />
-                <WalletCard text="MEXC" imgSrc={Images.MexcLogo} />
+                {availableNetworks.map((network) => (
+                    <WalletCard
+                        key={network}
+                        text={network}
+                        imgSrc={Imagelist[network]}
+                        network={network}
+                    />
+                    ))}
             </div>
 
+            {/* 1번 모달창 - 지갑 선택 */}
             <AlertDialog open={open}>
                 <AlertDialogContent className=" rounded-3xl bg-[#21212F] text-white border-none">
                     <AlertDialogHeader>
@@ -193,57 +254,61 @@ const WalletPage: React.FC = () => {
                 </AlertDialogContent>
             </AlertDialog>
 
+
+            {/* 2번 모달창 - 주소 입력 */}
             <AlertDialog open={walletInputOpen}>
                 <AlertDialogContent className=" rounded-3xl bg-[#21212F] text-white border-none">
-                <AlertDialogHeader>
-                        <AlertDialogTitle className=" text-center font-bold text-xl">
-                            <div className="flex flex-row items-center justify-between">
-                                <div> &nbsp;</div>
-                                <p>{selectedWallet.wallet} {t("wallet_page.wallet")}</p>
-                                <HiX className={'w-6 h-6 '} onClick={handleWalletInputClose} />
-                            </div>
-                        </AlertDialogTitle>
-                </AlertDialogHeader>
-                <div className=" flex flex-col items-center justify-center w-full h-full gap-10 pt-20">
-                    <div className="text-center space-y-2">
-                        <p className=" text-xl font-semibold">
-                            Balance {selectedWallet.wallet}
-                        </p>
-                        <p className=" text-[#a3a3a3]">
-                            {t("wallet_page.receive_reward")}
-                            <br />
-                            {t("wallet_page.add_wallet_address")}
-                        </p>
-                    </div>
-                    <div>
-                        <input
-                            placeholder={t("wallet_page.deposit_address")}
-                            className=" w-full h-14 px-5 rounded-2xl bg-[#21212f] border-2 border-[#142964]"
-                            onChange={(e) => setAddress(e.target.value)}
-                        />
-                    </div>
-                    <div className="flex flex-row w-full gap-3">
-                        <button
-                            className="flex items-center justify-center h-14 min-w-14 border-2 border-[#142964] rounded-2xl"
-                            onClick={handleTipOpen}
-                        >
-                            {' '}
-                            <AiFillQuestionCircle className="w-6 h-6" />
-                        </button>
-                        <button
-                            className={` w-full h-14 rounded-full bg-[#0147e5] ${
-                            address === '' ? 'opacity-40' : ''
-                            }`}
-                            disabled={address === ''}
-                            onClick={handleWalletConnectSuccessOpen}
+                    <AlertDialogHeader>
+                            <AlertDialogTitle className=" text-center font-bold text-xl">
+                                <div className="flex flex-row items-center justify-between">
+                                    <div> &nbsp;</div>
+                                    <p>{selectedWallet.wallet} {t("wallet_page.wallet")}</p>
+                                    <HiX className={'w-6 h-6 '} onClick={handleWalletInputClose} />
+                                </div>
+                            </AlertDialogTitle>
+                    </AlertDialogHeader>
+                    <div className=" flex flex-col items-center justify-center w-full h-full gap-10 pt-20">
+                        <div className="text-center space-y-2">
+                            <p className=" text-xl font-semibold">
+                                Balance {selectedWallet.wallet}
+                            </p>
+                            <p className=" text-[#a3a3a3]">
+                                {t("wallet_page.receive_reward")}
+                                <br />
+                                {t("wallet_page.add_wallet_address")}
+                            </p>
+                        </div>
+                        <div>
+                            <input
+                                placeholder={t("wallet_page.deposit_address")}
+                                className=" w-full h-14 px-5 rounded-2xl bg-[#21212f] border-2 border-[#142964]"
+                                onChange={(e) => setAddress(e.target.value)}
+                            />
+                        </div>
+                        <div className="flex flex-row w-full gap-3">
+                            <button
+                                className="flex items-center justify-center h-14 min-w-14 border-2 border-[#142964] rounded-2xl"
+                                onClick={handleTipOpen}
                             >
-                            {t("wallet_page.next")}
-                        </button>
+                                {' '}
+                                <AiFillQuestionCircle className="w-6 h-6" />
+                            </button>
+                            <button
+                                className={` w-full h-14 rounded-full bg-[#0147e5] ${
+                                address === '' ? 'opacity-40' : ''
+                                }`}
+                                disabled={address === ''}
+                                onClick={handleRegisterWallet}
+                                >
+                                {t("wallet_page.next")}
+                            </button>
+                        </div>
                     </div>
-                </div>
                 </AlertDialogContent>
             </AlertDialog>
 
+
+            {/* 3번 모달창 - 안내 사항 */}
             <AlertDialog open={tipOpen}>
                 <AlertDialogContent className=" rounded-3xl bg-[#21212F] text-white border-none">
                     <AlertDialogHeader>
@@ -287,6 +352,7 @@ const WalletPage: React.FC = () => {
                 </AlertDialogContent>
             </AlertDialog>
 
+            {/* 4번 모달창 - 완료 안내 */}
             <AlertDialog open={walletConnectSuccessOpen}>
                 <AlertDialogContent className=" rounded-3xl bg-[#21212F] text-white border-none">
                     <AlertDialogHeader>
@@ -295,9 +361,9 @@ const WalletPage: React.FC = () => {
                                 <div> &nbsp;</div>
                                 <p>{selectedWallet.wallet} {t("wallet_page.wallet")}</p>
                                 <HiX
-                                className={'w-6 h-6 '}
-                                onClick={handleWalletConnectSuccessClose}
-                                />
+                                    className={'w-6 h-6 '}
+                                    onClick={handleWalletConnectSuccessClose}
+                                    />
                             </div>
                         </AlertDialogTitle>
                     </AlertDialogHeader>
@@ -307,10 +373,10 @@ const WalletPage: React.FC = () => {
                             {t("wallet_page.connection_success_prefix")}(
                             <span className="text-white">
                                 <TruncateMiddle
-                                text={address}
-                                maxLength={20}
-                                className="inline font-medium"
-                                />
+                                    text={address}
+                                    maxLength={20}
+                                    className="inline font-medium"
+                                    />
                             </span>
                             ){t("wallet_page.connection_success_suffix")}
                         </p>
@@ -333,4 +399,4 @@ const WalletPage: React.FC = () => {
     );
 };
 
-export default WalletPage;
+export default walletList;
