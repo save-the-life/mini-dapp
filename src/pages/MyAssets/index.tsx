@@ -49,11 +49,13 @@ const MyAssets: React.FC = () => {
                 </div>
             </div>
             <div className="flex items-center gap-4">
+                {/* 지갑 페이지 이동 */}
                 <button 
                     className="w-8 h-8 rounded-full flex items-center justify-center"
                     onClick={()=>navigate('/wallet')}>
                     <BiWallet className="w-6 h-6" />
                 </button>
+                {/* 설정 페이지 이동 - 추후 수정 예정 */}
                 {/* <button 
                     className="w-8 h-8 rounded-full flex items-center justify-center"
                     onClick={()=>navigate('/')}>
@@ -62,13 +64,12 @@ const MyAssets: React.FC = () => {
             </div>
         </div>
 
-        {/* 공지 영역 */}
+        {/* NFT 상점 이동 영역 - 추후 수정 예정 */}
         <div 
             className="rounded-2xl p-4 mt-6 w-full flex items-center justify-between"
             style={{
                 background: "linear-gradient(to bottom, #19203CB2 0%, #304689 100%)",
             }}>
-            {/* 공지 텍스트 */}
             <div>
                 <h3 className="text-lg font-semibold">{t("asset_page.Shop_Unique_NFTs_Now!")}</h3>
                 <p className="text-sm text-gray-200">
@@ -78,7 +79,6 @@ const MyAssets: React.FC = () => {
                 {t("asset_page.unique_digital_assets_today!")}
                 </p>
             </div>
-            {/* 공지 이미지 */}
             <img
                 src={Images.cart}
                 alt="Shop NFTs"
@@ -87,7 +87,7 @@ const MyAssets: React.FC = () => {
         </div>
 
 
-        {/* NFT 컬렉션 */}
+        {/* 내 NFT 컬렉션 */}
         <div className="mt-10 w-full">
             <div className="flex justify-between items-center">
                 <h2 className="text-xl font-bold">{t("asset_page.My_NFT_Collection")}</h2>

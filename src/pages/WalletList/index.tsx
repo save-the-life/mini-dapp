@@ -61,7 +61,24 @@ const walletList: React.FC = () => {
     const { t } = useTranslation();
 
     // 모든 네트워크와 등록된 네트워크 정의
-    const allNetworks = ['ICP', 'BINANCE', 'OKX', 'BYBIT', 'HTX', 'KUCOIN', 'MEXC'];
+    const allNetworks = ['ICP', 'BINANCE', 'OKX', 'OKX_WALLET', 'BYBIT', 'HTX', 'KUCOIN', 'MEXC', 'TRUST_WALLET', 'ONE_INCH', 'BITGET', 'KRAKEN', 'GATE_IO'];
+    // 거래소의 표시 이름을 관리하는 객체
+    const DisplayNameList: Record<string, string> = {
+        ICP: 'ICP',
+        BINANCE: 'BINACE',
+        OKX: 'OKX',
+        OKX_WALLET: 'OKX WALLET',
+        BYBIT: 'BYBIT',
+        HTX: 'HTX',
+        KUCOIN: 'KUCOIN',
+        MEXC: 'MEXC',
+        TRUST_WALLET: 'TRUST WALLET',
+        ONE_INCH: '1INCH',
+        BITGET: 'BITGET',
+        KRAKEN: 'KRAKEN',
+        GATE_IO: 'GATE.IO',
+    };
+
     const registeredNetworks: string[] = location.state?.registeredNetworks || [];
 
     // 등록되지 않은 네트워크 필터링
@@ -85,11 +102,44 @@ const walletList: React.FC = () => {
         ICP: Images.IcpLogo,
         BINANCE: Images.BinanceLogo,
         OKX: Images.OkxLogo,
+        OKX_WALLET: Images.OkxLogo,
         BYBIT: Images.BybitLogo,
         HTX: Images.HtxLogo,
         KUCOIN: Images.KucoinLogo,
         MEXC: Images.MexcLogo,
-    };    
+        TRUST_WALLET: Images.TrustLogo,
+        ONE_INCH : Images.OneInchLogo,
+        BITGET: Images.bitget_logo,
+        KRAKEN: Images.kraken_logo,
+        GATE_IO: Images.gate_io_logo
+    };
+
+    // 거래소별 사이트 URL을 관리하는 객체
+    const ExchangeUrls: Record<string, string> = {
+        ICP: 'https://www.internetcomputer.org/',
+        BINANCE: 'https://www.binance.com/',
+        OKX: 'https://www.okx.com/',
+        OKX_WALLET: 'https://www.okx.com/wallet',
+        BYBIT: 'https://www.bybit.com/',
+        HTX: 'https://www.htx.com/',
+        KUCOIN: 'https://www.kucoin.com/',
+        MEXC: 'https://www.mexc.com/',
+        TRUST_WALLET: 'https://trustwallet.com/',
+        ONE_INCH: 'https://1inch.io/',
+        BITGET: 'https://www.bitget.com/',
+        KRAKEN: 'https://www.kraken.com/',
+        GATE_IO: 'https://www.gate.io/',
+    };
+
+    // 거래소별 사이트 URL이동 버튼 클릭 핸들러
+    const handleCreateAccount = () => {
+        const selectedExchangeUrl = ExchangeUrls[selectedWallet.network];
+        if (selectedExchangeUrl) {
+            window.open(selectedExchangeUrl, '_blank'); // 새 탭에서 열기
+        } else {
+            console.error('URL not found for the selected exchange');
+        }
+    };
 
     // 네트워크 선택 핸들러
     const handleOpen = (
@@ -204,11 +254,11 @@ const walletList: React.FC = () => {
                 {availableNetworks.map((network) => (
                     <WalletCard
                         key={network}
-                        text={network}
+                        text={DisplayNameList[network]} 
                         imgSrc={Imagelist[network]}
                         network={network}
                     />
-                    ))}
+                ))}
             </div>
 
             {/* 1번 모달창 - 지갑 선택 */}
@@ -240,13 +290,18 @@ const walletList: React.FC = () => {
                             </p>
                         </div>
                         <div className="space-y-3 w-full">
+                            {/* 지갑 주소 입력 모달창 열기 버튼 */}
                             <button
                                 className=" w-full h-14 rounded-full bg-[#0147e5]"
                                 onClick={handleWalletInputOpen}
                                 >
                                 {t("wallet_page.yes")}
                             </button>
-                            <button className=" w-full h-14 rounded-full bg-[#0D1226] border border-[#142964]">
+                            {/* 지갑 주소 생성 페이지로 이동 버튼 - 추후 수정 필요 */}
+                            <button 
+                                className=" w-full h-14 rounded-full bg-[#0D1226] border border-[#142964]"
+                                onClick={handleCreateAccount}
+                                >
                                 {t("wallet_page.create_account")}
                             </button>
                         </div>

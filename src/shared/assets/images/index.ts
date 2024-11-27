@@ -93,6 +93,9 @@ import BottomBarAI from "./bottomBarAI.png";
 import SeletedBottomBarAI from "./seletedBottomBarAI.png" 
 import cart from "./cart.png"
 import slToken from "./sl_token.png"
+import bitget_logo from "./bitget_logo.png"
+import kraken_logo from "./kraken_logo.png"
+import gate_io_logo from "./gate_io.png"
 
 const Images = {
   HorizontalLogo,
@@ -188,7 +191,10 @@ const Images = {
   BottomBarAI,
   SeletedBottomBarAI,
   cart,
-  slToken
+  slToken,
+  bitget_logo,
+  kraken_logo,
+  gate_io_logo
 };
 
 export default Images;

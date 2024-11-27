@@ -123,7 +123,7 @@ const WalletPage: React.FC = () => {
                   wallet.id === selectedWalletId ? 'border-[#0147e5] bg-[#2a2a3d]' : 'border-[#737373] bg-[#1f1e27]'
                 } cursor-pointer`}
                 onClick={() => setSelectedWalletId(wallet.id)}
-              >
+                >
                 <div className="flex flex-row items-center gap-3">
                   <img src={wallet.imgSrc} className="w-6 h-6" alt={`${wallet.network} logo`} />
                   <div className="flex flex-col text-sm">
@@ -131,6 +131,7 @@ const WalletPage: React.FC = () => {
                     <TruncateMiddle text={wallet.address} maxLength={20} />
                   </div>
                 </div>
+                {/* 기본 지갑 설정 시 main 표시 */}
                 {wallet.isDefault && (
                   <button className="flex flex-row gap-1 rounded-full bg-[#0147e5] h-7 w-16 items-center justify-center text-xs font-medium">
                     Main <HiOutlineCheck className="w-4 h-4" />
@@ -146,11 +147,11 @@ const WalletPage: React.FC = () => {
             <button 
               className="flex flex-row rounded-3xl h-14 border-2 border-[#142964] box-border w-full items-center justify-center"
               onClick={handleNavigateToWalletList}
-            >
+              >
               {t("wallet_page.connect_new")}
             </button>
             <div className="flex flex-row gap-3">
-              {/* 기본 지갑 설정 버튼 */}
+              {/* 기본 지갑 설정 버튼 - 추후 수정 필요*/}
               <button
                 className={`bg-[#0147E5] rounded-3xl h-14 w-2/3 ${
                   !selectedWallet || selectedWallet.isDefault ? 'opacity-50 cursor-not-allowed' : ''
@@ -160,7 +161,7 @@ const WalletPage: React.FC = () => {
                 >
                 {t("wallet_page.set_default")}
               </button>
-              {/* 지갑 삭제 버튼 */}
+              {/* 지갑 삭제 버튼 - 추후 수정 필요*/}
               <button
                 className={`border-2 border-[#dd2726] text-[#dd2726] rounded-3xl h-14 w-1/3 box-border ${
                   !selectedWallet ? 'opacity-50 cursor-not-allowed' : ''
