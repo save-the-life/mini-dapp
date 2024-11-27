@@ -78,9 +78,9 @@ const App:React.FC = () =>{
           if (lineAccessToken) {
             console.log("id: ", profile.userId);
             console.log("name: ", profile.displayName);
-            console.log("token: ", lineAccessToken);
+            console.log("line Access Token: ", lineAccessToken);
 
-            navigate('mission');
+            navigate('/mission');
             // try {
             //   // 사용자 인증 서버 요청
             //   const response = await userAuthenticationWithServer(

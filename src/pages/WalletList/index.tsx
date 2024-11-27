@@ -214,14 +214,15 @@ const walletList: React.FC = () => {
             </button>
         );
     };
-      
 
     const handleRegisterWallet = async () => {
         if (selectedWallet.network && address) {
             try {
+                const isMain = false;
                 const response = await registerWallet(
                     selectedWallet.network,
-                    address
+                    address,
+                    isMain
                 );
 
                 if (response) {
