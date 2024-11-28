@@ -9,7 +9,7 @@ export const userAuthenticationWithServer = async (lineAccessToken: string): Pro
             lineToken: lineAccessToken,
             channelId: '2006540121'
         }
-        const response = await api.post('/auth/login', lineData);
+        const response = await api.post('/auth/login/line', lineData);
 
         const { code, data } = response.data;
         const authorizationHeader = response.headers['authorization'];
