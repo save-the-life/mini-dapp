@@ -83,8 +83,8 @@ interface UserState {
   setError: (error: string | null) => void;
 
   // 인증 관련 함수들
-  login: (initData: string) => Promise<void>;
-  signup: (initData: string, petType: 'DOG' | 'CAT') => Promise<void>;
+  // login: (initData: string) => Promise<void>;
+  // signup: (initData: string, petType: 'DOG' | 'CAT') => Promise<void>;
   logout: () => void;
   refreshToken: () => Promise<boolean>;
 
@@ -256,77 +256,78 @@ export const useUserStore = create<UserState>((set, get) => ({
   },
   
 
-  // 로그인 함수
-  login: async (initData: string): Promise<void> => {
-    console.log('Step: login 시작, initData:', initData);
-    set({ isLoading: true, error: null });
-    try {
-      const response = await api.post('/auth/login', { initData });
+  // // 로그인 함수
+  // login: async (initData: string): Promise<void> => {
+  //   console.log('Step: login 시작, initData:', initData);
+  //   set({ isLoading: true, error: null });
+  //   try {
+  //     const response = await api.post('/auth/login', { initData });
 
-      if (response.data.code === 'OK') {
-        const { userId, accessToken, refreshToken } = response.data.data;
-        console.log('Step: login 성공, userId:', userId);
-        // 토큰 및 userId 저장
-        localStorage.setItem('accessToken', accessToken);
-        localStorage.setItem('refreshToken', refreshToken);
-        set({ userId });
+  //     if (response.data.code === 'OK') {
+  //       const { userId, accessToken, refreshToken } = response.data.data;
+  //       console.log('Step: login 성공, userId:', userId);
+  //       // 토큰 및 userId 저장
+  //       localStorage.setItem('accessToken', accessToken);
+  //       localStorage.setItem('refreshToken', refreshToken);
+  //       set({ userId });
 
-        // 사용자 데이터 가져오기
-        await get().fetchUserData();
-        set({ isLoading: false, error: null });
-      } else if (response.data.code === 'ENTITY_NOT_FOUND') {
-        console.warn('Step: login 응답 코드 ENTITY_NOT_FOUND:', response.data.message);
-        throw new Error(response.data.message || 'User not found');
-      } else {
-        console.warn('Step: login 응답 코드가 OK가 아님:', response.data.message);
-        throw new Error(response.data.message || 'Login failed');
-      }
-    } catch (error: any) {
-      console.error('Step: login 실패:', error);
-      let errorMessage = 'Login failed. Please try again.';
-      if (error.response) {
-        // 서버가 응답을 했지만, 상태 코드가 2xx가 아닌 경우
-        errorMessage = error.response.data.message || errorMessage;
-      } else if (error.request) {
-        // 요청이 이루어졌으나, 응답을 받지 못한 경우
-        errorMessage = 'No response from server. Please try again later.';
-      } else {
-        // 다른 에러
-        errorMessage = error.message;
-      }
-      set({ isLoading: false, error: errorMessage });
-      throw new Error(errorMessage); // 에러를 다시 던져 호출한 쪽에서 인지할 수 있도록 함
-    }
-  },
+  //       // 사용자 데이터 가져오기
+  //       await get().fetchUserData();
+  //       set({ isLoading: false, error: null });
+  //     } else if (response.data.code === 'ENTITY_NOT_FOUND') {
+  //       console.warn('Step: login 응답 코드 ENTITY_NOT_FOUND:', response.data.message);
+  //       throw new Error(response.data.message || 'User not found');
+  //     } else {
+  //       console.warn('Step: login 응답 코드가 OK가 아님:', response.data.message);
+  //       throw new Error(response.data.message || 'Login failed');
+  //     }
+  //   } catch (error: any) {
+  //     console.error('Step: login 실패:', error);
+  //     let errorMessage = 'Login failed. Please try again.';
+  //     if (error.response) {
+  //       // 서버가 응답을 했지만, 상태 코드가 2xx가 아닌 경우
+  //       errorMessage = error.response.data.message || errorMessage;
+  //     } else if (error.request) {
+  //       // 요청이 이루어졌으나, 응답을 받지 못한 경우
+  //       errorMessage = 'No response from server. Please try again later.';
+  //     } else {
+  //       // 다른 에러
+  //       errorMessage = error.message;
+  //     }
+  //     set({ isLoading: false, error: errorMessage });
+  //     throw new Error(errorMessage); // 에러를 다시 던져 호출한 쪽에서 인지할 수 있도록 함
+  //   }
+  // },
 
-  // 회원가입 함수
-  signup: async (initData: string, petType: 'DOG' | 'CAT'): Promise<void> => {
-    console.log('Step: signup 시작, initData:', initData, 'petType:', petType);
-    set({ isLoading: true, error: null });
-    try {
-      // 회원가입 요청 보내기
-      await api.post('/auth/signup', { initData, petType });
+  // // 회원가입 함수
+  // signup: async (initData: string, petType: 'DOG' | 'CAT'): Promise<void> => {
+  //   console.log('Step: signup 시작, initData:', initData, 'petType:', petType);
+  //   set({ isLoading: true, error: null });
+  //   try {
+  //     // 회원가입 요청 보내기
+  //     await api.post('/auth/signup', { initData, petType });
 
-      // 활동량 데이터 하드코딩
-      console.log('Step: signup 성공. 활동량 게이지 업데이트');
-      set({ activityData: { accountAge: 30, activityLevel: 75, telegramPremium: 1, ogStatus: 1 } }); // 예시 하드코딩 값
+  //     // 활동량 데이터 하드코딩
+  //     console.log('Step: signup 성공. 활동량 게이지 업데이트');
+  //     set({ activityData: { accountAge: 30, activityLevel: 75, telegramPremium: 1, ogStatus: 1 } }); // 예시 하드코딩 값
 
-      set({ isLoading: false, error: null });
-    } catch (error: any) {
-      console.error('Step: signup 실패:', error);
-      let errorMessage = 'Signup failed. Please try again.';
-      if (error.response) {
-        errorMessage = error.response.data.message || errorMessage;
-      } else if (error.request) {
-        errorMessage = 'No response from server. Please try again later.';
-      } else {
-        errorMessage = error.message;
-      }
-      set({ isLoading: false, error: errorMessage });
-      throw new Error(errorMessage); // 에러를 다시 던져 호출한 쪽에서 인지할 수 있도록 함
-    }
-  },
+  //     set({ isLoading: false, error: null });
+  //   } catch (error: any) {
+  //     console.error('Step: signup 실패:', error);
+  //     let errorMessage = 'Signup failed. Please try again.';
+  //     if (error.response) {
+  //       errorMessage = error.response.data.message || errorMessage;
+  //     } else if (error.request) {
+  //       errorMessage = 'No response from server. Please try again later.';
+  //     } else {
+  //       errorMessage = error.message;
+  //     }
+  //     set({ isLoading: false, error: errorMessage });
+  //     throw new Error(errorMessage); // 에러를 다시 던져 호출한 쪽에서 인지할 수 있도록 함
+  //   }
+  // },
 
+  
   // 로그아웃 함수
   logout: () => {
     console.log('Step: logout 실행. 토큰 및 userId 제거 및 상태 초기화.');

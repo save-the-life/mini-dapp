@@ -57,11 +57,8 @@ const App:React.FC = () =>{
             return;
           }
 
-          // 로그인 후 사용자 정보 가져오기
-          const profile = await liff.getProfile();
-          const lineAccessToken = liff.getAccessToken();
-          const userLanguage = liff.getLanguage(); // 사용자의 언어 코드 가져오기
-          console.log("무슨 언어: ", userLanguage);
+          // 라인 로그인 후 사용자의 언어 코드 가져오기
+          const userLanguage = liff.getLanguage();
 
           // 언어 코드 매핑
           const languageMap: { [key: string]: string } = {
@@ -75,29 +72,31 @@ const App:React.FC = () =>{
           const i18nLanguage = languageMap[userLanguage] || 'en';
           i18n.changeLanguage(i18nLanguage);
 
+          
+          // 라인 로그인 후 라인 액세스토큰 확인
+          const lineAccessToken = liff.getAccessToken();
+
+
           if (lineAccessToken) {
-            console.log("id: ", profile.userId);
-            console.log("name: ", profile.displayName);
-            console.log("line Access Token: ", lineAccessToken);
+            try {
+              console.log("라인 토큰: ", lineAccessToken);
+              // 사용자 인증 서버 요청
+              const response = await userAuthenticationWithServer(lineAccessToken);
 
-            // try {
-            //   // 사용자 인증 서버 요청
-            //   const response = await userAuthenticationWithServer(lineAccessToken);
-
-            //   if (response) {
-            //     // 신규 사용자 처리 (회원가입 로직 및 토큰 저장)
-            //     console.log("신규 사용자, 회원가입 진행");
-            //     navigate("/choose-character");
-            //   } else if(response){
-            //     // 기존 사용자 처리 (로그인 및 토큰 저장)
-            //     console.log("기존 사용자, 토큰 발급");
-            //     navigate("/dice-event");
-            //   }
-            // } catch (authError) {
-            //   console.error("사용자 인증 실패:", authError);
-            //   // 인증 실패 처리
-            // }
-            navigate('/mission');
+              if (response) {
+                // 신규 사용자 처리 (회원가입 로직 및 토큰 저장)
+                console.log("신규 사용자, 회원가입 진행 완료...캐릭터 선택 페이지로 이동");
+                navigate("/choose-character");
+              } else {
+                // 기존 사용자 처리 (로그인 및 토큰 저장)
+                console.log("기존 사용자, 토큰 발급 완료...주사위 게임 페이지로 이동");
+                navigate("/dice-event");
+              }
+            } catch (authError) {
+              console.error("사용자 인증 실패:", authError);
+              // 인증 실패 처리
+              window.location.reload();
+            }
           }
         }else{
           // 로컬 스토리지 토큰이 존재하는 경우
