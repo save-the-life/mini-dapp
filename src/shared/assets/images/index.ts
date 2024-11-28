@@ -96,6 +96,10 @@ import slToken from "./sl_token.png"
 import bitget_logo from "./bitget_logo.png"
 import kraken_logo from "./kraken_logo.png"
 import gate_io_logo from "./gate_io.png"
+import Gold from "./gold.png";
+import Silver from "./silver.png";
+import Bronze from "./bronze.png";
+import Lucky from "./lucky.png";
 
 const Images = {
   HorizontalLogo,
@@ -194,7 +198,11 @@ const Images = {
   slToken,
   bitget_logo,
   kraken_logo,
-  gate_io_logo
+  gate_io_logo,
+  Gold,
+  Silver,
+  Bronze,
+  Lucky,
 };
 
 export default Images;

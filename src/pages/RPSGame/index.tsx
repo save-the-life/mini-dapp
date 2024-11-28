@@ -105,7 +105,7 @@ const RPSGame: React.FC<RPSGameProps> = ({ onGameEnd, onCancel }) => {
     fetchAllowedBetting();
   }, []);
 
-  const fetchAllowedBetting = useRPSGameStore((state: { fetchAllowedBetting: any; }) => state.fetchAllowedBetting);
+  const fetchAllowedBetting = useRPSGameStore((state) => state.fetchAllowedBetting);
 
   useEffect(() => {
     document.body.style.overflowX = "hidden";

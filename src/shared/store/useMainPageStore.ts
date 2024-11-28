@@ -6,7 +6,7 @@ interface MainPageState {
 }
 
 const useMainPageStore = create<MainPageState>((set) => ({
-  selectedMenu: null,
+  selectedMenu: 'x-ray',
   setSelectedMenu: (menu) => set({ selectedMenu: menu }),
 }));
 

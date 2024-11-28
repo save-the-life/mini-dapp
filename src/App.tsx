@@ -80,20 +80,15 @@ const App:React.FC = () =>{
             console.log("name: ", profile.displayName);
             console.log("line Access Token: ", lineAccessToken);
 
-            navigate('/mission');
             // try {
             //   // 사용자 인증 서버 요청
-            //   const response = await userAuthenticationWithServer(
-            //     profile.userId,
-            //     profile.displayName,
-            //     lineAccessToken
-            //   );
+            //   const response = await userAuthenticationWithServer(lineAccessToken);
 
             //   if (response) {
             //     // 신규 사용자 처리 (회원가입 로직 및 토큰 저장)
             //     console.log("신규 사용자, 회원가입 진행");
             //     navigate("/choose-character");
-            //   } else {
+            //   } else if(response){
             //     // 기존 사용자 처리 (로그인 및 토큰 저장)
             //     console.log("기존 사용자, 토큰 발급");
             //     navigate("/dice-event");
@@ -102,6 +97,7 @@ const App:React.FC = () =>{
             //   console.error("사용자 인증 실패:", authError);
             //   // 인증 실패 처리
             // }
+            navigate('/mission');
           }
         }else{
           // 로컬 스토리지 토큰이 존재하는 경우

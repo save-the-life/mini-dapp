@@ -131,6 +131,7 @@ const AIXrayAnalysis: React.FC = () => {
         // 재화가 충분한 경우
         const tokenUsed = await useToken();
   
+        // 재화 사용 후 이미지 분석 진행
         if (loadedModel && selectedImage && tokenUsed) {
           const imageElement = document.createElement("img");
           imageElement.src = window.URL.createObjectURL(selectedImage); // 파일에서 생성된 URL 사용
