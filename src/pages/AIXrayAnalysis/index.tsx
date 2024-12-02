@@ -124,14 +124,14 @@ const AIXrayAnalysis: React.FC = () => {
     const loadedModel = await loadModel(); // 모델을 로드하고 가져옴
   
     try {
-      // ai진단을 사용할 재화가 있는지 먼저 확인
+      // ai진단을 사용할 SL 토큰 있는지 먼저 확인
       const balance = await checkBalance();
   
       if (balance) {
-        // 재화가 충분한 경우
+        // SL 토큰이 충분한 경우
         const tokenUsed = await useToken();
   
-        // 재화 사용 후 이미지 분석 진행
+        // 토큰 사용 후 이미지 분석 진행
         if (loadedModel && selectedImage && tokenUsed) {
           const imageElement = document.createElement("img");
           imageElement.src = window.URL.createObjectURL(selectedImage); // 파일에서 생성된 URL 사용
@@ -165,7 +165,7 @@ const AIXrayAnalysis: React.FC = () => {
           setLoading(false);
         }
       } else {
-        // 재화가 부족한 경우 처리
+        // SL 토큰이 부족한 경우 처리
         alert(t("ai_page.Failed_to_load_records._Please_try_again_later."));
         setLoading(false);
       }
@@ -275,10 +275,12 @@ const AIXrayAnalysis: React.FC = () => {
       {isAnalyzed && (
         <>
           <div id="label-container" className="mt-4 text-lg font-semibold">
+            {/* 진단명 */}
             <p>{t("ai_page.Analysis_results")}: {label}</p>
           </div>
   
           <div className="mt-4 p-4 bg-gray-800 text-white rounded-xl shadow-md max-w-sm mx-auto">
+            {/* 진단 결과 설명 */}
             <p
               className="overflow-hidden text-sm"
               style={{
@@ -290,6 +292,7 @@ const AIXrayAnalysis: React.FC = () => {
               {getSymptomDescription(label)}
             </p>
             <div className="flex justify-center mt-2">
+              {/* 더 보기 버튼, 줄이기 버튼 */}
               {!showFullText ? (
                 <button
                   className="mt-2 w-1/2 text-black text-base font-semibold py-2 px-4 rounded-xl"
@@ -310,25 +313,24 @@ const AIXrayAnalysis: React.FC = () => {
             </div>
           </div>
   
-          {/* Retest 버튼 */}
+          
           <div className="flex w-full max-w-sm justify-between mt-10 mb-16">
+            {/* Retest 버튼 */}
             <button
-              className="w-[90%] h-14 text-white text-base py-2 px-4 rounded-full border-2"
+              className="w-[48%] h-14 text-white text-base py-2 px-4 rounded-full border-2"
               style={{ backgroundColor: '#252932', borderColor: '#35383F' }}
               onClick={clickReset}
               >
               {t("ai_page.Retest")}
             </button>
-            {/* <button
-              className={`w-[48%] h-14 text-white text-base py-2 px-4 rounded-full ${
-                isSaving ? 'cursor-wait' : ''
-              }`}
-              style={{ backgroundColor: isSaving ? '#555' : '#0147E5' }}
-              onClick={saveResult}
-              disabled={isSaving}
-            >
-              {isSaving ? 'Saving...' : 'Save'}
-            </button> */}
+            {/* Home 버튼 */}
+            <button
+              className="w-[48%] h-14 text-white text-base py-2 px-4 rounded-full border-2"
+              style={{ backgroundColor: '#0147E5', borderColor: '#0147E5' }}
+              onClick={()=>navigate('/AI-menu')}
+              >
+              {t("ai_page.Home")}
+            </button>
           </div>
         </>
       )}

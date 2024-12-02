@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import { FaChevronRight } from 'react-icons/fa';
 import { useTranslation } from "react-i18next";
+import useUserStore from "@/shared/store/useInfoStore";
+
 
 
 interface AIMenuProps {
@@ -42,8 +44,17 @@ const AIMenu: React.FC = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const setSelectedMenu = useMainPageStore((state) => state.setSelectedMenu);
-  const [showModal, setShowModal] = useState(true);
+  const {slToken} = useUserStore(); // 사용자가 보유한 SL토큰 수
 
+  // 모달 초기 상태를 LocalStorage 확인 후 설정
+  const [showModal, setShowModal] = useState(() => {
+    return !localStorage.getItem('modalDisplayed');
+  });
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    localStorage.setItem('modalDisplayed', 'true'); // 모달 표시 여부 기록
+  };
 
   // 각 메뉴 클릭 시 전역 상태 설정 후 반려동물 선택 페이지로 이동
   const handleMenuClick = (menu: 'x-ray' | 'ai-analysis' | 'records') => {
@@ -55,20 +66,20 @@ const AIMenu: React.FC = () => {
 
   return (
     <div className="flex flex-col text-white mx-6 md:mx-28 min-h-screen">
-      {/* <TopTitle title="Pet Health Management" /> */}
       <div 
         className="flex items-center w-full mt-8 relative"
-        onClick={()=> navigate('/my-point')}>
+        onClick={()=> navigate('/reward-history')}>
         <img
           src={Images.slToken}
           alt="Star"
           className="w-6 h-6 mr-2"
           />
-        <p className="text-lg font-semibold mr-2">50SL</p>
+        <p className="text-lg font-semibold mr-2">{slToken} SL</p>
         <FaChevronRight className="text-lg cursor-pointer" />
       </div>
 
       <div className="grid grid-cols-2 gap-3 mt-6">
+        {/* 실사진 진단 */}
         <AIMenus
           title={t("ai_page.AI_based_examination_for_pets")}
           image={Images.HomeTooth}
@@ -76,6 +87,7 @@ const AIMenu: React.FC = () => {
           className="follow-on-x-mission-card"
           onClick={() => handleMenuClick('ai-analysis')}
         />
+        {/* x-ray 이미지 진단 */}
         <AIMenus
           title={t("ai_page.AI_based_dental_X_ray_analysis")}
           image={Images.HomeXray}
@@ -83,6 +95,7 @@ const AIMenu: React.FC = () => {
           className="join-telegram-mission-card"
           onClick={() => handleMenuClick('x-ray')}
         />
+        {/* 진단 목록 */}
         <AIMenus
           title={t("ai_page.Viewing_Records")}
           image={Images.HomeReport}
@@ -102,7 +115,7 @@ const AIMenu: React.FC = () => {
                 <p>{t("ai_page.10SL_tokens")}</p>
                 <button
                     className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg"
-                    onClick={() => setShowModal(false)}
+                    onClick={handleCloseModal}
                     >
                     {t("OK")}
                 </button>

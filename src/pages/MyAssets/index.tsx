@@ -5,7 +5,7 @@ import { FaChevronRight } from "react-icons/fa";
 import { IoSettingsOutline } from "react-icons/io5";
 import Images from '@/shared/assets/images';
 import { useTranslation } from "react-i18next";
-import useUserStore from "@/shared/store/useEmailStore";
+import useUserStore from "@/shared/store/useInfoStore";
 
 const MyAssets: React.FC = () => {
     const navigate = useNavigate();
@@ -81,7 +81,6 @@ const MyAssets: React.FC = () => {
                     className="w-20 h-20"
                 />
             </div>
-
 
             {/* 내 NFT 컬렉션 */}
             <div className="mt-10 w-full">

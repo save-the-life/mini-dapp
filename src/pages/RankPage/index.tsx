@@ -36,12 +36,12 @@ const RankPage: React.FC = () => {
     const fetchData = async () => {
       try{
         // 월별 보상 정보 확인
-        const prizeData = await getLeaderBoard();
-        setThisMonth(prizeData.thisMonth);
-        setNextMonth(prizeData.nextMonth);
+        // const prizeData = await getLeaderBoard();
+        // setThisMonth(prizeData.thisMonth);
+        // setNextMonth(prizeData.nextMonth);
 
         // 리더보드
-        const leaderBoardData = await getRanking(page);
+        // const leaderBoardData = await getRanking(page);
         // setLeaderBoard(leaderBoardData);
 
       } catch (error){

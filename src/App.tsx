@@ -71,11 +71,9 @@ const App:React.FC = () =>{
           // react-i18next 언어 설정
           const i18nLanguage = languageMap[userLanguage] || 'en';
           i18n.changeLanguage(i18nLanguage);
-
           
           // 라인 로그인 후 라인 액세스토큰 확인
           const lineAccessToken = liff.getAccessToken();
-
 
           if (lineAccessToken) {
             try {

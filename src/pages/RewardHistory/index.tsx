@@ -49,7 +49,7 @@ const RewardHistory: React.FC = () => {
                 {/* 수익/지출 필터 */}
                 <div className="relative w-40 max-w-xs">
                     <select
-                        className={`p-2 rounded-full appearance-none w-full text-sm ${
+                        className={`px-6 py-2 rounded-full appearance-none w-full text-sm ${
                             transactionFilter === "all"
                                 ? "bg-[#1F1E27] text-white"
                                 : "bg-white text-black"
@@ -71,7 +71,7 @@ const RewardHistory: React.FC = () => {
                 {/* 재화 유형 필터 */}
                 <div className="relative w-32 max-w-xs">
                     <select
-                         className={`p-2 rounded-full appearance-none w-full text-sm ${
+                         className={`px-6 py-2 rounded-full appearance-none w-full text-sm ${
                             typeFilter === "all"
                                 ? "bg-[#1F1E27] text-white"
                                 : "bg-white text-black"
