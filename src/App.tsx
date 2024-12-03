@@ -119,23 +119,27 @@ const App:React.FC = () =>{
     <QueryClientProvider client={queryClient}>
       <ScrollToTop />
       <Routes>
-        <Route path="/AI-menu" element={<DiceEventLayout><AIMenu /></DiceEventLayout>} />
-        <Route path="/choose-character" element={<DiceEventLayout hidden={true}><SelectCharacterPage /></DiceEventLayout>} />
+        {/* DiceEventLayout Pages */}
         <Route path="/dice-event" element={<DiceEventLayout><DiceEvent /></DiceEventLayout>} />
+        <Route path="/AI-menu" element={<DiceEventLayout><AIMenu /></DiceEventLayout>} />
         <Route path="/mission" element={<DiceEventLayout><MissionPage /></DiceEventLayout>} />
-        <Route path="/wallet" element={<DiceEventLayout><WalletPage /></DiceEventLayout>} />
-        <Route path="/wallet-list" element={<DiceEventLayout><WalletList /></DiceEventLayout>} />
         <Route path="/rank" element={<DiceEventLayout><RankPage /></DiceEventLayout>} />
         <Route path="/invite-friends" element={<DiceEventLayout><InviteFriends /></DiceEventLayout>} />
+        <Route path="/my-assets" element={<DiceEventLayout><MyAssets /></DiceEventLayout>} />
+        <Route path="/wallet" element={<DiceEventLayout><WalletPage /></DiceEventLayout>} />
+        <Route path="/wallet-list" element={<DiceEventLayout><WalletList /></DiceEventLayout>} />
         <Route path="/test" element={<DiceEventLayout><SlotMachine /></DiceEventLayout>} />
-        <Route path="/regist-pet" element={<DiceEventLayout hidden={true}><PetRegister /></DiceEventLayout>} />
+
+
+        {/* Hidden Pages */}
+        <Route path="/choose-character" element={<DiceEventLayout hidden={true}><SelectCharacterPage /></DiceEventLayout>} />
         <Route path="/select-pet" element={<DiceEventLayout hidden={true}><SelectPet /></DiceEventLayout>} />
+        <Route path="/regist-pet" element={<DiceEventLayout hidden={true}><PetRegister /></DiceEventLayout>} />
         <Route path="/edit-pet" element={<DiceEventLayout hidden={true}><EditPet /></DiceEventLayout>} />
         <Route path="/diagnosis-list" element={<DiceEventLayout hidden={true}><DiagnosisRecords /></DiceEventLayout>} />
         <Route path="/diagnosis-detail" element={<DiceEventLayout hidden={true}><DiagnosisDetail /></DiceEventLayout>} />
         <Route path="/ai-xray-analysis" element={<DiceEventLayout hidden={true}><AIXrayAnalysis /></DiceEventLayout>} />
         <Route path="/my-point" element={<DiceEventLayout hidden={true}><MyPoint /></DiceEventLayout>} />
-        <Route path="/my-assets" element={<DiceEventLayout><MyAssets /></DiceEventLayout>} />
         <Route path="/my-nfts" element={<DiceEventLayout hidden={true}><MyNfts /></DiceEventLayout>} />
         <Route path="/reward-history" element={<DiceEventLayout hidden={true}><RewardHistory /></DiceEventLayout>} />
       </Routes>
