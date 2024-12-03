@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { AiOutlineTrophy } from "react-icons/ai";
+import { AiOutlineGift } from "react-icons/ai";
 import { TbTargetArrow } from "react-icons/tb";
 import { BiWallet } from "react-icons/bi";
 import { useNavigationStore } from "@/shared/store/navigationStore";
@@ -60,35 +60,35 @@ const BottomNavigation: React.FC<BottomNavigationProps> = ({hidden}) => {
         </motion.div>
       </Link>
    
-      <Link to="/rank" onClick={() => handleNavigation("/rank")}>
+      <Link to="/reward" onClick={() => handleNavigation("/reward")}>
         <motion.div
           className={`flex flex-col items-center justify-center rounded-lg w-12 h-12 ${
-            selected === "/rank"
+            selected === "/reward"
               ? "text-[#0147e5] bg-[#e0f2fe]"
               : "text-[#A3A3A3]"
           }`}
           animate={{
-            backgroundColor: selected === "/rank" ? "#e0f2fe" : "#ffffff",
-            color: selected === "/rank" ? "#0147e5" : "#A3A3A3",
+            backgroundColor: selected === "/reward" ? "#e0f2fe" : "#ffffff",
+            color: selected === "/reward" ? "#0147e5" : "#A3A3A3",
           }}
           transition={{ duration: 0.3 }}
         >
           <motion.div
             className="flex items-center justify-center"
             animate={{
-              scale: selected === "/rank" ? 0.9 : 1,
+              scale: selected === "/reward" ? 0.9 : 1,
             }}
             transition={{ duration: 0.3 }}
           >
-            <AiOutlineTrophy className="w-6 h-6" />
+            <AiOutlineGift className="w-6 h-6" />
           </motion.div>
-          {selected === "/rank" && (
+          {selected === "/reward" && (
             <motion.p
               animate={{ opacity: 1 }}
               initial={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
             >
-              Rank
+              Reward
             </motion.p>
           )}
         </motion.div>

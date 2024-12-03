@@ -21,8 +21,8 @@ const MyRankingWidget: React.FC = () => {
   }, [rank, starPoints, lotteryCount, slToken]);
 
   const handleRankingClick = () => {
-    setSelected('/rank');
-    navigate('/rank');
+    setSelected('/reward');
+    navigate('/reward');
   };
 
   return (

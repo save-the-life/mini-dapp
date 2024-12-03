@@ -13,7 +13,7 @@ import SelectCharacterPage from "./pages/SelectCharacter";
 import DiceEvent from "@/pages/DiceEvent";
 import WalletPage from "@/pages/WalletPage";
 import MissionPage from "@/pages/MissionPage";
-import RankPage from "@/pages/RankPage";
+import Reward from "@/pages/RewardPage";
 import InviteFriends from "@/pages/InviteFriends";
 import SlotMachine from "@/pages/SlotMachine";
 import PetRegister from "@/pages/PetRegister";
@@ -123,7 +123,7 @@ const App:React.FC = () =>{
         <Route path="/dice-event" element={<DiceEventLayout><DiceEvent /></DiceEventLayout>} />
         <Route path="/AI-menu" element={<DiceEventLayout><AIMenu /></DiceEventLayout>} />
         <Route path="/mission" element={<DiceEventLayout><MissionPage /></DiceEventLayout>} />
-        <Route path="/rank" element={<DiceEventLayout><RankPage /></DiceEventLayout>} />
+        <Route path="/reward" element={<DiceEventLayout><Reward /></DiceEventLayout>} />
         <Route path="/invite-friends" element={<DiceEventLayout><InviteFriends /></DiceEventLayout>} />
         <Route path="/my-assets" element={<DiceEventLayout><MyAssets /></DiceEventLayout>} />
         <Route path="/wallet" element={<DiceEventLayout><WalletPage /></DiceEventLayout>} />

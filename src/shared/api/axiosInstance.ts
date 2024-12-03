@@ -54,7 +54,7 @@ api.interceptors.response.use(
     const originalRequest = error.config;
 
     // 토큰 갱신 로직
-    if (error.response && error.response.status === 401 && !originalRequest._retry) {
+    if (error.response && error.response.status === 404 && !originalRequest._retry) {
       originalRequest._retry = true;
 
       try {
