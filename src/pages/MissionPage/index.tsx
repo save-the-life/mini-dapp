@@ -126,13 +126,7 @@ const MissionPage: React.FC = () => {
         </p>
       </div>
       <h1 className=" font-semibold text-lg ml-[2px] mb-4">{t("mission_page.Daily_Mission")}</h1>
-      <Link to="/mini-game">
-        <DailyMissionCard
-          title={t("mission_page.Dice_roll_game")}
-          alt="3d-dice-image"
-          image={Images.Dice3D}
-        />
-      </Link>{' '}
+
       <Link to="/invite-friends">
         <DailyMissionCard
           title={t("mission_page.Invite_friends")}

@@ -14,7 +14,6 @@ import DiceEvent from "@/pages/DiceEvent";
 import WalletPage from "@/pages/WalletPage";
 import MissionPage from "@/pages/MissionPage";
 import RankPage from "@/pages/RankPage";
-import MiniGame from "@/pages/MiniGame";
 import InviteFriends from "@/pages/InviteFriends";
 import SlotMachine from "@/pages/SlotMachine";
 import PetRegister from "@/pages/PetRegister";
@@ -127,7 +126,6 @@ const App:React.FC = () =>{
         <Route path="/wallet" element={<DiceEventLayout><WalletPage /></DiceEventLayout>} />
         <Route path="/wallet-list" element={<DiceEventLayout><WalletList /></DiceEventLayout>} />
         <Route path="/rank" element={<DiceEventLayout><RankPage /></DiceEventLayout>} />
-        <Route path="/mini-game" element={<DiceEventLayout><MiniGame /></DiceEventLayout>} />
         <Route path="/invite-friends" element={<DiceEventLayout><InviteFriends /></DiceEventLayout>} />
         <Route path="/test" element={<DiceEventLayout><SlotMachine /></DiceEventLayout>} />
         <Route path="/regist-pet" element={<DiceEventLayout hidden={true}><PetRegister /></DiceEventLayout>} />

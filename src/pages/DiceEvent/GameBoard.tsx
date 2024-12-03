@@ -22,6 +22,7 @@ import duration from "dayjs/plugin/duration";
 import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc"; // UTC 플러그인 추가
 import { RollDiceResponseData } from "@/features/DiceEvent/api/rollDiceApi";
+import NFTRewardList from "@/widgets/NFTRewardCard";
 
 dayjs.extend(duration);
 dayjs.extend(utc); // UTC 플러그인 적용
@@ -71,8 +72,10 @@ const GameBoard: React.FC<GameBoardProps> = ({
     error,
     isAuto,
     setIsAuto,
+    refillDice, // refillDice 함수 추가
   } = useUserStore();
   const [timeUntilRefill, setTimeUntilRefill] = useState("");
+  const [isRefilling, setIsRefilling] = useState(false); // 리필 중 상태 관리
 
   useEffect(() => {
     const updateRefillTime = () => {
@@ -93,14 +96,7 @@ const GameBoard: React.FC<GameBoardProps> = ({
 
         // diff <= 0이고 diceCount가 0일 때만 fetchUserData 호출
         if (diff <= 0 && diceCount === 0) {
-          setTimeUntilRefill("Waiting");
-          fetchUserData()
-            .then(() => {
-              console.log("fetchUserData 호출됨");
-            })
-            .catch(() => {
-              console.error("fetchUserData 호출 실패");
-            });
+          setTimeUntilRefill("Refill dice");
         } else if (diff > 0) {
           const remainingDuration = dayjs.duration(diff);
           const minutes = remainingDuration.minutes();
@@ -128,13 +124,13 @@ const GameBoard: React.FC<GameBoardProps> = ({
       if (diceCount > 0 && !buttonDisabled) {
         diceRef.current?.roll();
       }
-      // 10초마다 주사위 굴리기
+      // 5초마다 주사위 굴리기
       autoInterval = setInterval(() => {
         if (diceCount > 0 && !buttonDisabled) {
           console.log("Auto rolling dice");
           diceRef.current?.roll();
         }
-      }, 10000); // 10초
+      }, 5000); // 5초
     } else {
       console.log("Auto mode 비활성화됨");
     }
@@ -243,6 +239,20 @@ const GameBoard: React.FC<GameBoardProps> = ({
       </Tile>
     );
   };
+
+    // Refill Dice API 호출 함수
+    const handleRefillDice = async () => {
+      try {
+        setIsRefilling(true); // 리필 중 상태 활성화
+        await refillDice();
+        console.log("주사위 리필 성공");
+        setIsRefilling(false); // 리필 완료
+      } catch (error: any) {
+        console.error("주사위 리필 실패:", error);
+        // 추가적인 에러 처리 (예: 사용자에게 알림)
+        setIsRefilling(false); // 리필 완료
+      }
+    };
 
   return (
     <div className="grid grid-cols-6 grid-rows-6 gap-1 text-xs md:text-base relative">
@@ -385,7 +395,7 @@ const GameBoard: React.FC<GameBoardProps> = ({
                 </div>
               </div>
             </DialogTrigger>
-            <DialogContent className=" bg-[#21212F] border-none rounded-3xl text-white">
+            <DialogContent className=" bg-[#21212F] border-none rounded-3xl text-white h-svh md:h-auto overflow-y-auto ">
               <DialogHeader className="">
                 <DialogTitle>Your Current Abilities</DialogTitle>
               </DialogHeader>
@@ -405,86 +415,12 @@ const GameBoard: React.FC<GameBoardProps> = ({
                   </div>
                 </div>
                 <div className="flex flex-row items-center justify-end gap-1">
-                  <p className="text-end text-sm font-medium">
-                    How these are calculated?
-                  </p>
                   <AiOutlineInfoCircle className=" w-5 h-5" />
+                  <p className="text-end text-sm font-medium">
+                    The NFT reward multiplier is additive.
+                  </p>
                 </div>
-
-                {/* Additional information section */}
-                <div className="flex flex-col bg-[#1F1E27] p-5 rounded-3xl border-2 border-[#35383F] font-medium gap-4 ">
-                  <div className=" relative space-y-2">
-                    <div className="flex flex-row items-center gap-2">
-                      <img src={Images.Gold} alt="gold" className="w-6 h-6" />
-                      <p className="font-semibold">Gold NFT</p>
-                    </div>
-                    <div className="pl-8 text-sm space-y-1">
-                      <div className="flex flex-row items-center gap-2">
-                        <IoDice className="w-5 h-5" />
-                        <p>Dice Generation : x4</p>
-                      </div>
-                      <div className="flex flex-row items-center gap-2">
-                        <IoGameController className="w-5 h-5" />
-                        <p>Game Board Rewards : x20</p>
-                      </div>
-                      <div className="flex flex-row items-center gap-2">
-                        <IoTicket className="w-5 h-5" />
-                        <p>Raffle Tickets Rewards: x60</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className=" relative space-y-2">
-                    <div className="flex flex-row items-center gap-2">
-                      <img
-                        src={Images.Silver}
-                        alt="Silver"
-                        className="w-6 h-6"
-                      />
-                      <p className="font-semibold">Silver NFT</p>
-                    </div>
-                    <div className="pl-8 text-sm space-y-1">
-                      <div className="flex flex-row items-center gap-2">
-                        <IoDice className="w-5 h-5" />
-                        <p>Dice Generation : x3</p>
-                      </div>
-                      <div className="flex flex-row items-center gap-2">
-                        <IoGameController className="w-5 h-5" />
-                        <p>Game Board Rewards : x15</p>
-                      </div>
-                      <div className="flex flex-row items-center gap-2">
-                        <IoTicket className="w-5 h-5" />
-                        <p>Raffle Tickets Rewards: x30</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className=" relative space-y-2">
-                    <div className="flex flex-row items-center gap-2">
-                      <img
-                        src={Images.Bronze}
-                        alt="Bronze"
-                        className="w-6 h-6"
-                      />
-                      <p className="font-semibold">Bronze NFT</p>
-                    </div>
-                    <div className="pl-8 text-sm space-y-1">
-                      <div className="flex flex-row items-center gap-2">
-                        <IoDice className="w-5 h-5" />
-                        <p>Dice Generation : x2</p>
-                      </div>
-                      <div className="flex flex-row items-center gap-2">
-                        <IoGameController className="w-5 h-5" />
-                        <p>Game Board Rewards : x10</p>
-                      </div>
-                      <div className="flex flex-row items-center gap-2">
-                        <IoTicket className="w-5 h-5" />
-                        <p>Raffle Tickets Rewards: x10</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <button className=" font-medium bg-[#0147E5] rounded-full h-14 w-[165px] self-center">
-                  Shop NFT
-                </button>
+                <NFTRewardList />
               </div>
             </DialogContent>
           </Dialog>
@@ -520,8 +456,27 @@ const GameBoard: React.FC<GameBoardProps> = ({
           </button>
         </div>
         <div className="flex flex-row text-white items-center justify-center gap-1 mt-6">
-          <BsDice5Fill className="w-3 h-3" />
-          <p>: {timeUntilRefill}</p>
+          {timeUntilRefill === "Refill dice" ? (
+            <motion.div
+            onClick={handleRefillDice}
+              className="flex flex-row items-center justify-center gap-1 cursor-pointer "
+              animate={{
+                opacity: [1, 0.5, 1], // 반짝이는 효과
+              }}
+              transition={{
+                duration: 1, // 1초 동안 애니메이션 반복
+                repeat: Infinity, // 무한 반복
+              }}
+            >
+              <BsDice5Fill className="w-3 h-3" />
+              <p>: Refill Dice</p>
+            </motion.div>
+          ) : (
+            <>
+              <BsDice5Fill className="w-3 h-3" />
+              <p>: {timeUntilRefill}</p>
+            </>
+          )}
         </div>
       </div>
 
