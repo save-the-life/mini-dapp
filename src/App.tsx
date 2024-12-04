@@ -74,6 +74,9 @@ const App:React.FC = () =>{
           // 라인 로그인 후 라인 액세스토큰 확인
           const lineAccessToken = liff.getAccessToken();
 
+          const idToken = liff.getIDToken();
+          console.log("ID Token: ", idToken);
+
           if (lineAccessToken) {
             try {
               console.log("라인 토큰: ", lineAccessToken);

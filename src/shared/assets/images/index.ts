@@ -90,16 +90,14 @@ import pointStar from "./star.png";
 import line from "./line_btn.png";
 import BottomBarAI from "./bottomBarAI.png";
 import SeletedBottomBarAI from "./seletedBottomBarAI.png" 
-import cart from "./cart.png"
-import slToken from "./sl_token.png"
-import bitget_logo from "./bitget_logo.png"
-import kraken_logo from "./kraken_logo.png"
-import gate_io_logo from "./gate_io.png"
 import Gold from "./gold.png";
 import Silver from "./silver.png";
 import Bronze from "./bronze.png";
 import Lucky from "./lucky.png";
-import Boom from "./boom.png"
+import Boom from "./boom.png";
+import Trophy from "./trophy.png";
+import GoldMedal from "./goldmedal.png";
+import RewardNFT from "./rewardNFT.png";
 
 const Images = {
   HorizontalLogo,
@@ -193,16 +191,14 @@ const Images = {
   line,
   BottomBarAI,
   SeletedBottomBarAI,
-  cart,
-  slToken,
-  bitget_logo,
-  kraken_logo,
-  gate_io_logo,
   Gold,
   Silver,
   Bronze,
   Lucky,
   Boom,
+  Trophy,
+  GoldMedal,
+  RewardNFT,
 };
 
 export default Images;
