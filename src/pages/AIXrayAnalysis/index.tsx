@@ -24,6 +24,18 @@ const AIXrayAnalysis: React.FC = () => {
   const { selectedMenu } = useMainPageStore();
   const petData = location.state as { id: string };
   const [id] = useState<string>(petData?.id || '');
+  const [modalInfo, setModalInfo] = useState({
+    isVisible: false,
+    message: '',
+  });
+  
+  const showModalFunction = (message: string) => {
+    setModalInfo({
+      isVisible: true,
+      message,
+    });
+  };
+  
 
   // 최초 안내 문구 표시
   let Alert = '';
@@ -52,7 +64,7 @@ const AIXrayAnalysis: React.FC = () => {
     },
     onError: (error: any) => {
       console.error('Error saving result:', error);
-      alert(error.message || t("ai_page.Failed_to_save_result._Please_try_again."));
+      showModalFunction(t("ai_page.Failed_to_save_result._Please_try_again."));
     },
   });
 
@@ -97,7 +109,7 @@ const AIXrayAnalysis: React.FC = () => {
         return loadedModel; // 모델 로드 후 반환
       } catch (error) {
         console.error("Failed to load model:", error);
-        alert(t("ai_page.Failed_to_load_the_AI_model._Please_try_again_later_or_check_your_network_connection."));
+        showModalFunction(t("ai_page.Failed_to_load_the_AI_model._Please_try_again_later_or_check_your_network_connection."));
       }
     }
     return model; // 이미 로드된 모델이 있으면 반환
@@ -118,7 +130,7 @@ const AIXrayAnalysis: React.FC = () => {
      // 이미지를 업로드하지 않았을 때 모달 표시
     if (!selectedImage) {
       setShowModal(true);
-      Alert = t("ai_page.Please_upload_an_image_before_analysis.");
+      showModalFunction(t("ai_page.Please_upload_an_image_before_analysis."));
       return;
     }
   
@@ -169,13 +181,13 @@ const AIXrayAnalysis: React.FC = () => {
         }
       } else {
         // SL 토큰이 부족한 경우 처리
-        alert(t("ai_page.Failed_to_load_records._Please_try_again_later."));
+        showModalFunction(t("ai_page.Failed_to_load_records._Please_try_again_later."));
         setLoading(false);
       }
     } catch (error: any) {
       console.error("Error during analysis:", error);
       setLoading(false);
-      alert(t("ai_page.Failed_to_load_the_AI_model._Please_try_again_later_or_check_your_network_connection."));
+      showModalFunction(t("ai_page.Failed_to_load_the_AI_model._Please_try_again_later_or_check_your_network_connection."));
     }
   };
   
@@ -184,12 +196,12 @@ const AIXrayAnalysis: React.FC = () => {
   // 서버에 저장하는 함수
   const saveResult = () => {
     if (!selectedImage || !isAnalyzed) {
-      alert(t("ai_page.Please_analyze_the_image_before_saving."));
+      showModalFunction(t("ai_page.Please_analyze_the_image_before_saving."));
       return;
     }
   
     if (!selectedMenu) {
-      alert(t("ai_page.An_error_occurred:_selected_menu_is_not_set."));
+      showModalFunction(t("ai_page.An_error_occurred:_selected_menu_is_not_set."));
       return;
     }
   
@@ -357,6 +369,23 @@ const AIXrayAnalysis: React.FC = () => {
               {t("OK")}
             </button>
           </div>
+        </div>
+      )}
+
+
+      {modalInfo.isVisible && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="bg-white text-black p-6 rounded-lg text-center">
+                <div> &nbsp;</div>
+                <p>{modalInfo.message}</p>
+                <div> &nbsp;</div>
+                <button
+                    className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg"
+                    onClick={()=>setModalInfo({ isVisible: false, message: '' })}
+                    >
+                    {t("OK")}
+                </button>
+            </div>
         </div>
       )}
     </div>
