@@ -98,6 +98,12 @@ import Boom from "./boom.png";
 import Trophy from "./trophy.png";
 import GoldMedal from "./goldmedal.png";
 import RewardNFT from "./rewardNFT.png";
+import cart from "./cart.png"
+import SLToken from "./slToken.png"
+import bitget_logo from "./bitget_logo.png"
+import kraken_logo from "./kraken_logo.png"
+import gate_io_logo from "./gate_io.png"
+
 
 const Images = {
   HorizontalLogo,
@@ -199,6 +205,11 @@ const Images = {
   Trophy,
   GoldMedal,
   RewardNFT,
+  cart,
+  SLToken,
+  bitget_logo,
+  kraken_logo,
+  gate_io_logo,
 };
 
 export default Images;

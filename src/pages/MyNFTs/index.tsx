@@ -12,6 +12,10 @@ const MyNfts: React.FC = () => {
         { id: 2, name: "Cool Cat #1", image: "https://via.placeholder.com/100" },
         { id: 3, name: "Cool Cat #1", image: "https://via.placeholder.com/100" },
         { id: 4, name: "Cool Cat #1", image: "https://via.placeholder.com/100" },
+        // { id: 5, name: "Cool Cat #1", image: "https://via.placeholder.com/100" },
+        // { id: 6, name: "Cool Cat #1", image: "https://via.placeholder.com/100" },
+        // { id: 7, name: "Cool Cat #1", image: "https://via.placeholder.com/100" },
+        // { id: 8, name: "Cool Cat #1", image: "https://via.placeholder.com/100" },
       ];
 
     return (
@@ -27,11 +31,12 @@ const MyNfts: React.FC = () => {
             </div>
 
             {/* NFT 컬렉션 */}
-            <div className="grid grid-cols-2 gap-4 mt-4 w-full">
+            <div className="grid grid-cols-2 gap-4 mt-4 w-full mb-6">
                 {nftCollection.map((nft) => (
                     <div
                         key={nft.id}
                         className="bg-[#1F1E27] border border-[#737373] p-[10px] rounded-xl flex flex-col items-center"
+                        style={{ maxHeight: '320px' }}
                         >
                         {/* 비율을 유지하며 크기가 리니어하게 바뀌도록 설정 */}
                         <div className="w-full aspect-[145/154] rounded-md mt-1 mx-1 overflow-hidden">

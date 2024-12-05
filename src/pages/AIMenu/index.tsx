@@ -7,8 +7,6 @@ import { FaChevronRight } from 'react-icons/fa';
 import { useTranslation } from "react-i18next";
 import useUserStore from "@/shared/store/useInfoStore";
 
-
-
 interface AIMenuProps {
   title: string;
   alt: string;
@@ -70,7 +68,7 @@ const AIMenu: React.FC = () => {
         className="flex items-center w-full mt-8 relative"
         onClick={()=> navigate('/reward-history')}>
         <img
-          src={Images.slToken}
+          src={Images.SLToken}
           alt="Star"
           className="w-6 h-6 mr-2"
           />

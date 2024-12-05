@@ -8,6 +8,9 @@ import { useTranslation } from "react-i18next";
 const PetRegister: React.FC = () => {
     const navigate = useNavigate();
     const { t } = useTranslation();
+
+    const [showModal, setShowModal] = useState(false);
+    const [modalText, setModalText] = useState('');
     const [petImage, setPetImage] = useState<File | null>(null);
     const [petName, setPetName] = useState('');
     const [imageUrl, setImageUrl] = useState<string | null>(null);
@@ -21,7 +24,8 @@ const PetRegister: React.FC = () => {
         },
         onError: (error: any) => {
             // 에러 발생 시 사용자에게 알림
-            alert('Failed to register pet. Please try again.');
+            setShowModal(true);
+            setModalText('Failed to register pet. Please try again.');
         },
     });
 
@@ -44,7 +48,8 @@ const PetRegister: React.FC = () => {
     // 등록 버튼 클릭
     const registerBtn = () => {
         if (!petName || !petImage) {
-            alert('Please provide both pet name and image.');
+            setShowModal(true);
+            setModalText('Please provide both pet name and image.');
             return; 
         }
 
@@ -114,6 +119,21 @@ const PetRegister: React.FC = () => {
                 {isPending ? t("ai_page.Registering...") : t("ai_page.Done")}
             </button>
         </div>
+
+        {/* SL토큰 소요 알림 모달창 */}
+        {showModal && (
+            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                <div className="bg-white text-black p-6 rounded-lg text-center">
+                    <p>{modalText}</p>
+                    <button
+                        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg"
+                        onClick={()=>setShowModal(false)}
+                        >
+                        {t("OK")}
+                    </button>
+                </div>
+            </div>
+        )}
     </div>
     );
 };

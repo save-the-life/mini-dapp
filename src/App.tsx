@@ -21,7 +21,6 @@ import SelectPet from "@/pages/SelectPet";
 import EditPet from "@/pages/EditPet";
 import DiagnosisRecords from "@/pages/DiagnosisList";
 import DiagnosisDetail from "@/pages/DiagnosisDetail";
-import MyPoint from "@/pages/MyPoint";
 import AIXrayAnalysis from "@/pages/AIXrayAnalysis";
 import DiceEventLayout from "./app/layout/DiceEventLayout";
 import SplashScreen from "./app/components/SplashScreen";
@@ -29,6 +28,7 @@ import WalletList from "./pages/WalletList";
 import MyAssets from "./pages/MyAssets";
 import MyNfts from "./pages/MyNFTs";
 import RewardHistory from "./pages/RewardHistory";
+import PreviousRewards from "@/pages/PreviousRewards";
 
 
 // QueryClient 설정
@@ -132,6 +132,7 @@ const App:React.FC = () =>{
         <Route path="/wallet" element={<DiceEventLayout><WalletPage /></DiceEventLayout>} />
         <Route path="/wallet-list" element={<DiceEventLayout><WalletList /></DiceEventLayout>} />
         <Route path="/test" element={<DiceEventLayout><SlotMachine /></DiceEventLayout>} />
+        <Route path="/previous-rewards" element={<DiceEventLayout><PreviousRewards /></DiceEventLayout>} />
 
 
         {/* Hidden Pages */}
@@ -142,7 +143,6 @@ const App:React.FC = () =>{
         <Route path="/diagnosis-list" element={<DiceEventLayout hidden={true}><DiagnosisRecords /></DiceEventLayout>} />
         <Route path="/diagnosis-detail" element={<DiceEventLayout hidden={true}><DiagnosisDetail /></DiceEventLayout>} />
         <Route path="/ai-xray-analysis" element={<DiceEventLayout hidden={true}><AIXrayAnalysis /></DiceEventLayout>} />
-        <Route path="/my-point" element={<DiceEventLayout hidden={true}><MyPoint /></DiceEventLayout>} />
         <Route path="/my-nfts" element={<DiceEventLayout hidden={true}><MyNfts /></DiceEventLayout>} />
         <Route path="/reward-history" element={<DiceEventLayout hidden={true}><RewardHistory /></DiceEventLayout>} />
       </Routes>

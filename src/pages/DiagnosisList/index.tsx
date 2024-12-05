@@ -6,15 +6,23 @@ import getDiagnosisList from '@/entities/Pet/api/getDiagnosisList';
 import { useTranslation } from "react-i18next";
 
 const DiagnosisRecords: React.FC = () => {
-    const [loading, setLoading] = useState(false);
-    const [selectedFilter, setSelectedFilter] = useState<string>('All');
-    const [filterOptions, setFilterOptions] = useState<string[]>(['All']);
-    const [records, setRecords] = useState<{ diagnosisAt: string, result: string, diagnosisImgUrl: string, petName: string, petImgUrl: string, type: string }[]>([]);
-
     const location = useLocation();
     const navigate = useNavigate();
     const { t } = useTranslation();
 
+    const [open, setOpen] = useState(false);
+    const [modalText, setModalText] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [selectedFilter, setSelectedFilter] = useState<string>('All');
+    const [filterOptions, setFilterOptions] = useState<string[]>(['All']);
+    const [records, setRecords] = useState<{ 
+        diagnosisAt: string, 
+        result: string, 
+        diagnosisImgUrl: string, 
+        petName: string, 
+        petImgUrl: string, 
+        type: string 
+    }[]>([]);
     const petData = location.state as { id: string };
     const [id] = useState<string>(petData?.id || '');
 
@@ -31,7 +39,7 @@ const DiagnosisRecords: React.FC = () => {
                 }
             } catch (error) {
                 console.error('Failed to fetch records:', error);
-                alert(t("ai_page.Failed_to_load_records._Please_try_again_later."));
+                setModal(t("ai_page.Failed_to_load_records._Please_try_again_later."));
             } finally {
                 setLoading(false); // 로딩 상태 비활성화
             }
@@ -50,10 +58,9 @@ const DiagnosisRecords: React.FC = () => {
                 }
             } catch (error) {
                 console.error('Failed to fetch filter options:', error);
-                alert(t("ai_page.Failed_to_load_filter_options._Please_try_again_later."));
+                setModal(t("ai_page.Failed_to_load_filter_options._Please_try_again_later."));
             }
         };
-
         fetchAllRecords();
         fetchFilterOptions();
     }, [id]);
@@ -73,7 +80,7 @@ const DiagnosisRecords: React.FC = () => {
                     }
                 } catch (error) {
                     console.error('Failed to fetch filtered records:', error);
-                    alert(t("ai_page.Failed_to_load_records._Please_try_again_later."));
+                    setModal(t("ai_page.Failed_to_load_records._Please_try_again_later."));
                 } finally {
                     setLoading(false); // 로딩 상태 비활성화
                 }
@@ -87,6 +94,16 @@ const DiagnosisRecords: React.FC = () => {
     const truncateText = (text: string, maxLength: number) => {
         return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
     };
+
+    // 에러 확인 후, 확인 버튼
+    const checkError = () => {
+        setOpen(false);
+    }
+
+    const setModal = (text: string) => {
+        setOpen(true);
+        setModalText(text);
+    }
 
     return (
         <div className="flex flex-col items-center text-white mx-6 min-h-screen">
@@ -135,6 +152,23 @@ const DiagnosisRecords: React.FC = () => {
                             <FaChevronLeft className="text-lg cursor-pointer transform rotate-180" />
                         </div>
                     ))}
+                </div>
+            )}
+
+            {/* api 에러 발생 시 모달창  */}
+            {open && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                    <div className="bg-white text-black p-6 rounded-lg text-center">
+                        <div> &nbsp;</div>
+                        <p>{modalText}</p>
+                        <div> &nbsp;</div>
+                        <button
+                            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg"
+                            onClick={()=>setOpen(false)}
+                            >
+                            {t("OK")}
+                        </button>
+                    </div>
                 </div>
             )}
         </div>
