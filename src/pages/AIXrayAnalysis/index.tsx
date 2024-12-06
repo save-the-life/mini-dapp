@@ -374,7 +374,7 @@ const AIXrayAnalysis: React.FC = () => {
 
 
       {modalInfo.isVisible && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 w-[80%]">
             <div className="bg-white text-black p-6 rounded-lg text-center">
                 <div> &nbsp;</div>
                 <p>{modalInfo.message}</p>

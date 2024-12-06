@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ScrollToTop from "./shared/components/ui/scrollTop";
 import liff from "@line/liff";
 import userAuthenticationWithServer from "./entities/User/api/userAuthentication";
+import { useUserStore } from "./entities/User/model/userModel";
 import i18n from "./shared/lib/il8n";
 import "./App.css";
 
@@ -38,80 +39,82 @@ const App:React.FC = () =>{
   const navigate = useNavigate();
   const [showSplash, setShowSplash] = useState(true);
   const [isLiffInitialized, setIsLiffInitialized] = useState(false);
+  const [isDataFetched, setIsDataFetched] = useState(false); // 데이터 로딩 상태 추가
+  const { fetchUserData, characterType } = useUserStore();
+
 
   useEffect(() => {
     const initializeApp = async () => {
       try {
         await liff.init({ liffId: import.meta.env.VITE_LIFF_ID });
-        setShowSplash(true);
         setIsLiffInitialized(true);
 
-        const accessToken = localStorage.getItem('accessToken');
-        console.log("토큰 : ", accessToken);
+        const accessToken = localStorage.getItem("accessToken");
+        console.log("로컬 액세스 토큰: ", accessToken);
 
-        if(!accessToken){
+        if (!accessToken) {
           // 로컬 스토리지 토큰이 없는 경우
           if (!liff.isLoggedIn()) {
             liff.login();
             return;
           }
 
-          // 라인 로그인 후 사용자의 언어 코드 가져오기
+          // 언어 설정
           const userLanguage = liff.getLanguage();
-
-          // 언어 코드 매핑
           const languageMap: { [key: string]: string } = {
-            'ko-KR': 'ko',
-            'en-US': 'en',
-            'ja-JP': 'ja',
-            'zh-TW': 'zh',
+            "ko-KR": "ko",
+            "en-US": "en",
+            "ja-JP": "ja",
+            "zh-TW": "zh",
           };
-
-          // react-i18next 언어 설정
-          const i18nLanguage = languageMap[userLanguage] || 'en';
+          const i18nLanguage = languageMap[userLanguage] || "en";
           i18n.changeLanguage(i18nLanguage);
-          
-          // 라인 로그인 후 라인 액세스토큰 확인
-          const lineAccessToken = liff.getAccessToken();
 
           const idToken = liff.getIDToken();
-          console.log("ID Token: ", idToken);
-
-          if (lineAccessToken) {
-            try {
-              console.log("라인 토큰: ", lineAccessToken);
-              // 사용자 인증 서버 요청
-              const response = await userAuthenticationWithServer(lineAccessToken);
-
-              if (response) {
-                // 신규 사용자 처리 (회원가입 로직 및 토큰 저장)
-                console.log("신규 사용자, 회원가입 진행 완료...캐릭터 선택 페이지로 이동");
-                navigate("/choose-character");
-              } else {
-                // 기존 사용자 처리 (로그인 및 토큰 저장)
-                console.log("기존 사용자, 토큰 발급 완료...주사위 게임 페이지로 이동");
-                navigate("/dice-event");
-              }
-            } catch (authError) {
-              console.error("사용자 인증 실패:", authError);
-              // 인증 실패 처리
-              window.location.reload();
-            }
+          if (!idToken) {
+            throw new Error("ID 토큰을 가져오지 못했습니다.");
           }
-        }else{
-          // 로컬 스토리지 토큰이 존재하는 경우
-          navigate("/dice-event");
+
+          console.log("ID Token: ", idToken);
+          const isNewUser = await userAuthenticationWithServer(idToken);
+
+          if (isNewUser) {
+            console.log("신규 사용자: 캐릭터 선택 페이지로 이동");
+            navigate("/choose-character");
+          } else {
+            console.log("기존 사용자: 사용자 데이터 확인 중...");
+            await fetchUserData();
+            setIsDataFetched(true); // 데이터 로딩 완료
+          }
+        } else {
+          // 로컬 스토리지 토큰이 있는 경우
+          console.log("로컬 스토리지에 토큰 존재, 사용자 데이터 확인 중...");
+          await fetchUserData();
+          setIsDataFetched(true); // 데이터 로딩 완료
         }
       } catch (error) {
-        console.error("초기화 실패:", error);
+        console.error("앱 초기화 중 오류:", error);
+        alert("앱 초기화 중 오류가 발생했습니다. 다시 시도해주세요.");
         window.location.reload();
       } finally {
-        setShowSplash(false); // 모든 작업 종료 후 스플래시 제거
+        setShowSplash(false); // 스플래시 화면 제거
       }
     };
 
     initializeApp();
-  }, []);
+  }, [fetchUserData, navigate]);
+
+  useEffect(() => {
+    if (isDataFetched) {
+      if (characterType != null) {
+        console.log("캐릭터 선택 완료:", characterType);
+        navigate("/dice-event");
+      } else {
+        console.log("캐릭터 선택되지 않음, 캐릭터 선택 페이지로 이동");
+        navigate("/choose-character");
+      }
+    }
+  }, [isDataFetched, characterType, navigate]);
 
   // 스플래시 화면을 표시 중이거나 LIFF가 초기화되지 않았을 때
   if (showSplash || !isLiffInitialized) {

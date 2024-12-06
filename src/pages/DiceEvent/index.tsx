@@ -24,10 +24,8 @@ import {
 } from "@/shared/components/ui/dialog";
 import {formatNumber}  from "@/shared/utils/formatNumber";
 import LevelRewards from "@/widgets/LevelRewards";
-import { useNavigate } from 'react-router-dom';
 
 const DiceEventPage: React.FC = () => {
-  const navigate = useNavigate();
   const {
     fetchUserData,
     isLoading,
@@ -38,8 +36,6 @@ const DiceEventPage: React.FC = () => {
     monthlyPrize,
     isAuto, // isAuto 상태 가져오기
   } = useUserStore();
-
-  const accessToken = localStorage.getItem('accessToken');
 
   const game = useDiceGame();
   const [initialX, setInitialX] = useState<number>(140);
@@ -94,11 +90,7 @@ const DiceEventPage: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if(accessToken){
-      fetchUserData();
-    }else{
-      navigate("/");
-    }
+    fetchUserData();
   }, [fetchUserData]);
 
   useEffect(() => {
@@ -206,7 +198,11 @@ const DiceEventPage: React.FC = () => {
             delta={delta}
           />
           <br />
-          <MyRankingWidget />
+          
+      
+          <MyRankingWidget  />
+      
+        
           <br />
           <Attendance />
           <MissionWidget />
