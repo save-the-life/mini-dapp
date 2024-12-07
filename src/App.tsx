@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ScrollToTop from "./shared/components/ui/scrollTop";
 import AppInitializer from "./app/components/AppInitializer";

@@ -23,6 +23,8 @@ import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc"; // UTC 플러그인 추가
 import { RollDiceResponseData } from "@/features/DiceEvent/api/rollDiceApi";
 import NFTRewardList from "@/widgets/NFTRewardCard";
+import { PiSpinnerBallFill } from "react-icons/pi";
+import { formatNumber } from "@/shared/utils/formatNumber";
 
 dayjs.extend(duration);
 dayjs.extend(utc); // UTC 플러그인 적용
@@ -302,20 +304,17 @@ const GameBoard: React.FC<GameBoardProps> = ({
                   zIndex: 50,
                 }}
               >
-                {reward.type === "star" && (
+                {reward.type === "STAR" && (
                   <div className="flex flex-col items-center">
                     <img src={Images.Star} alt="star" className="h-6" />
-                    <span className="mt-1 ">+{reward.value}</span>
+                    <span className="mt-1 ">+{formatNumber(reward.value*items.boardRewardTimes)}</span>
                   </div>
                 )}
-                {reward.type === "dice" && (
+                {reward.type === "DICE" && (
                   <div className="flex flex-col items-center">
                     <img src={Images.Dice} alt="dice" className="h-6" />
-                    <span className="mt-1">+{reward.value}</span>
+                    <span className="mt-1">+{formatNumber(reward.value*items.boardRewardTimes)}</span>
                   </div>
-                )}
-                {reward.type === "airplane" && (
-                  <img src={Images.Airplane} alt="airplane" className="h-6" />
                 )}
                 {reward.type === "lottery" && (
                   <div className="flex flex-col items-center">
@@ -324,7 +323,7 @@ const GameBoard: React.FC<GameBoardProps> = ({
                       alt="lottery"
                       className="h-6"
                     />
-                    <span className="mt-1">+{reward.value}</span>
+                    <span className="mt-1">+{formatNumber(reward.value*items.ticketTimes)}</span>
                   </div>
                 )}
               </motion.div>
@@ -396,7 +395,7 @@ const GameBoard: React.FC<GameBoardProps> = ({
                 </div>
               </div>
             </DialogTrigger>
-            <DialogContent className=" bg-[#21212F] border-none rounded-3xl text-white h-svh md:h-auto overflow-y-auto ">
+            <DialogContent className=" bg-[#21212F] border-none rounded-3xl text-white h-svh md:h-auto overflow-y-auto max-w-[90%] md:max-w-lg max-h-[80%]">
               <DialogHeader className="">
                 <DialogTitle>Your Current Abilities</DialogTitle>
               </DialogHeader>
@@ -413,6 +412,10 @@ const GameBoard: React.FC<GameBoardProps> = ({
                   <div className="flex flex-row items-center gap-2">
                     <IoTicket className="w-6 h-6" />
                     <p>Raffle Tickets Rewards: x{items.ticketTimes}</p>
+                  </div>
+                  <div className="flex flex-row items-center gap-2">
+                    <PiSpinnerBallFill className="w-6 h-6" />
+                    <p>Spin Rewards: x{items.spinTimes}</p>
                   </div>
                 </div>
                 <div className="flex flex-row items-center justify-end gap-1">

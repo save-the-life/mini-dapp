@@ -103,6 +103,8 @@ import SLToken from "./slToken.png"
 import bitget_logo from "./bitget_logo.png"
 import kraken_logo from "./kraken_logo.png"
 import gate_io_logo from "./gate_io.png"
+import Usdt from "./usdt.png";
+
 
 
 const Images = {
@@ -210,6 +212,7 @@ const Images = {
   bitget_logo,
   kraken_logo,
   gate_io_logo,
+  Usdt,
 };
 
 export default Images;

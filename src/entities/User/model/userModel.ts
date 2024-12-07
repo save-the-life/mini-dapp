@@ -4,7 +4,7 @@ import { create } from 'zustand';
 import { fetchHomeData } from '@/entities/User/api/userApi';
 import api from '@/shared/api/axiosInstance';
 import { rollDiceAPI, RollDiceResponseData } from '@/features/DiceEvent/api/rollDiceApi';
-import { refillDiceAPI } from '@/features/DiceEvent/api/refillDiceApi';
+import { refillDiceAPI } from '@/features/DiceEvent/api/refillDiceApi'; // 분리된 API 함수 임포트
 
 
 // 월간 보상 정보 인터페이스
@@ -78,8 +78,8 @@ interface UserState {
   setError: (error: string | null) => void;
 
   // 인증 관련 함수들
-  // login: (initData: string) => Promise<void>;
-  // signup: (initData: string, petType: 'DOG' | 'CAT') => Promise<void>;
+  login: (initData: string) => Promise<void>;
+  signup: (initData: string, petType: 'DOG' | 'CAT') => Promise<void>;
   logout: () => void;
   refreshToken: () => Promise<boolean>;
 
@@ -114,7 +114,7 @@ interface Items {
   rewardNftCount: number; // 추가된 필드
 }
 
-interface Board {
+export interface Board {
   rewardAmount: number | null;
   tileType: 'HOME' | 'REWARD' | 'SPIN' | 'RPS' | 'MOVE' | 'JAIL';
   rewardType: 'STAR' | 'DICE' | null;
@@ -241,10 +241,10 @@ export const useUserStore = create<UserState>((set, get) => ({
     goldCount: 0,
     silverCount: 0,
     bronzeCount: 0,
-    timeDiceTimes: 0,
-    boardRewardTimes: 0,
-    ticketTimes: 0,
-    spinTimes: 0, // 추가된 필드 초기값 설정
+    timeDiceTimes: 1,
+    boardRewardTimes: 1,
+    ticketTimes: 1,
+    spinTimes: 1, // 추가된 필드 초기값 설정
     autoNftCount: 0, // 추가된 필드 초기값 설정
     rewardNftCount: 0, // 추가된 필드 초기값 설정
   },
@@ -294,10 +294,10 @@ export const useUserStore = create<UserState>((set, get) => ({
           goldCount: items.goldCount || 0,
           silverCount: items.silverCount || 0,
           bronzeCount: items.bronzeCount || 0,
-          timeDiceTimes: items.timeDiceTimes || 0,
-          boardRewardTimes: items.boardRewardTimes || 0,
-          ticketTimes: items.ticketTimes || 0,
-          spinTimes: items.spinTimes || 0, // 추가된 필드 설정
+          timeDiceTimes: items.timeDiceTimes || 1,
+          boardRewardTimes: items.boardRewardTimes || 1,
+          ticketTimes: items.ticketTimes || 1,
+          spinTimes: items.spinTimes || 1, // 추가된 필드 설정
           autoNftCount: items.autoNftCount || 0, // 추가된 필드 설정
           rewardNftCount: items.rewardNftCount || 0, // 추가된 필드 설정
         },
@@ -365,72 +365,72 @@ export const useUserStore = create<UserState>((set, get) => ({
     }
   },
 
-  // // 로그인 함수
-  // login: async (initData: string): Promise<void> => {
-  //   console.log('Step: login 시작, initData:', initData);
-  //   set({ isLoading: true, error: null });
-  //   try {
-  //     const response = await api.post('/auth/login', { initData });
+  // 로그인 함수
+  login: async (initData: string): Promise<void> => {
+    console.log('Step: login 시작, initData:', initData);
+    set({ isLoading: true, error: null });
+    try {
+      const response = await api.post('/auth/login', { initData });
 
-  //     if (response.data.code === 'OK') {
-  //       const { userId, accessToken, refreshToken } = response.data.data;
-  //       console.log('Step: login 성공, userId:', userId);
-  //       // 토큰 및 userId 저장
-  //       localStorage.setItem('accessToken', accessToken);
-  //       localStorage.setItem('refreshToken', refreshToken);
-  //       set({ userId });
+      if (response.data.code === 'OK') {
+        const { userId, accessToken, refreshToken } = response.data.data;
+        console.log('Step: login 성공, userId:', userId);
+        // 토큰 및 userId 저장
+        localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('refreshToken', refreshToken);
+        set({ userId });
 
-  //       // 사용자 데이터 가져오기
-  //       await get().fetchUserData();
-  //       set({ isLoading: false, error: null });
-  //     } else if (response.data.code === 'ENTITY_NOT_FOUND') {
-  //       console.warn('Step: login 응답 코드 ENTITY_NOT_FOUND:', response.data.message);
-  //       throw new Error(response.data.message || 'User not found');
-  //     } else {
-  //       console.warn('Step: login 응답 코드가 OK가 아님:', response.data.message);
-  //       throw new Error(response.data.message || 'Login failed');
-  //     }
-  //   } catch (error: any) {
-  //     console.error('Step: login 실패:', error);
-  //     let errorMessage = 'Login failed. Please try again.';
-  //     if (error.response) {
-  //       // 서버가 응답을 했지만, 상태 코드가 2xx가 아닌 경우
-  //       errorMessage = error.response.data.message || errorMessage;
-  //     } else if (error.request) {
-  //       // 요청이 이루어졌으나, 응답을 받지 못한 경우
-  //       errorMessage = 'No response from server. Please try again later.';
-  //     } else {
-  //       // 다른 에러
-  //       errorMessage = error.message;
-  //     }
-  //     set({ isLoading: false, error: errorMessage });
-  //     throw new Error(errorMessage); // 에러를 다시 던져 호출한 쪽에서 인지할 수 있도록 함
-  //   }
-  // },
+        // 사용자 데이터 가져오기
+        await get().fetchUserData();
+        set({ isLoading: false, error: null });
+      } else if (response.data.code === 'ENTITY_NOT_FOUND') {
+        console.warn('Step: login 응답 코드 ENTITY_NOT_FOUND:', response.data.message);
+        throw new Error(response.data.message || 'User not found');
+      } else {
+        console.warn('Step: login 응답 코드가 OK가 아님:', response.data.message);
+        throw new Error(response.data.message || 'Login failed');
+      }
+    } catch (error: any) {
+      console.error('Step: login 실패:', error);
+      let errorMessage = 'Login failed. Please try again.';
+      if (error.response) {
+        // 서버가 응답을 했지만, 상태 코드가 2xx가 아닌 경우
+        errorMessage = error.response.data.message || errorMessage;
+      } else if (error.request) {
+        // 요청이 이루어졌으나, 응답을 받지 못한 경우
+        errorMessage = 'No response from server. Please try again later.';
+      } else {
+        // 다른 에러
+        errorMessage = error.message;
+      }
+      set({ isLoading: false, error: errorMessage });
+      throw new Error(errorMessage); // 에러를 다시 던져 호출한 쪽에서 인지할 수 있도록 함
+    }
+  },
 
-  // // 회원가입 함수
-  // signup: async (initData: string, petType: 'DOG' | 'CAT'): Promise<void> => {
-  //   console.log('Step: signup 시작, initData:', initData, 'petType:', petType);
-  //   set({ isLoading: true, error: null });
-  //   try {
-  //     // 회원가입 요청 보내기
-  //     await api.post('/auth/signup', { initData, petType });
+  // 회원가입 함수
+  signup: async (initData: string, petType: 'DOG' | 'CAT'): Promise<void> => {
+    console.log('Step: signup 시작, initData:', initData, 'petType:', petType);
+    set({ isLoading: true, error: null });
+    try {
+      // 회원가입 요청 보내기
+      await api.post('/auth/signup', { initData, petType });
 
-  //     set({ isLoading: false, error: null });
-  //   } catch (error: any) {
-  //     console.error('Step: signup 실패:', error);
-  //     let errorMessage = 'Signup failed. Please try again.';
-  //     if (error.response) {
-  //       errorMessage = error.response.data.message || errorMessage;
-  //     } else if (error.request) {
-  //       errorMessage = 'No response from server. Please try again later.';
-  //     } else {
-  //       errorMessage = error.message;
-  //     }
-  //     set({ isLoading: false, error: errorMessage });
-  //     throw new Error(errorMessage); // 에러를 다시 던져 호출한 쪽에서 인지할 수 있도록 함
-  //   }
-  // },
+      set({ isLoading: false, error: null });
+    } catch (error: any) {
+      console.error('Step: signup 실패:', error);
+      let errorMessage = 'Signup failed. Please try again.';
+      if (error.response) {
+        errorMessage = error.response.data.message || errorMessage;
+      } else if (error.request) {
+        errorMessage = 'No response from server. Please try again later.';
+      } else {
+        errorMessage = error.message;
+      }
+      set({ isLoading: false, error: errorMessage });
+      throw new Error(errorMessage); // 에러를 다시 던져 호출한 쪽에서 인지할 수 있도록 함
+    }
+  },
 
   // 로그아웃 함수
   logout: () => {

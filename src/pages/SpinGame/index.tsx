@@ -12,6 +12,7 @@ import {
 import { HiX } from "react-icons/hi";
 import api from "@/shared/api/axiosInstance";
 import { useUserStore } from "@/entities/User/model/userModel";
+import { formatNumber } from "@/shared/utils/formatNumber";
 
 const data = [
   // 스타 보상
@@ -132,14 +133,14 @@ const data = [
       offsetY: 150,
     },
     prize: { type: "BOOM", amount: 0 },
-    style: { backgroundColor: "#333333" }, 
+    style: { backgroundColor: "#333333" },
   },
 ];
 
 const SpinGameStart: React.FC<{ onStart: () => void }> = ({ onStart }) => {
   return (
     <div
-      className=" flex flex-col items-center justify-center px-12 pb-8 h-full w-full"
+      className="flex flex-col items-center justify-center px-12 pb-8 h-full w-full"
       style={{
         backgroundImage: `url(${Images.BGSpinGame})`,
         backgroundSize: "cover",
@@ -155,7 +156,7 @@ const SpinGameStart: React.FC<{ onStart: () => void }> = ({ onStart }) => {
       <img
         src={Images.SpinExample}
         alt="spin-example"
-        className="md:w-[306px] md:h-[372px] w-[230px]  mt-4 self-center"
+        className="md:w-[306px] md:h-[372px] w-[230px] mt-4 self-center"
       />
       <div className="border-2 border-[#21212f] rounded-3xl text-center bg-white text-[#171717] font-medium w-[342px] h-[110px] flex items-center justify-center mt-4">
         <p>
@@ -197,15 +198,19 @@ const Spin: React.FC<{ onSpinEnd: () => void }> = ({ onSpinEnd }) => {
       console.log("Server response:", response.data); // 서버 응답 출력
       if (response.data.code === "OK") {
         const { spinType, amount } = response.data.data;
+        console.log("Received spinType:", spinType); // spinType 출력
 
-        // data 배열에서 서버로부터 받은 보상과 일치하는 인덱스 찾기
-        const prizeIndex = data.findIndex(
-          (item) => item.prize.type === spinType && item.prize.amount === amount
-        );
+        // data 배열에서 서버로부터 받은 spinType과 일치하는 모든 인덱스 찾기
+        const matchingIndices = data
+          .map((item, index) => (item.prize.type === spinType ? index : -1))
+          .filter((index) => index !== -1);
 
-        if (prizeIndex >= 0) {
-          console.log("Prize index found:", prizeIndex); // 찾은 인덱스 출력
-          setPrizeNumber(prizeIndex);
+        if (matchingIndices.length > 0) {
+          // 매칭된 인덱스 중 랜덤으로 하나 선택
+          const randomIndex =
+            matchingIndices[Math.floor(Math.random() * matchingIndices.length)];
+          console.log("Prize index found:", randomIndex); // 찾은 인덱스 출력
+          setPrizeNumber(randomIndex);
           setPrizeData({ spinType, amount });
           setMustSpin(true);
         } else {
@@ -230,29 +235,41 @@ const Spin: React.FC<{ onSpinEnd: () => void }> = ({ onSpinEnd }) => {
     if (prizeData) {
       console.log("Prize data:", prizeData); // prizeData 출력
       const { spinType, amount } = prizeData;
-      if (spinType === "STAR") {
+      // spinTimes 곱하기 제거 (서버에서 이미 곱해진 상태)
+
+      // spinType을 정규화: 앞뒤 공백 제거 및 대문자로 변환
+      const normalizedSpinType = spinType.trim().toUpperCase();
+
+      if (normalizedSpinType === "STAR") {
         setStarPoints((prev: number) => prev + amount);
-      } else if (spinType === "DICE") {
+      } else if (normalizedSpinType === "DICE") {
         setDiceCount((prev: number) => prev + amount);
-      } else if (spinType === "SL") {
+      } else if (normalizedSpinType === "SL") {
         setSlToken((prev: number) => prev + amount);
-      } else if (spinType === "TICKET") {
+      } else if (normalizedSpinType === "TICKET") {
         setLotteryCount((prev: number) => prev + amount);
-      } else if (spinType === "BOOM") {
+      } else if (normalizedSpinType === "BOOM") {
         console.log("Boom! Better luck next time!");
       }
+
+
     }
     setIsDialogOpen(true);
   };
 
   const handleCloseDialog = () => {
+    setPrizeData(null); // prizeData 초기화
     setIsDialogOpen(false);
     onSpinEnd();
     setIsSpinning(false); // 스핀 완료
+    
   };
 
   const getPrizeDisplayName = (spinType: string | undefined) => {
-    switch (spinType) {
+    if (!spinType) return "Unknown";
+    const normalizedSpinType = spinType.trim().toUpperCase();
+
+    switch (normalizedSpinType) {
       case "STAR":
         return "Stars";
       case "DICE":
@@ -264,13 +281,13 @@ const Spin: React.FC<{ onSpinEnd: () => void }> = ({ onSpinEnd }) => {
       case "BOOM":
         return "Boom! Try Again";
       default:
-        return spinType ?? "Unknown";
+        return "Unknown";
     }
   };
 
   return (
     <div
-      className="relative flex flex-col items-center h-screen justify-center  w-full"
+      className="relative flex flex-col items-center h-screen justify-center w-full"
       style={{
         backgroundImage: `url(${Images.BGSpinGame})`,
         backgroundSize: "cover",
@@ -293,7 +310,7 @@ const Spin: React.FC<{ onSpinEnd: () => void }> = ({ onSpinEnd }) => {
       <img
         src={Images.SpinPin}
         alt="Spin-game"
-        className="w-[126px] h-[142px] absolute z-10  transform rotate-45"
+        className="w-[126px] h-[142px] absolute z-10 transform rotate-45"
         loading="lazy"
       />
       <div className="absolute top-[1/2] left-1/2 transform -translate-x-1/2 z-0">
@@ -329,7 +346,7 @@ const Spin: React.FC<{ onSpinEnd: () => void }> = ({ onSpinEnd }) => {
       </button>
 
       <AlertDialog open={isDialogOpen}>
-        <AlertDialogContent className="rounded-3xl bg-[#21212F] text-white border-none">
+        <AlertDialogContent className="rounded-3xl bg-[#21212F] text-white border-none max-w-[90%] md:max-w-lg">
           <AlertDialogHeader>
             <AlertDialogTitle className="text-center font-bold text-xl">
               <div className="flex flex-row items-center justify-between">
@@ -352,17 +369,17 @@ const Spin: React.FC<{ onSpinEnd: () => void }> = ({ onSpinEnd }) => {
             <div className="text-center space-y-2">
               {prizeData?.spinType === "BOOM" ? (
                 <>
-                  <p className="text-xl font-semibold ">Boom!</p>
+                  <p className="text-xl font-semibold">Boom!</p>
                   <p className="text-[#a3a3a3]">Better luck next time!</p>
                 </>
               ) : (
                 <>
                   <p className="text-xl font-semibold">
-                    Congratulations! You won {prizeData?.amount}{" "}
+                    Congratulations! <br/>You won {prizeData&&formatNumber(prizeData?.amount)}{" "}
                     {getPrizeDisplayName(prizeData?.spinType)}!
                   </p>
                   <p className="text-[#a3a3a3]">
-                    This reward has been added to your account.
+                    This reward has been added to <br/>your account.
                   </p>
                 </>
               )}
@@ -390,7 +407,7 @@ const SpinGame: React.FC<{ onSpinEnd: () => void }> = ({ onSpinEnd }) => {
   };
 
   return (
-    <div className="flex flex-col  z-50 h-screen w-full items-center min-w-[600px]">
+    <div className="flex flex-col z-50 h-screen w-full items-center min-w-[600px]">
       {showSpin ? (
         <Spin onSpinEnd={onSpinEnd} />
       ) : (
