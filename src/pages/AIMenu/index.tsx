@@ -2,10 +2,11 @@ import './AIMenu.css';
 import Images from '@/shared/assets/images';
 import useMainPageStore from '@/shared/store/useMainPageStore';
 import { useNavigate } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useState, useEffect  } from 'react';
 import { FaChevronRight } from 'react-icons/fa';
 import { useTranslation } from "react-i18next";
 import useUserStore from "@/shared/store/useInfoStore";
+import LoadingSpinner from '@/shared/components/ui/loadingSpinner';
 
 interface AIMenuProps {
   title: string;
@@ -43,6 +44,7 @@ const AIMenu: React.FC = () => {
   const { t } = useTranslation();
   const setSelectedMenu = useMainPageStore((state) => state.setSelectedMenu);
   const {slToken} = useUserStore(); // 사용자가 보유한 SL토큰 수
+  const [loading, setLoading] = useState(true);
 
   // 모달 초기 상태를 LocalStorage 확인 후 설정
   const [showModal, setShowModal] = useState(() => {
@@ -60,7 +62,19 @@ const AIMenu: React.FC = () => {
     setSelectedMenu(menu);
     navigate('/select-pet');
   };
+
+  // 페이지 진입 후 0.2초 뒤 loading을 false로 변경
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 200); 
+    return () => clearTimeout(timer);
+  }, []);
   
+  if (loading) {
+    // 로딩 중일 때는 로딩스피너만 보여줌
+    return <LoadingSpinner />;
+  }
 
   return (
     <div className="flex flex-col text-white mx-6 md:mx-28 min-h-screen">

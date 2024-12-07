@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect  } from "react";
 import { useNavigate } from "react-router-dom";
 import { BiWallet } from "react-icons/bi";
 import { FaChevronRight } from "react-icons/fa";
@@ -6,11 +6,26 @@ import { IoSettingsOutline } from "react-icons/io5";
 import Images from '@/shared/assets/images';
 import { useTranslation } from "react-i18next";
 import useUserStore from "@/shared/store/useInfoStore";
+import LoadingSpinner from '@/shared/components/ui/loadingSpinner';
 
 const MyAssets: React.FC = () => {
     const navigate = useNavigate();
     const { t } = useTranslation();
     const { email, userLv, characterImage } = useUserStore();
+    const [loading, setLoading] = useState(true);
+
+    // 페이지 진입 후 0.2초 뒤 loading을 false로 변경 => 추후 nft 정보, 보상내역 정보 API 받아오는 시간 동안으로 변경
+    useEffect(() => {
+        const timer = setTimeout(() => {
+        setLoading(false);
+        }, 200); 
+        return () => clearTimeout(timer);
+    }, []);
+
+    if (loading) {
+        // 로딩 중일 때는 로딩스피너만 보여줌
+        return <LoadingSpinner />;
+    }
 
     // nft 더미 데이터
     const nftCollection = [
