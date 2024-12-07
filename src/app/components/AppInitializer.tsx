@@ -80,7 +80,12 @@ const AppInitializer: React.FC<AppInitializerProps> = ({ onInitialized }) => {
       } catch (error) {
         console.error("앱 초기화 중 오류:", error);
         alert("앱 초기화 중 오류가 발생했습니다. 다시 시도해주세요.");
-        // window.location.reload();
+        // 기존 토큰 제거
+        localStorage.removeItem("accessToken");
+        // LIFF 로그아웃
+        liff.logout();
+        // 페이지 새로고침하여 재인증 유도
+        window.location.reload();
       } finally {
         setIsInitialized(true);
         setShowSplash(false);
