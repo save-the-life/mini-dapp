@@ -57,6 +57,7 @@ api.interceptors.response.use(
     if (error.response && error.response.status === 404 && !originalRequest._retry) {
       originalRequest._retry = true;
 
+
       try {
         const refreshSuccessful = await useUserStore.getState().refreshToken();
 
